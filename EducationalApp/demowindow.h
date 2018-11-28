@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef DEMOWINDOW_H
+#define DEMOWINDOW_H
 
 #include <vector>
 
@@ -10,19 +10,19 @@
 #include <SFML/Audio.hpp>
 
 namespace Ui {
-class MainWindow;
+class DemoWindow;
 }
 
-class MainWindow : public QMainWindow
+class DemoWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    explicit DemoWindow(QWidget *parent = nullptr);
+    ~DemoWindow();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::DemoWindow *ui;
     QTimer spriteTimer;
     sf::Sprite* sprite;
     int spriteSwapIdx;
@@ -33,4 +33,4 @@ public slots:
     void updateSprite();
 };
 
-#endif // MAINWINDOW_H
+#endif // DEMOWINDOW_H

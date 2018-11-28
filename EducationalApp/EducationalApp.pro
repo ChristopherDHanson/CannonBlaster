@@ -26,19 +26,20 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
     sfmlcanvas.cpp \
-    canvas.cpp
+    canvas.cpp \
+    demowindow.cpp
 
 HEADERS += \
-        mainwindow.h \
     sfmlcanvas.h \
-    canvas.h
+    canvas.h \
+    demowindow.h
 
 FORMS += \
-        mainwindow.ui
+    demowindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+unix:!macx: LIBS += -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system

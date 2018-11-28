@@ -1,76 +1,51 @@
-#include <iostream>
+#include "SfmlCanvas.h"
 
-#include <QWidget>
-
-//#include <SFML/Graphics.hpp>
-
-#include "sfmlcanvas.h"
-
-#ifdef Q_WS_X11
-    #include <Qt/qx11info_x11.h>
-    #include <X11/Xlib.h>
-#endif
-
-SfmlCanvas::SfmlCanvas(QWidget *parent, const QPoint& position, const QSize& size,
-                       int framePeriod) : QWidget(parent), sf::RenderWindow(), initialized(false)
+SfmlCanvas::SfmlCanvas(QWidget *parent, int framePeriod) : QLabel(parent), initialized(false)
 {
-    // Setup some states to allow direct rendering into the widget
-    QWidget::setAttribute(Qt::WA_PaintOnScreen);
-    QWidget::setAttribute(Qt::WA_OpaquePaintEvent);
-    QWidget::setAttribute(Qt::WA_NoSystemBackground);
-
-    // Set strong focus to enable keyboard events to be received
+    // Apparently this allows the widget to receive key events.
     QWidget::setFocusPolicy(Qt::StrongFocus);
 
-    // Setup the widget geometry
-    QWidget::move(position);
-    QWidget::resize(size);
-
     // Setup the refreshTimer for refreshing the frame
-    refreshTimer.setInterval(framePeriod);
+    renderTimer.setInterval(framePeriod);
 }
 
 void SfmlCanvas::showEvent(QShowEvent*)
 {
     if (!initialized)
     {
-        // Under X11, we need to flush the commands sent to the server to ensure that
-        // SFML will get an updated view of the windows
-        #ifdef Q_WS_X11
-            XFlush(QX11Info::display());
-        #endif
+        QSize widgetSize = QWidget::size();
+        imageTexture.create(static_cast<unsigned int>(widgetSize.width()),
+                     static_cast<unsigned int>(widgetSize.height()));
 
-        // Create the SFML window with the widget handle
-        sf::RenderWindow::create(static_cast<sf::WindowHandle>(QWidget::winId()));
+        imageTexture.setSmooth(true);
 
         // Let the derived class do its specific stuff
         onInit();
 
         // Setup the timer to trigger a refresh at specified framerate
-        connect(&refreshTimer, SIGNAL(timeout()), this, SLOT(repaint()));
-        refreshTimer.start();
+        connect(&renderTimer, &QTimer::timeout, this, &SfmlCanvas::renderToLabel);
+        renderTimer.start();
 
         initialized = true;
     }
 }
 
-const QPaintEngine* SfmlCanvas::paintEngine()
+const sf::RenderTexture& SfmlCanvas::texture()
 {
-    return nullptr;
+    return imageTexture;
 }
 
-void SfmlCanvas::paintEvent(QPaintEvent*)
-{
-    // Let the derived class do its specific stuff
-    onUpdate();
+void SfmlCanvas::onInit()
+{ }
 
-    // Display on screen
-    display();
-}
-
-void SfmlCanvas::resize(const QSize& size)
+void SfmlCanvas::renderToLabel()
 {
-    QWidget::resize(size);
-    std::cout << "SFML Canvas resize" << std::endl;
-    sf::RenderWindow::create(static_cast<sf::WindowHandle>(QWidget::winId()));
+    // Transform the RenderTexture object into something that Qt can recognize.
+    const uint8_t* pixelMap = imageTexture.getTexture().copyToImage().getPixelsPtr();
+    QSize widgetSize = size();
+    QImage image(pixelMap, widgetSize.width(), widgetSize.height(), QImage::Format_ARGB32);
+
+    image = image.rgbSwapped();
+
+    setPixmap(QPixmap::fromImage(image));
 }

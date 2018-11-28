@@ -1,29 +1,30 @@
 #ifndef CANVAS_H
 #define CANVAS_H
 
+#include <vector>
+
+#include <QLabel>
+
 #include "sfmlcanvas.h"
 
-///
-/// \brief The Canvas class
-///
-/// Canvas is an implementation/derivation of SfmlCanvas that allows for
 class Canvas : public SfmlCanvas
 {
+    Q_OBJECT
+
 private:
     std::vector<sf::Sprite*> sprites;
 
-    void onInit() override;
+    void paintTexture();
 
-    void onUpdate() override;
-
-public:
-    Canvas(QWidget* parent, const QPoint& position = QPoint(0, 0), const QSize& size = QSize(0, 0));
-
-    ~Canvas() override;
+    public:
+    Canvas(QWidget* parent = nullptr);
 
     void addSprite(sf::Sprite* sprite);
 
     void removeSprite(sf::Sprite* sprite);
+
+public slots:
+    void renderToLabel() override;
 };
 
 #endif // CANVAS_H

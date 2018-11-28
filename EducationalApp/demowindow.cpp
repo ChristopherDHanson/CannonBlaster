@@ -1,19 +1,19 @@
 #include <iostream>
 #include <vector>
 
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "demowindow.h"
+#include "ui_demowindow.h"
 
 //#include <SFML/Audio.hpp>
 
-MainWindow::MainWindow(QWidget *parent) :
+DemoWindow::DemoWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::DemoWindow)
 {
     ui->setupUi(this);
 
     spriteTimer.setInterval(40);
-    connect(&spriteTimer, &QTimer::timeout, this, &MainWindow::updateSprite);
+    connect(&spriteTimer, &QTimer::timeout, this, &DemoWindow::updateSprite);
 
     spriteSwapIdx = 0;
 
@@ -41,17 +41,17 @@ MainWindow::MainWindow(QWidget *parent) :
     // Play the music
     music.play();
 
-    ui->widget->addSprite(sprite);
+    ui->canvas->addSprite(sprite);
     spriteTimer.start();
 }
 
-MainWindow::~MainWindow()
+DemoWindow::~DemoWindow()
 {
     delete ui;
     delete sprite;
 }
 
-void MainWindow::updateSprite()
+void DemoWindow::updateSprite()
 {
     sprite->rotate(1.0);
     sprite->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);
