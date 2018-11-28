@@ -38,6 +38,10 @@ HEADERS += \
 FORMS += \
     demowindow.ui
 
+INCLUDEPATH += ../WorldBuilder/Box2D/libs/Box2D
+
+LIBS += -L../WorldBuilder/Box2D/libs/Box2D/Build -lpthread
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
