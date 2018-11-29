@@ -15,8 +15,14 @@ public:
     explicit QuestionLister(QWidget *parent = nullptr);
     ~QuestionLister();
 
+private slots:
+    void on_questionList_currentRowChanged(int currentRow);
+
 private:
     Ui::QuestionLister *ui;
+    int questionIndex;
+    int correctIndex;
+    int incorrectIndex;
 };
 
 #endif // QUESTIONLISTER_H

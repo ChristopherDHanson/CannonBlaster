@@ -15,7 +15,7 @@ class QuestionModel {
         std::vector<Question> questions;
 
     public:
-        void AddQuestion();
+        void AddQuestion(std::string newTitle);
         void UpdateQuestion(int index, std::string newTitle);
         void RemoveQuestion(int index);
 

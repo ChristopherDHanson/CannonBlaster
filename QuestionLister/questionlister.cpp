@@ -12,3 +12,8 @@ QuestionLister::~QuestionLister()
 {
     delete ui;
 }
+
+void QuestionLister::on_questionList_currentRowChanged(int currentRow)
+{
+    questionIndex = currentRow;
+}
