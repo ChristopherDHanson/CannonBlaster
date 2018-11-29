@@ -44,7 +44,7 @@ FORMS += \
 
 INCLUDEPATH += ../Box2D/libs/Box2D
 
-LIBS += -L../Box2D/libs/Box2D/Build -lpthread
+LIBS += -L../Box2D/libs/Box2D -lpthread
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -6,8 +6,12 @@
 
 class World
 {
+<<<<<<< HEAD
     b2World world;
     b2Vec2 gravityF;
+=======
+    b2World *world;
+>>>>>>> 05768446477ef7617d46e44e662d412cf09d2007
     float32 timeStep;
 public:
     World(float32 gravity, float32 timeStep);
