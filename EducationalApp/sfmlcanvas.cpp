@@ -1,4 +1,4 @@
-#include "SfmlCanvas.h"
+#include "sfmlcanvas.h"
 
 SfmlCanvas::SfmlCanvas(QWidget *parent, int framePeriod) : QLabel(parent), initialized(false)
 {
