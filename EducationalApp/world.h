@@ -6,7 +6,7 @@
 
 class World
 {
-    b2World world;
+    b2World *world;
     float32 timeStep;
 public:
     explicit World(float32 gravity, float32 timeStep);
