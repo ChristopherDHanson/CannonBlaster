@@ -4,10 +4,8 @@
 World::World(float32 gravity, float32 timeStep)
 {
     this->timeStep = timeStep;
-    gravityF = b2Vec2(0.0f, gravity);
-    //b2World newWorld(gravityF);
-    //world = newWorld;
-    world(gravityF);
+    b2Vec2 gravityF = b2Vec2(0.0f, gravity);
+    world = new b2World(gravityF);
 }
 
 Shape World::createBox(float32 width, float height, float32 posX, float32 posY)
