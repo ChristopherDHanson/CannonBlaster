@@ -12,8 +12,10 @@ DemoWindow::DemoWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    connect(ui->fireButton, &QPushButton::pressed, this, &DemoWindow::spawnCannonball);
+
     spriteTimer.setInterval(40);
-    connect(&spriteTimer, &QTimer::timeout, this, &DemoWindow::updateSprite);
+    connect(&spriteTimer, &QTimer::timeout, this, &DemoWindow::updateSprites);
 
     spriteSwapIdx = 0;
 
@@ -33,6 +35,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
     sprite->setOrigin(200,100);
     sprite->setPosition(350,250);
+    sprites.push_back(sprite);
 //    sf::Music music;
     if (!music.openFromFile("../Imperial_March.ogx")) {
         throw "EXIT_FAILURE";
@@ -51,8 +54,19 @@ DemoWindow::~DemoWindow()
     delete sprite;
 }
 
-void DemoWindow::updateSprite()
+void DemoWindow::updateSprites()
 {
-    sprite->rotate(1.0);
-    sprite->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);
+//    sprite->rotate(1.0);
+//    sprite->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);
+    for (sf::Sprite* s : sprites) {
+        s->rotate(1.0);
+        s->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);
+    }
+}
+
+void DemoWindow::spawnCannonball()
+{
+    sprite = new sf::Sprite(textures[0]);
+    sprites.push_back(sprite);
+    ui->canvas->addSprite(sprite);
 }

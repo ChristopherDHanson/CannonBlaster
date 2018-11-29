@@ -29,8 +29,11 @@ private:
     std::vector<sf::Texture> textures;
     sf::Music music;
 
+    QVector<sf::Sprite*> sprites;
+
 public slots:
-    void updateSprite();
+    void updateSprites();
+    void spawnCannonball();
 };
 
 #endif // DEMOWINDOW_H
