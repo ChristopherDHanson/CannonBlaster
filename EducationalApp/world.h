@@ -7,9 +7,10 @@
 class World
 {
     b2World world;
+    b2Vec2 gravityF;
     float32 timeStep;
 public:
-    explicit World(float32 gravity, float32 timeStep);
+    World(float32 gravity, float32 timeStep);
     Shape createBox(float32 width, float height, float32 posX, float32 posY);
     void next();
 };
