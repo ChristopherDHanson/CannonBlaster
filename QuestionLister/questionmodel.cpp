@@ -14,5 +14,7 @@ void QuestionModel::UpdateQuestion(int index, std::string newTitle) {
 }
 
 void QuestionModel::RemoveQuestion(int index) {
-    questions.erase(questions.begin()+index);
+    if (questions.size() > index) {
+        questions.erase(questions.begin()+index);
+    }
 }

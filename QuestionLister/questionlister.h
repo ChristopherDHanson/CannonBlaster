@@ -2,6 +2,7 @@
 #define QUESTIONLISTER_H
 
 #include <QMainWindow>
+#include "questionmodel.h"
 
 namespace Ui {
 class QuestionLister;
@@ -18,11 +19,18 @@ public:
 private slots:
     void on_questionList_currentRowChanged(int currentRow);
 
+    void on_questionList_currentTextChanged(const QString &currentText);
+
+    void on_removeQuestionButton_clicked();
+
 private:
     Ui::QuestionLister *ui;
+    QuestionModel model;
     int questionIndex;
     int correctIndex;
     int incorrectIndex;
+
+    void updateAnswers();
 };
 
 #endif // QUESTIONLISTER_H
