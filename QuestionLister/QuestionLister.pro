@@ -26,10 +26,12 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        questionlister.cpp
+        questionlister.cpp \
+    questionmodel.cpp
 
 HEADERS += \
-        questionlister.h
+        questionlister.h \
+    questionmodel.h
 
 FORMS += \
         questionlister.ui
