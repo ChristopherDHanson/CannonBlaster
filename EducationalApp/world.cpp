@@ -6,7 +6,6 @@ World::World(float32 gravity, float32 timeStep)
     b2Vec2 gravityF(0.0f, gravity);
     b2World newWorld(gravityF);
     world = newWorld;
-    // Change
 }
 
 Shape World::createBox(float32 width, float height, float32 posX, float32 posY)
