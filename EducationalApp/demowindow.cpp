@@ -20,9 +20,11 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
 
     // CONSTRUCT LEVELS--------
+    // Level 1:
     Level* level1 = new Level(-10.0f, 4.0f / 100.0f);
     level1->createBox(40, 20, 10, 10);
     levels.push_back(level1);
+
     // repeat process for further levels
     // ------------------------
 
@@ -55,6 +57,9 @@ DemoWindow::DemoWindow(QWidget *parent) :
     music.play();
 
     ui->canvas->addSprite(sprite);
+    // GOAL:
+    // for (sf::Sprite* s : currentLevel->sprites) {
+    // ui->->canvas->addSprite(s); }
     spriteTimer.start();
 }
 

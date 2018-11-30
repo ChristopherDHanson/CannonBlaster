@@ -31,6 +31,7 @@ private:
     std::vector<sf::Texture> textures;
     sf::Music music;
     QVector<Level*> levels;
+    Level* currentLevel;
 
     QVector<sf::Sprite*> sprites;
 
