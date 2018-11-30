@@ -9,6 +9,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#include "level.h"
+
 namespace Ui {
 class DemoWindow;
 }
@@ -28,6 +30,7 @@ private:
     int spriteSwapIdx;
     std::vector<sf::Texture> textures;
     sf::Music music;
+    QVector<Level*> levels;
 
     QVector<sf::Sprite*> sprites;
 

@@ -12,10 +12,20 @@ DemoWindow::DemoWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // CONNECTIONS
     connect(ui->fireButton, &QPushButton::pressed, this, &DemoWindow::spawnCannonball);
 
     spriteTimer.setInterval(40);
     connect(&spriteTimer, &QTimer::timeout, this, &DemoWindow::updateSprites);
+
+
+    // CONSTRUCT LEVELS--------
+    Level* level1 = new Level(-10.0f, 4.0f / 100.0f);
+    level1->createBox(40, 20, 10, 10);
+    levels.push_back(level1);
+    // repeat process for further levels
+    // ------------------------
+
 
     spriteSwapIdx = 0;
 
@@ -56,8 +66,7 @@ DemoWindow::~DemoWindow()
 
 void DemoWindow::updateSprites()
 {
-//    sprite->rotate(1.0);
-//    sprite->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);
+    // call update on all shapes
     for (sf::Sprite* s : sprites) {
         s->rotate(1.0);
         s->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);

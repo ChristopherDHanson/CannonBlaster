@@ -29,15 +29,15 @@ SOURCES += \
     sfmlcanvas.cpp \
     canvas.cpp \
     demowindow.cpp \
-    world.cpp \
-    shape.cpp
+    shape.cpp \
+    level.cpp
 
 HEADERS += \
     sfmlcanvas.h \
     canvas.h \
     demowindow.h \
-    world.h \
-    shape.h
+    shape.h \
+    level.h
 
 FORMS += \
     demowindow.ui
