@@ -45,23 +45,26 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
     spriteSwapIdx = 0;
 
-    // Load a sprite to display
-    textures = std::vector<sf::Texture>(2);
-    if (!textures[0].loadFromFile("../icon.png")) {
-        throw "EXIT_FAILURE";
-    }
+    // Initial test sprite
+//    // Load a sprite to display
+//    textures = std::vector<sf::Texture>(2);
+//    if (!textures[0].loadFromFile("../icon.png")) {
+//        throw "EXIT_FAILURE";
+//    }
 
-    if (!textures[1].loadFromFile("../icon2.png")) {
-        throw "EXIT_FAILURE";
-    }
-    textures[0].setSmooth(true);
-    textures[1].setSmooth(true);
-    // Create the sprite
-    sprite = new sf::Sprite(textures[0]);
+//    if (!textures[1].loadFromFile("../icon2.png")) {
+//        throw "EXIT_FAILURE";
+//    }
+//    textures[0].setSmooth(true);
+//    textures[1].setSmooth(true);
+//    // Create the sprite
+//    sprite = new sf::Sprite(textures[0]);
 
-    sprite->setOrigin(200,100);
-    sprite->setPosition(350,250);
-    sprites.push_back(sprite);
+//    sprite->setOrigin(200,100);
+//    sprite->setPosition(350,250);
+//    sprites.push_back(sprite);
+//    ui->canvas->addSprite(sprite);
+
 //    sf::Music music;
     if (!music.openFromFile("../Imperial_March.ogx")) {
         throw "EXIT_FAILURE";
@@ -70,10 +73,12 @@ DemoWindow::DemoWindow(QWidget *parent) :
     // Play the music
     music.play();
 
-    ui->canvas->addSprite(sprite);
     // GOAL:
-    // for (sf::Sprite* s : currentLevel->sprites) {
-    // ui->->canvas->addSprite(s); }
+    currentLevel = levels[0];
+     for (sf::Sprite* s : currentLevel->sprites)
+     {
+         ui->canvas->addSprite(s);
+     }
     spriteTimer.start();
 }
 
@@ -85,9 +90,14 @@ DemoWindow::~DemoWindow()
 
 void DemoWindow::updateSprites()
 {
+    // Update level physics state
+    currentLevel->next();
     // call update on all shapes
-    for (sf::Sprite* s : sprites) {
-        s->rotate(1.0);
+    for (int index = 0; index < currentLevel->sprites.size(); index++) {
+        sf::Sprite* s = currentLevel->sprites[index];
+        b2Vec2 pos = currentLevel->bodies[index]->GetPosition();
+        s->setPosition(pos.x, pos.y);
+        //s->rotate(1.0);
         s->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);
     }
 }
@@ -95,6 +105,6 @@ void DemoWindow::updateSprites()
 void DemoWindow::spawnCannonball()
 {
     sprite = new sf::Sprite(textures[0]);
-    sprites.push_back(sprite);
-    ui->canvas->addSprite(sprite);
+    currentLevel->createBox();
+    ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
 }
