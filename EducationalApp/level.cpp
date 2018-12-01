@@ -19,7 +19,6 @@ void Level::createBox(float32 width, float height, float32 posX, float32 posY)
     }
     // Set up physical box
     b2BodyDef bodyDef;
-    bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(posX, posY);
     b2Body* body = world->CreateBody(&bodyDef);
     b2PolygonShape box;
@@ -32,6 +31,31 @@ void Level::createBox(float32 width, float height, float32 posX, float32 posY)
 
     sprite->setOrigin(posX,posY);
     sprite->setPosition(0,0);
+    sprites.push_back(sprite);
+}
+
+void Level::createDynamicObject(float32 width, float height, float32 posX, float32 posY, float horizForce)
+{
+    if (textures.size() == 0) {
+        throw std::runtime_error("Textures array empty");
+    }
+    // Set up physical box
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_dynamicBody;
+    bodyDef.position.Set(posX, posY);
+    b2Body* body = world->CreateBody(&bodyDef);
+    b2PolygonShape box;
+    box.SetAsBox(width, height);
+    body->CreateFixture(&box, 1.0f);
+    //body->ApplyLinearImpulseToCenter(b2Vec2(horizForce, 0), true);
+    body->SetLinearVelocity(b2Vec2(horizForce, 0));
+    bodies.push_back(body);
+
+    // Set up visual box
+    sf::Sprite* sprite = new sf::Sprite(textures[0]);
+
+    sprite->setOrigin(posX,posY);
+    sprite->setPosition(posX,posY);
     sprites.push_back(sprite);
 }
 

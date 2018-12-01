@@ -46,7 +46,7 @@ void SfmlCanvas::renderToLabel()
     sf::Image sfImage = imageTexture.getTexture().copyToImage();
 
     // Somehow, the image normally comes upside down. So we flip it.
-    sfImage.flipVertically();
+    //sfImage.flipVertically();
 
     const uint8_t* pixelMap = sfImage.getPixelsPtr();
     QSize widgetSize = size();

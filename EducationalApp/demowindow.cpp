@@ -36,7 +36,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
     textures[1].setSmooth(true);
     level1->loadTextures(textures);
 
-    level1->createBox(40, 20, 10, 10);
+    //level1->createBox(5.0f, 5.0f, 10.0f, 10.0f);
     levels.push_back(level1);
 
     // repeat process for further levels
@@ -105,6 +105,6 @@ void DemoWindow::updateSprites()
 void DemoWindow::spawnCannonball()
 {
     sprite = new sf::Sprite(textures[0]);
-    currentLevel->createBox();
+    currentLevel->createDynamicObject(1,1,50,50,10);
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
 }
