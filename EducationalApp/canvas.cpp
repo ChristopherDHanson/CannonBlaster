@@ -3,6 +3,12 @@
 Canvas::Canvas(QWidget* parent) : SfmlCanvas(parent), sprites()
 { }
 
+Canvas::~Canvas()
+{
+    // It is not the responsibility of the Canvas to destroy the sprites. If you want to change
+    // that, it's fine, but make that clear with commenting.
+}
+
 void Canvas::addSprite(sf::Sprite* sprite)
 {
     sprites.push_back(sprite);
@@ -24,24 +30,12 @@ void Canvas::removeSprite(sf::Sprite* sprite)
         sprites.pop_back();
 }
 
-void Canvas::renderToLabel()
+void Canvas::onUpdate()
 {
-    paintTexture();
-    sf::Image sfImage = imageTexture.getTexture().copyToImage();
-
-    // Somehow, the image normally comes upside down. So we flip it.
-    sfImage.flipVertically();
-
-    const uint8_t* pixelMap = sfImage.getPixelsPtr();
-    QSize widgetSize = size();
-    QImage image(pixelMap, widgetSize.width(), widgetSize.height(), QImage::Format_ARGB32);
-
-    image = image.rgbSwapped();
-
-    setPixmap(QPixmap::fromImage(image));
+    paintSprites();
 }
 
-void Canvas::paintTexture()
+void Canvas::paintSprites()
 {
     // Paint the background black. Paint it black!
     imageTexture.clear(sf::Color(0, 0, 0, 255));

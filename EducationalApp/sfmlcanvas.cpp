@@ -40,8 +40,15 @@ void SfmlCanvas::onInit()
 
 void SfmlCanvas::renderToLabel()
 {
+    onUpdate();
+
     // Transform the RenderTexture object into something that Qt can recognize.
-    const uint8_t* pixelMap = imageTexture.getTexture().copyToImage().getPixelsPtr();
+    sf::Image sfImage = imageTexture.getTexture().copyToImage();
+
+    // Somehow, the image normally comes upside down. So we flip it.
+    sfImage.flipVertically();
+
+    const uint8_t* pixelMap = sfImage.getPixelsPtr();
     QSize widgetSize = size();
     QImage image(pixelMap, widgetSize.width(), widgetSize.height(), QImage::Format_ARGB32);
 
@@ -49,3 +56,6 @@ void SfmlCanvas::renderToLabel()
 
     setPixmap(QPixmap::fromImage(image));
 }
+
+void SfmlCanvas::onUpdate()
+{ }
