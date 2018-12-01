@@ -23,6 +23,8 @@ private slots:
 
     void on_removeQuestionButton_clicked();
 
+    void on_addQuestionButton_clicked();
+
 private:
     Ui::QuestionLister *ui;
     QuestionModel model;
