@@ -28,15 +28,23 @@ SOURCES += \
         main.cpp \
     sfmlcanvas.cpp \
     canvas.cpp \
-    demowindow.cpp
+    demowindow.cpp \
+    shape.cpp \
+    level.cpp
 
 HEADERS += \
     sfmlcanvas.h \
     canvas.h \
-    demowindow.h
+    demowindow.h \
+    shape.h \
+    level.h
 
 FORMS += \
     demowindow.ui
+
+INCLUDEPATH += ../Box2D/libs/Box2D
+
+LIBS += -L../Box2D/libs/Box2D -lBox2D
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

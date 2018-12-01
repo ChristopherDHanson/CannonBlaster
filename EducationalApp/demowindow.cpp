@@ -12,8 +12,36 @@ DemoWindow::DemoWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // CONNECTIONS
+    connect(ui->fireButton, &QPushButton::pressed, this, &DemoWindow::spawnCannonball);
+
     spriteTimer.setInterval(40);
-    connect(&spriteTimer, &QTimer::timeout, this, &DemoWindow::updateSprite);
+    connect(&spriteTimer, &QTimer::timeout, this, &DemoWindow::updateSprites);
+
+
+    // CONSTRUCT LEVELS--------
+    // General process is: 1) Construct level, 2) Load its textures, 3) Add elements
+    // Level 1:
+    Level* level1 = new Level(-10.0f, 4.0f / 100.0f);
+
+    textures = std::vector<sf::Texture>(2);
+    if (!textures[0].loadFromFile("../icon.png")) {
+        throw "EXIT_FAILURE";
+    }
+
+    if (!textures[1].loadFromFile("../icon2.png")) {
+        throw "EXIT_FAILURE";
+    }
+    textures[0].setSmooth(true);
+    textures[1].setSmooth(true);
+    level1->loadTextures(textures);
+
+    level1->createBox(40, 20, 10, 10);
+    levels.push_back(level1);
+
+    // repeat process for further levels
+    // ------------------------
+
 
     spriteSwapIdx = 0;
 
@@ -33,6 +61,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
     sprite->setOrigin(200,100);
     sprite->setPosition(350,250);
+    sprites.push_back(sprite);
 //    sf::Music music;
     if (!music.openFromFile("../Imperial_March.ogx")) {
         throw "EXIT_FAILURE";
@@ -42,6 +71,9 @@ DemoWindow::DemoWindow(QWidget *parent) :
     music.play();
 
     ui->canvas->addSprite(sprite);
+    // GOAL:
+    // for (sf::Sprite* s : currentLevel->sprites) {
+    // ui->->canvas->addSprite(s); }
     spriteTimer.start();
 }
 
@@ -51,8 +83,18 @@ DemoWindow::~DemoWindow()
     delete sprite;
 }
 
-void DemoWindow::updateSprite()
+void DemoWindow::updateSprites()
 {
-    sprite->rotate(1.0);
-    sprite->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);
+    // call update on all shapes
+    for (sf::Sprite* s : sprites) {
+        s->rotate(1.0);
+        s->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);
+    }
+}
+
+void DemoWindow::spawnCannonball()
+{
+    sprite = new sf::Sprite(textures[0]);
+    sprites.push_back(sprite);
+    ui->canvas->addSprite(sprite);
 }

@@ -9,6 +9,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#include "level.h"
+
 namespace Ui {
 class DemoWindow;
 }
@@ -28,9 +30,14 @@ private:
     int spriteSwapIdx;
     std::vector<sf::Texture> textures;
     sf::Music music;
+    QVector<Level*> levels;
+    Level* currentLevel;
+
+    QVector<sf::Sprite*> sprites;
 
 public slots:
-    void updateSprite();
+    void updateSprites();
+    void spawnCannonball();
 };
 
 #endif // DEMOWINDOW_H
