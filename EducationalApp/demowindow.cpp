@@ -95,15 +95,16 @@ void DemoWindow::updateSprites()
     for (int index = 0; index < currentLevel->sprites.size(); index++) {
         sf::Sprite* s = currentLevel->sprites[index];
         b2Vec2 pos = currentLevel->bodies[index]->GetPosition();
-        s->setPosition(pos.x, pos.y);
+        s->setPosition(pos.x, -1 * pos.y );//+ ui->canvas->height());
         //s->rotate(1.0);
-        s->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);
+        //s->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);
+        //std::cout << pos.x << " " <<pos.y << "  \n";
     }
 }
 
 void DemoWindow::spawnCannonball()
 {
     sprite = new sf::Sprite(textures[0]);
-    currentLevel->createDynamicObject(1,1,50,50,10);
+    currentLevel->createDynamicObject(1,1,0,0,b2Vec2(10, 0));
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
 }

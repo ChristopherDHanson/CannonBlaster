@@ -2,7 +2,8 @@
 #define CANVAS_H
 
 #include <vector>
-
+#include <iostream>
+#include <Box2D/Box2D.h>
 #include <QLabel>
 
 #include "sfmlcanvas.h"

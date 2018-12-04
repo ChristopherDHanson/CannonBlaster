@@ -12,7 +12,7 @@ void Level::loadTextures(std::vector<sf::Texture> inputTextures) {
     textures = inputTextures;
 }
 
-void Level::createBox(float32 width, float height, float32 posX, float32 posY)
+void Level::createBox(float32 width, float32 height, float32 posX, float32 posY)
 {
     if (textures.size() == 0) {
         throw std::runtime_error("Textures array empty");
@@ -29,12 +29,13 @@ void Level::createBox(float32 width, float height, float32 posX, float32 posY)
     // Set up visual box
     sf::Sprite* sprite = new sf::Sprite(textures[0]);
 
-    sprite->setOrigin(posX,posY);
+    b2Vec2 temp = bodies[bodies.size() - 1]->GetPosition();
+    sprite->setOrigin(temp.x,temp.y);
     sprite->setPosition(0,0);
     sprites.push_back(sprite);
 }
 
-void Level::createDynamicObject(float32 width, float height, float32 posX, float32 posY, float horizForce)
+void Level::createDynamicObject(float32 width, float32 height, float32 posX, float32 posY, b2Vec2 force)
 {
     if (textures.size() == 0) {
         throw std::runtime_error("Textures array empty");
@@ -42,20 +43,22 @@ void Level::createDynamicObject(float32 width, float height, float32 posX, float
     // Set up physical box
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(posX, posY);
+    bodyDef.position.Set(posX, -1 * posY);
     b2Body* body = world->CreateBody(&bodyDef);
     b2PolygonShape box;
     box.SetAsBox(width, height);
     body->CreateFixture(&box, 1.0f);
-    //body->ApplyLinearImpulseToCenter(b2Vec2(horizForce, 0), true);
-    body->SetLinearVelocity(b2Vec2(horizForce, 0));
+    //body->ApplyLinearImpulseToCenter(force, true);
+    //body->ApplyForceToCenter(force, true);
+    body->SetLinearVelocity(force);
     bodies.push_back(body);
 
     // Set up visual box
     sf::Sprite* sprite = new sf::Sprite(textures[0]);
 
-    sprite->setOrigin(posX,posY);
-    sprite->setPosition(posX,posY);
+    b2Vec2 temp = bodies[bodies.size() - 1]->GetPosition();
+    //sprite->setOrigin(30,30);
+    sprite->setPosition(temp.x, -1 * temp.y);
     sprites.push_back(sprite);
 }
 
