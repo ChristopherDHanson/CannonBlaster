@@ -22,7 +22,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
     // CONSTRUCT LEVELS--------
     // General process is: 1) Construct level, 2) Load its textures, 3) Add elements
     // Level 1:
-    Level* level1 = new Level(-10.0f, 4.0f / 100.0f);
+    Level* level1 = new Level(-10.0f, 0.04f, 64.0f);
 
     textures = std::vector<sf::Texture>(4);
     if (!textures[0].loadFromFile("../Sprites/coinSprite1.png")) {
@@ -76,15 +76,14 @@ DemoWindow::DemoWindow(QWidget *parent) :
 //    sprites.push_back(sprite);
 //    ui->canvas->addSprite(sprite);
 
-//    sf::Music music;
+    // Music stuff
     if (!music.openFromFile("../Imperial_March.ogx")) {
         throw "EXIT_FAILURE";
     }
-
     // Play the music
     music.play();
 
-    // GOAL:
+    // Add current level sprites to the canvas
     currentLevel = levels[0];
      for (sf::Sprite* s : currentLevel->sprites)
      {
@@ -103,11 +102,11 @@ void DemoWindow::updateSprites()
 {
     // Update level physics state
     currentLevel->next();
-    // call update on all shapes
+    // Set position of each sprite to position of corresponding physics body
     for (int index = 0; index < currentLevel->sprites.size(); index++) {
         sf::Sprite* s = currentLevel->sprites[index];
         b2Vec2 pos = currentLevel->bodies[index]->GetPosition();
-        s->setPosition(pos.x, pos.y);
+        s->setPosition(pos.x*currentLevel->pixelsPerUnit, pos.y*currentLevel->pixelsPerUnit);
         //s->rotate(1.0);
         s->setTexture(textures[(spriteSwapIdx / 10) % 4]);
     }
