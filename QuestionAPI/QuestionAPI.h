@@ -11,11 +11,11 @@ class QuestionModel {
   };
 
   private:
-    std::vector<Question> questions;
+    std::vector<QuestionModel::Question> questionVector;
 
   public:
     QuestionModel(std::string csvfile);
-    std::vector<Question> Questions;
-}
+    std::vector<QuestionModel::Question> Questions();
+};
 
 #endif

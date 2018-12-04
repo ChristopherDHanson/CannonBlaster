@@ -7,7 +7,7 @@
 using namespace std;
 
 QuestionModel::QuestionModel(string csvfile) {
-  questions = vector<Question>();
+  questionVector = vector<Question>();
   ifstream infile(csvfile);
   while (infile) {
     string line;
@@ -17,16 +17,17 @@ QuestionModel::QuestionModel(string csvfile) {
 
     istringstream ss(line);
     Question newQuestion;
+    newQuestion.incorrect = vector<string>();
     int entryNum = 0;
     while (ss) {
       string entry;
       if (!getline(ss, entry, ',')) {
         break;
       }
-      if (entryNum = 0) {
+      if (entryNum == 0) {
         newQuestion.question = entry;
       }
-      else if (entryNum = 1) {
+      else if (entryNum == 1) {
         newQuestion.correctAnswer = entry;
       }
       else {
@@ -34,10 +35,10 @@ QuestionModel::QuestionModel(string csvfile) {
       }
       entryNum++;
     }
-    questions.push_back(newQuestion);
+    questionVector.push_back(newQuestion);
   }
 }
 
-QuestionModel::Questions() {
-  return questions;
+std::vector<QuestionModel::Question> QuestionModel::Questions() {
+  return questionVector;
 }
