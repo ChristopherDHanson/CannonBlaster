@@ -32,6 +32,7 @@ QuestionModel::QuestionModel(string csvfile) {
       else {
         newQuestion.incorrect.push_back(entry);
       }
+      entryNum++;
     }
     questions.push_back(newQuestion);
   }
