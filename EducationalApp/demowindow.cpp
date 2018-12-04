@@ -22,7 +22,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
     // CONSTRUCT LEVELS--------
     // General process is: 1) Construct level, 2) Load its textures, 3) Add elements
     // Level 1:
-    Level* level1 = new Level(-10.0f, 0.04f);
+    Level* level1 = new Level(-10.0f, 0.04f, 64.0f);
 
     textures = std::vector<sf::Texture>(2);
     if (!textures[0].loadFromFile("../icon.png")) {
@@ -97,7 +97,7 @@ void DemoWindow::updateSprites()
     for (int index = 0; index < currentLevel->sprites.size(); index++) {
         sf::Sprite* s = currentLevel->sprites[index];
         b2Vec2 pos = currentLevel->bodies[index]->GetPosition();
-        s->setPosition(pos.x, -pos.y);
+        s->setPosition(pos.x*currentLevel->pixelsPerUnit, pos.y*currentLevel->pixelsPerUnit);
         //s->rotate(1.0);
         s->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);
     }
