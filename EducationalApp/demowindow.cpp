@@ -74,10 +74,12 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
     // Add current level sprites to the canvas
     currentLevel = levels[0];
-     for (sf::Sprite* s : currentLevel->sprites)
-     {
-         ui->canvas->addSprite(s);
-     }
+    for (sf::Sprite* s : currentLevel->sprites)
+    {
+     ui->canvas->addSprite(s);
+    }
+
+    loadBackground();
     spriteTimer.start();
 }
 
@@ -95,7 +97,7 @@ void DemoWindow::updateSprites()
     for (int index = 0; index < currentLevel->sprites.size(); index++) {
         sf::Sprite* s = currentLevel->sprites[index];
         b2Vec2 pos = currentLevel->bodies[index]->GetPosition();
-        s->setPosition(pos.x, pos.y);
+        s->setPosition(pos.x, -pos.y);
         //s->rotate(1.0);
         s->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);
     }
@@ -106,4 +108,9 @@ void DemoWindow::spawnCannonball()
     sprite = new sf::Sprite(textures[0]);
     currentLevel->createDynamicObject(1,1,50,50,10);
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
+}
+
+void DemoWindow::loadBackground()
+{
+    ui->canvas->setBackdrop("../images/golden_forest.jpg");
 }
