@@ -15,6 +15,9 @@ class QuestionModel {
         std::vector<Question> questions;
 
     public:
+        QuestionModel(std::string filename);
+        QuestionModel();
+
         void AddQuestion(std::string newTitle);
         void UpdateQuestion(int index, std::string newTitle);
         void RemoveQuestion(int index);
@@ -26,6 +29,11 @@ class QuestionModel {
         void AddIncorrectAnswer(int questionIndex, std::string answer);
         void UpdateIncorrectAnswer(int questionIndex, int answerIndex, std::string newAnswer);
         void RemoveIncorrectAnswer(int questionIndex, int answerIndex);
+
+        std::vector<std::string> QuestionNames();
+        std::vector<std::string> CorrectAnswers(int questionIndex);
+        std::vector<std::string> IncorrectAnswers(int questionIndex);
+
 };
 
 #endif
