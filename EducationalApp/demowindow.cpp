@@ -24,16 +24,27 @@ DemoWindow::DemoWindow(QWidget *parent) :
     // Level 1:
     Level* level1 = new Level(-10.0f, 4.0f / 100.0f);
 
-    textures = std::vector<sf::Texture>(2);
-    if (!textures[0].loadFromFile("../icon.png")) {
+    textures = std::vector<sf::Texture>(4);
+    if (!textures[0].loadFromFile("../Sprites/coinSprite1.png")) {
         throw "EXIT_FAILURE";
     }
 
-    if (!textures[1].loadFromFile("../icon2.png")) {
+    if (!textures[1].loadFromFile("../Sprites/coinSprite2.png")) {
         throw "EXIT_FAILURE";
     }
+
+    if (!textures[2].loadFromFile("../Sprites/coinSprite3.png")) {
+        throw "EXIT_FAILURE";
+    }
+
+    if (!textures[3].loadFromFile("../Sprites/coinSprite4.png")) {
+        throw "EXIT_FAILURE";
+    }
+
     textures[0].setSmooth(true);
     textures[1].setSmooth(true);
+    textures[2].setSmooth(true);
+    textures[3].setSmooth(true);
     level1->loadTextures(textures);
 
     //level1->createBox(5.0f, 5.0f, 10.0f, 10.0f);
@@ -98,13 +109,14 @@ void DemoWindow::updateSprites()
         b2Vec2 pos = currentLevel->bodies[index]->GetPosition();
         s->setPosition(pos.x, pos.y);
         //s->rotate(1.0);
-        s->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);
+        s->setTexture(textures[(spriteSwapIdx / 10) % 4]);
     }
+    spriteSwapIdx++;
 }
 
 void DemoWindow::spawnCannonball()
 {
     sprite = new sf::Sprite(textures[0]);
-    currentLevel->createDynamicObject(1,1,50,50,10);
+    currentLevel->createDynamicObject(8,8,250,500,b2Vec2(100,100));
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
 }

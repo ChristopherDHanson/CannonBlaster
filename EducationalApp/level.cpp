@@ -12,7 +12,7 @@ void Level::loadTextures(std::vector<sf::Texture> inputTextures) {
     textures = inputTextures;
 }
 
-void Level::createBox(float32 width, float height, float32 posX, float32 posY)
+void Level::createBox(float32 width, float32 height, float32 posX, float32 posY)
 {
     if (textures.size() == 0) {
         throw std::runtime_error("Textures array empty");
@@ -34,7 +34,7 @@ void Level::createBox(float32 width, float height, float32 posX, float32 posY)
     sprites.push_back(sprite);
 }
 
-void Level::createDynamicObject(float32 width, float height, float32 posX, float32 posY, float horizForce)
+void Level::createDynamicObject(float32 width, float32 height, float32 posX, float32 posY, b2Vec2 force)
 {
     if (textures.size() == 0) {
         throw std::runtime_error("Textures array empty");
@@ -48,7 +48,7 @@ void Level::createDynamicObject(float32 width, float height, float32 posX, float
     box.SetAsBox(width, height);
     body->CreateFixture(&box, 1.0f);
     //body->ApplyLinearImpulseToCenter(b2Vec2(horizForce, 0), true);
-    body->SetLinearVelocity(b2Vec2(horizForce, 0));
+    body->SetLinearVelocity(force);
     bodies.push_back(body);
 
     // Set up visual box
