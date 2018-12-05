@@ -79,7 +79,13 @@ void Level::createDynamicObject(float32 width, float32 height, float32 posX, flo
     sprites.push_back(sprite);
 }
 
+void Level::setLevelSpeed(int speed) {
+    levelSpeed = speed;
+}
+
 void Level::next()
 {
-    world->Step(timeStep, 6, 2);
+    for (int ind = 0; ind < levelSpeed; ind++) {
+        world->Step(timeStep, 6, 2);
+    }
 }
