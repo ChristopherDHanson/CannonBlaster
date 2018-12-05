@@ -76,7 +76,7 @@ void Level::createCircle (float32 width, float32 height, float32 posX, float32 p
     sprites.push_back(sprite);
 }
 
-void Level::createDynamicBox(float32 width, float32 height, float32 posX, float32 posY, b2Vec2 force, float32 density)
+void Level::createDynamicBox(float32 width, float32 height, float32 posX, float32 posY, b2Vec2 force, float32 density, int textureNumber)
 {
     if (textures.size() == 0) {
         throw std::runtime_error("Textures array empty");
@@ -95,7 +95,7 @@ void Level::createDynamicBox(float32 width, float32 height, float32 posX, float3
     bodies.push_back(body);
 
     // Set up visual box
-    sf::Sprite* sprite = new sf::Sprite(textures[0]);
+    sf::Sprite* sprite = new sf::Sprite(textures[textureNumber]);
 
     b2Vec2 temp = bodies[bodies.size() - 1]->GetPosition();
     sprite->setOrigin(width/2.0f,height/2.0f);
