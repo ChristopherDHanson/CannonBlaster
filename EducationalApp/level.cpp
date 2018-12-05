@@ -13,6 +13,21 @@ void Level::loadTextures(std::vector<sf::Texture> inputTextures) {
     textures = inputTextures;
 }
 
+void Level::createInvisibleBox(float32 width, float32 height, float32 posX, float32 posY)
+{
+    if (textures.size() == 0) {
+        throw std::runtime_error("Textures array empty");
+    }
+    // Set up physical box
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_staticBody;
+    bodyDef.position.Set(posX, -1 * posY);
+    b2Body* body = world->CreateBody(&bodyDef);
+    b2PolygonShape box;
+    box.SetAsBox(width/2.0f, height/2.0f);
+    body->CreateFixture(&box, 1.0f);
+}
+
 void Level::createBox(float32 width, float32 height, float32 posX, float32 posY)
 {
     if (textures.size() == 0) {
@@ -20,10 +35,11 @@ void Level::createBox(float32 width, float32 height, float32 posX, float32 posY)
     }
     // Set up physical box
     b2BodyDef bodyDef;
-    bodyDef.position.Set(posX/pixelsPerUnit, posY/pixelsPerUnit);
+    bodyDef.type = b2_staticBody;
+    bodyDef.position.Set(posX, -1 * posY);
     b2Body* body = world->CreateBody(&bodyDef);
     b2PolygonShape box;
-    box.SetAsBox(width/2/pixelsPerUnit, height/2/pixelsPerUnit);
+    box.SetAsBox(width/2.0f, height/2.0f);
     body->CreateFixture(&box, 1.0f);
     bodies.push_back(body);
 
@@ -31,7 +47,7 @@ void Level::createBox(float32 width, float32 height, float32 posX, float32 posY)
     sf::Sprite* sprite = new sf::Sprite(textures[0]);
 
     b2Vec2 temp = bodies[bodies.size() - 1]->GetPosition();
-    sprite->setOrigin(width,height);
+    sprite->setOrigin(width/2.0f,height/2.0f);
     sprite->setPosition(temp.x, -1 * temp.y);
     sprites.push_back(sprite);
 }

@@ -40,7 +40,7 @@ void Canvas::onUpdate()
 void Canvas::paintSprites()
 {
     // Paint the background black. Paint it black!
-    imageTexture.clear(sf::Color(0, 0, 0, 255));
+    //imageTexture.clear(sf::Color(0, 0, 0, 255));
 
     for (sf::Sprite* spritePtr : sprites) {
         imageTexture.draw(*spritePtr);
