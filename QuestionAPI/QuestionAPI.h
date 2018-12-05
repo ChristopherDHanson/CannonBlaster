@@ -1,5 +1,6 @@
 #ifndef QUESTION_API
 #define QUESTION_API
+
 #include <string>
 #include <vector>
 

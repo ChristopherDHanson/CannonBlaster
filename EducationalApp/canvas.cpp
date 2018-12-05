@@ -1,6 +1,7 @@
+
 #include "canvas.h"
 
-Canvas::Canvas(QWidget* parent) : SfmlCanvas(parent), sprites()
+Canvas::Canvas(QWidget* parent) : SfmlCanvas(parent), sprites(), backdropTexture(), backdrop()
 { }
 
 Canvas::~Canvas()
@@ -32,14 +33,30 @@ void Canvas::removeSprite(sf::Sprite* sprite)
 
 void Canvas::onUpdate()
 {
+    paintBackdrop();
     paintSprites();
 }
 
 void Canvas::paintSprites()
 {
     // Paint the background black. Paint it black!
-    imageTexture.clear(sf::Color(0, 0, 0, 255));
+    //imageTexture.clear(sf::Color(0, 0, 0, 255));
 
-    for (sf::Sprite* spritePtr : sprites)
+    for (sf::Sprite* spritePtr : sprites) {
         imageTexture.draw(*spritePtr);
+        //std::cout << spritePtr->getOrigin().x << " " << spritePtr->getOrigin().y << "\n";
+    }
+}
+
+void Canvas::setBackdrop(std::string backdropPath)
+{
+    backdropTexture.loadFromFile(backdropPath);
+    backdrop.setTexture(backdropTexture);
+    sf::FloatRect bounds = backdrop.getGlobalBounds();
+    backdrop.scale(this->width() / bounds.width, this->height() / bounds.height);
+}
+
+void Canvas::paintBackdrop()
+{
+    imageTexture.draw(backdrop);
 }

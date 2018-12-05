@@ -2,7 +2,8 @@
 #define CANVAS_H
 
 #include <vector>
-
+#include <iostream>
+#include <Box2D/Box2D.h>
 #include <QLabel>
 
 #include "sfmlcanvas.h"
@@ -19,12 +20,28 @@ private:
     ///
     std::vector<sf::Sprite*> sprites;
 
+    sf::Texture backdropTexture;
+
+    ///
+    /// \brief backdrop
+    ///
+    /// Background texture of the canvas. This doesn't move, and it should cover the whole image.
+    ///
+    sf::Sprite backdrop;
+
     ///
     /// \brief paintSprites
     ///
     /// Helper method for painting all the sprites in the Canvas.
     ///
     void paintSprites();
+
+    ///
+    /// \brief paintBackdrop
+    ///
+    /// Paints the backdrop to the imageTexture. This should be called from onUpdate.
+    ///
+    void paintBackdrop();
 
 public:
     ///
@@ -48,6 +65,8 @@ public:
     void removeSprite(sf::Sprite* sprite);
 
     void onUpdate() override;
+
+    void setBackdrop(std::string backdropPath);
 
 public slots:
 };

@@ -37,7 +37,8 @@ HEADERS += \
     canvas.h \
     demowindow.h \
     shape.h \
-    level.h
+    level.h \
+    ../QuestionAPI/QuestionAPI.h
 
 FORMS += \
     demowindow.ui
