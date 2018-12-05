@@ -31,8 +31,8 @@ void Level::createBox(float32 width, float32 height, float32 posX, float32 posY)
     sf::Sprite* sprite = new sf::Sprite(textures[0]);
 
     b2Vec2 temp = bodies[bodies.size() - 1]->GetPosition();
-    sprite->setOrigin(temp.x,temp.y);
-    sprite->setPosition(0,0);
+    sprite->setOrigin(width,height);
+    sprite->setPosition(temp.x, -1 * temp.y);
     sprites.push_back(sprite);
 }
 
@@ -47,7 +47,7 @@ void Level::createDynamicObject(float32 width, float32 height, float32 posX, flo
     bodyDef.position.Set(posX, -1 * posY);
     b2Body* body = world->CreateBody(&bodyDef);
     b2PolygonShape box;
-    box.SetAsBox(width, height);
+    box.SetAsBox(width/2.0f, height/2.0f);
     body->CreateFixture(&box, 1.0f);
     //body->ApplyLinearImpulseToCenter(force, true);
     //body->ApplyForceToCenter(force, true);
@@ -58,7 +58,7 @@ void Level::createDynamicObject(float32 width, float32 height, float32 posX, flo
     sf::Sprite* sprite = new sf::Sprite(textures[0]);
 
     b2Vec2 temp = bodies[bodies.size() - 1]->GetPosition();
-    //sprite->setOrigin(30,30);
+    sprite->setOrigin(width/2.0f,height/2.0f);
     sprite->setPosition(temp.x, -1 * temp.y);
     sprites.push_back(sprite);
 }
