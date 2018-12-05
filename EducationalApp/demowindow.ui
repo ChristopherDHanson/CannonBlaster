@@ -115,6 +115,9 @@ border-color: rgb(85, 87, 83);</string>
        <height>16</height>
       </rect>
      </property>
+     <property name="maximum">
+      <number>11</number>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -148,7 +151,7 @@ border-color: rgb(85, 87, 83);</string>
       </rect>
      </property>
      <property name="maximum">
-      <number>1000</number>
+      <number>101</number>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
