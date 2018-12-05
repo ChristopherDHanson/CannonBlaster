@@ -29,11 +29,13 @@ private:
     sf::Sprite* sprite;
     int spriteSwapIdx;
     std::vector<sf::Texture> textures;
+    std::vector<sf::Texture> nonInteractiveTextures;
     sf::Music music;
     QVector<Level*> levels;
     Level* currentLevel;
+    sf::Sprite* cannon;
     QVector<sf::Sprite*> sprites;
-    float angle[2];
+    float angle[3];
     float velocity;
     float density;
 

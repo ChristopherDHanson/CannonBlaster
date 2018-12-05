@@ -51,7 +51,8 @@ DemoWindow::DemoWindow(QWidget *parent) :
         "../Images/SpringBlocks/springTreeBottom.png",
         "../Images/SpringBlocks/springBlock2Top.png",
         "../Images/SpringBlocks/springBlock2Part.png",
-        "../Images/SpringBlocks/springBlock2Btm.png"
+        "../Images/SpringBlocks/springBlock2Btm.png",
+        "../Images/cannon1.png"
     };
 
     for (std::string path : imgPaths) {
@@ -124,7 +125,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
 
     level1->setLevelSpeed(6);
-    level1->setCannonLocation(b2Vec2(0, 250));
+    level1->setCannonLocation(b2Vec2(50, 250));
     levels.push_back(level1);
 
     // repeat process for further levels
@@ -147,6 +148,13 @@ DemoWindow::DemoWindow(QWidget *parent) :
     {
         ui->canvas->addSprite(s);
     }
+
+    //creating with the cannon without box2d
+    cannon = new sf::Sprite(textures[16]);
+    cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
+    cannon->setPosition(50, 250);
+     //adding it to the canvas sprites
+    ui->canvas->addSprite(cannon);
 
     ui->canvas->setBackdrop("../Images/springBckgrnd.png");
     spriteTimer.start();
@@ -192,6 +200,10 @@ void DemoWindow::updateSprites()
         //s->setTexture(textures[(spriteSwapIdx / 5) % 4]);
         //std::cout << pos.x << " " <<pos.y << "  \n";
     }
+
+    // Change cannon rotation
+    cannon->setRotation(2);
+
     spriteSwapIdx++;
 }
 
@@ -203,13 +215,25 @@ void DemoWindow::spawnCannonball()
 
 void DemoWindow::changeAngle()
 {
+    if(ui->angleSlider->value() < angle[2])
+    {
+        cannon->rotate(1);
+        cannon->rotate(0);
+    }
+    else
+    {
+        cannon->rotate(-1);
+        cannon->rotate(0);
+    }
+
     angle[0] = cos(ui->angleSlider->value() * 3.141f / 180.0f);
     angle[1] = sin(ui->angleSlider->value() * 3.141f / 180.0f);
+    angle[2] = ui->angleSlider->value();
 }
 
 void DemoWindow::changeVelocity()
 {
-    velocity = ui->velocitySlider->value() / 10.0;
+    velocity = ui->velocitySlider->value() / 10.0f;
     std::cout << velocity << std::endl;
 }
 
