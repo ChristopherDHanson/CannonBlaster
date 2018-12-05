@@ -129,6 +129,12 @@ void Level::createDynamicCircle(float32 width, float32 height, float32 posX, flo
     sprites.push_back(sprite);
 }
 
+void Level::fireCannonball(b2Vec2 force, float32 density) {
+    createDynamicCircle();
+    sf::Vector2u imgSize = textures[0].copyToImage().getSize();
+    createDynamicCircle(imgSize.x,imgSize.y,cannonLocation.x,cannonLocation.y, force, density);
+}
+
 void Level::setLevelSpeed(int speed) {
     levelSpeed = speed;
 }

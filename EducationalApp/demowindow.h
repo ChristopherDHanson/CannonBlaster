@@ -32,13 +32,10 @@ private:
     sf::Music music;
     QVector<Level*> levels;
     Level* currentLevel;
-
     QVector<sf::Sprite*> sprites;
     float angle[2];
     float velocity;
     float density;
-
-    void loadBackground();
 
 public slots:
     void updateSprites();
