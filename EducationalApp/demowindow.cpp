@@ -23,7 +23,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
     spriteTimer.setInterval(40);
     connect(&spriteTimer, &QTimer::timeout, this, &DemoWindow::updateSprites);
 
-    velocity = 1;
+    velocity = 20;
     angle[0] = 0;
     angle[1] = 1;
     density = 1;
@@ -47,7 +47,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
     sf::Vector2u imgSize = textures[1].copyToImage().getSize();
     level1->createBox(imgSize.x,imgSize.y,300,100);
-    level1->createInvisibleBox(500,10,100,320);
+    level1->createInvisibleBox(5000,10,100,320);
     level1->setLevelSpeed(6);
     levels.push_back(level1);
 
@@ -82,7 +82,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
         throw "EXIT_FAILURE";
     }
     // Play the music
-    music.play();
+    //music.play();  **********************************************************************************************
 
     // Add current level sprites to the canvas
     currentLevel = levels[0];
@@ -119,7 +119,7 @@ void DemoWindow::updateSprites()
 void DemoWindow::spawnCannonball()
 {
     sf::Vector2u imgSize = textures[0].copyToImage().getSize();
-    currentLevel->createDynamicObject(imgSize.x,imgSize.y,0,250,b2Vec2(angle[0] * velocity, angle[1] * velocity), density);
+    currentLevel->createDynamicCircle(imgSize.x,imgSize.y,0,250,b2Vec2(angle[0] * velocity, angle[1] * velocity), density);
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
 }
 
