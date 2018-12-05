@@ -1,9 +1,10 @@
 #include "level.h"
 #include <Box2D/Box2D.h>
 
-Level::Level(float32 gravity, float32 timeStep)
+Level::Level(float32 gravity, float32 timeStep, float32 pixelsPerUnit)
 {
     this->timeStep = timeStep;
+    this->pixelsPerUnit = pixelsPerUnit;
     b2Vec2 gravityF = b2Vec2(0.0f, gravity);
     world = new b2World(gravityF);
 }
@@ -19,10 +20,10 @@ void Level::createBox(float32 width, float32 height, float32 posX, float32 posY)
     }
     // Set up physical box
     b2BodyDef bodyDef;
-    bodyDef.position.Set(posX, posY);
+    bodyDef.position.Set(posX/pixelsPerUnit, posY/pixelsPerUnit);
     b2Body* body = world->CreateBody(&bodyDef);
     b2PolygonShape box;
-    box.SetAsBox(width/2, height/2);
+    box.SetAsBox(width/2/pixelsPerUnit, height/2/pixelsPerUnit);
     body->CreateFixture(&box, 1.0f);
     bodies.push_back(body);
 

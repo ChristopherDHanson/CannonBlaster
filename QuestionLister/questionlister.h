@@ -25,6 +25,8 @@ private slots:
 
     void on_addQuestionButton_clicked();
 
+    void on_questionList_itemSelectionChanged();
+
 private:
     Ui::QuestionLister *ui;
     QuestionModel model;
@@ -32,6 +34,7 @@ private:
     int correctIndex;
     int incorrectIndex;
 
+    void updateQuestions();
     void updateAnswers();
 };
 

@@ -35,6 +35,8 @@ private:
 
     QVector<sf::Sprite*> sprites;
 
+    void loadBackground();
+
 public slots:
     void updateSprites();
     void spawnCannonball();

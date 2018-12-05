@@ -22,7 +22,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
     // CONSTRUCT LEVELS--------
     // General process is: 1) Construct level, 2) Load its textures, 3) Add elements
     // Level 1:
-    Level* level1 = new Level(-10.0f, 0.04f);
+    Level* level1 = new Level(-10.0f, 0.04f, 64.0f);
 
     textures = std::vector<sf::Texture>(2);
     if (!textures[0].loadFromFile("../icon.png")) {
@@ -74,10 +74,12 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
     // Add current level sprites to the canvas
     currentLevel = levels[0];
-     for (sf::Sprite* s : currentLevel->sprites)
-     {
-         ui->canvas->addSprite(s);
-     }
+    for (sf::Sprite* s : currentLevel->sprites)
+    {
+     ui->canvas->addSprite(s);
+    }
+
+    loadBackground();
     spriteTimer.start();
 }
 
@@ -107,4 +109,9 @@ void DemoWindow::spawnCannonball()
     sprite = new sf::Sprite(textures[0]);
     currentLevel->createDynamicObject(1,1,0,0,b2Vec2(10, 0));
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
+}
+
+void DemoWindow::loadBackground()
+{
+    ui->canvas->setBackdrop("../images/golden_forest.jpg");
 }
