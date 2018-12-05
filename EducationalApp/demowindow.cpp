@@ -18,10 +18,15 @@ DemoWindow::DemoWindow(QWidget *parent) :
     connect(ui->fireButton, &QPushButton::pressed, this, &DemoWindow::spawnCannonball);
     connect(ui->angleSlider, &QSlider::sliderMoved, this, &DemoWindow::changeAngle);
     connect(ui->velocitySlider, &QSlider::sliderMoved, this, &DemoWindow::changeVelocity);
+    connect(ui->massSlider, &QSlider::sliderMoved, this, &DemoWindow::changeDensity);
 
     spriteTimer.setInterval(40);
     connect(&spriteTimer, &QTimer::timeout, this, &DemoWindow::updateSprites);
 
+    velocity = 1;
+    angle[0] = 0;
+    angle[1] = 1;
+    density = 1;
 
     // CONSTRUCT LEVELS--------
     // General process is: 1) Construct level, 2) Load its textures, 3) Add elements
@@ -114,7 +119,7 @@ void DemoWindow::updateSprites()
 void DemoWindow::spawnCannonball()
 {
     sf::Vector2u imgSize = textures[0].copyToImage().getSize();
-    currentLevel->createDynamicBall(imgSize.x,0,200,b2Vec2(angle[0] * velocity, angle[1] * velocity));
+    currentLevel->createDynamicObject(imgSize.x,imgSize.y,0,250,b2Vec2(angle[0] * velocity, angle[1] * velocity), density);
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
 }
 
@@ -132,4 +137,9 @@ void DemoWindow::changeAngle()
 void DemoWindow::changeVelocity()
 {
     velocity = ui->velocitySlider->value();
+}
+
+void DemoWindow::changeDensity()
+{
+    density = ui->massSlider->value();
 }
