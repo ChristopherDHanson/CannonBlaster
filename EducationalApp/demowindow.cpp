@@ -23,9 +23,9 @@ DemoWindow::DemoWindow(QWidget *parent) :
     spriteTimer.setInterval(40);
     connect(&spriteTimer, &QTimer::timeout, this, &DemoWindow::updateSprites);
 
-    velocity = 1;
-    angle[0] = 0;
-    angle[1] = 1;
+    velocity = 20;
+    angle[0] = cos(ui->angleSlider->value() * 3.141 / 180);
+    angle[1] = sin(ui->angleSlider->value() * 3.141 / 180);
     density = 1;
 
     // CONSTRUCT LEVELS--------
@@ -50,7 +50,9 @@ DemoWindow::DemoWindow(QWidget *parent) :
         throw "EXIT_FAILURE";
     }
 
-    textures[4].loadFromFile("../Images/SpringBlocks/springBlock2Short.png");
+    // textures[4].loadFromFile("../Images/SpringBlocks/springBlock2Short.png");
+    if (!textures[4].loadFromFile("../images/bricks.png")) {
+        throw "EXIT_FAILURE";
 
     textures[0].setSmooth(true);
     textures[1].setSmooth(true);
@@ -59,9 +61,22 @@ DemoWindow::DemoWindow(QWidget *parent) :
     textures[4].setSmooth(true);
     level1->loadTextures(textures);
 
-    sf::Vector2u imgSize = textures[4].copyToImage().getSize();
-    level1->createBox(imgSize.x,imgSize.y,300,100);
-    level1->createInvisibleBox(500,10,100,320);
+    // sf::Vector2u imgSize = textures[4].copyToImage().getSize();
+    // level1->createBox(imgSize.x,imgSize.y,300,100);
+    // level1->createInvisibleBox(500,10,100,320);
+
+    if (!textures[4].loadFromFile("../images/bricks.png")) {
+        throw "EXIT_FAILURE";
+
+
+    sf::Vector2u imgSize = textures[1].copyToImage().getSize();
+    level1->createDynamicBox(50,50,500,250, b2Vec2(0,0), 1, 2);
+    level1->createDynamicBox(50,50,550,250, b2Vec2(0,0), 1, 2);
+    level1->createDynamicBox(50,50,600,250, b2Vec2(0,0), 1, 2);
+    level1->createDynamicBox(50,50,525,150, b2Vec2(0,0), 1, 2);
+    level1->createDynamicBox(50,50,575,150, b2Vec2(0,0), 1, 2);
+    level1->createDynamicBox(50,50,550,50, b2Vec2(0,0), 1, 2);
+    level1->createInvisibleBox(5000,10,100,320);
     level1->setLevelSpeed(6);
     levels.push_back(level1);
 
@@ -96,7 +111,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
         throw "EXIT_FAILURE";
     }
     // Play the music
-    music.play();
+    //music.play();  **********************************************************************************************
 
     // Add current level sprites to the canvas
     currentLevel = levels[0];
@@ -134,7 +149,7 @@ void DemoWindow::updateSprites()
 void DemoWindow::spawnCannonball()
 {
     sf::Vector2u imgSize = textures[0].copyToImage().getSize();
-    currentLevel->createDynamicObject(imgSize.x,imgSize.y,0,250,b2Vec2(angle[0] * velocity, angle[1] * velocity), density);
+    currentLevel->createDynamicCircle(imgSize.x,imgSize.y,0,250,b2Vec2(angle[0] * velocity, angle[1] * velocity), density);
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
 }
 
