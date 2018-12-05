@@ -34,18 +34,18 @@ DemoWindow::DemoWindow(QWidget *parent) :
     Level* level1 = new Level(-10.0f, 0.04f, 64.0f);
 
     textures = std::vector<sf::Texture>(2);
-    if (!textures[0].loadFromFile("../bullet.png")) {
+    if (!textures[0].loadFromFile("../images/bullet.png")) {
         throw "EXIT_FAILURE";
     }
 
-    if (!textures[1].loadFromFile("../icon2.png")) {
+    if (!textures[1].loadFromFile("../images/box.png")) {
         throw "EXIT_FAILURE";
     }
     textures[0].setSmooth(true);
     textures[1].setSmooth(true);
     level1->loadTextures(textures);
 
-    sf::Vector2u imgSize = textures[0].copyToImage().getSize();
+    sf::Vector2u imgSize = textures[1].copyToImage().getSize();
     level1->createBox(imgSize.x,imgSize.y,300,100);
     level1->createInvisibleBox(500,10,100,320);
     level1->setLevelSpeed(6);
@@ -143,5 +143,3 @@ void DemoWindow::changeDensity()
 {
     density = ui->massSlider->value();
 }
-
-

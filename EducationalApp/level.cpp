@@ -44,7 +44,7 @@ void Level::createBox(float32 width, float32 height, float32 posX, float32 posY)
     bodies.push_back(body);
 
     // Set up visual box
-    sf::Sprite* sprite = new sf::Sprite(textures[0]);
+    sf::Sprite* sprite = new sf::Sprite(textures[1]);
 
     b2Vec2 temp = bodies[bodies.size() - 1]->GetPosition();
     sprite->setOrigin(width/2.0f,height/2.0f);
