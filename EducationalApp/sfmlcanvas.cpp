@@ -55,6 +55,8 @@ void SfmlCanvas::renderToLabel()
     image = image.rgbSwapped();
 
     setPixmap(QPixmap::fromImage(image));
+
+//    imageTexture.display();
 }
 
 void SfmlCanvas::onUpdate()
