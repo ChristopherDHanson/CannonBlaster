@@ -25,7 +25,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
     Level* level1 = new Level(-10.0f, 0.04f, 64.0f);
 
     textures = std::vector<sf::Texture>(2);
-    if (!textures[0].loadFromFile("../icon.png")) {
+    if (!textures[0].loadFromFile("../bullet.png")) {
         throw "EXIT_FAILURE";
     }
 
@@ -98,7 +98,7 @@ void DemoWindow::updateSprites()
         sf::Sprite* s = currentLevel->sprites[index];
         b2Vec2 pos = currentLevel->bodies[index]->GetPosition();
         s->setPosition(pos.x, -1 * pos.y );//+ ui->canvas->height());
-        s->rotate(1.0);
+        //s->rotate(1.0);
         //s->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);
         //std::cout << pos.x << " " <<pos.y << "  \n";
     }
