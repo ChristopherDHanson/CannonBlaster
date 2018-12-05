@@ -29,6 +29,7 @@ private:
     sf::Sprite* sprite;
     int spriteSwapIdx;
     std::vector<sf::Texture> textures;
+    std::vector<sf::Texture> nonInteractiveTextures;
     sf::Music music;
     QVector<Level*> levels;
     Level* currentLevel;

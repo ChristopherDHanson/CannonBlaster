@@ -33,7 +33,9 @@ DemoWindow::DemoWindow(QWidget *parent) :
     // Level 1:
     Level* level1 = new Level(-2.0f, 0.04f, 64.0f);
 
+    nonInteractiveTextures = std::vector<sf::Texture>(5);
     textures = std::vector<sf::Texture>(16);
+
     if (!textures[0].loadFromFile("../Images/coinSprite1.png")) {
         throw "EXIT_FAILURE";
     }
@@ -98,6 +100,11 @@ DemoWindow::DemoWindow(QWidget *parent) :
         throw "EXIT_FAILURE";
     }
 
+    if (!nonInteractiveTextures[0].loadFromFile("../Images/cannon1.png")){
+        throw "EXIT_FAILURE";
+    }
+
+    nonInteractiveTextures[0].setSmooth((true));
     textures[0].setSmooth(true);
     textures[1].setSmooth(true);
     textures[2].setSmooth(true);
