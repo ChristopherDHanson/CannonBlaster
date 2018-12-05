@@ -83,6 +83,10 @@ void Level::setLevelSpeed(int speed) {
     levelSpeed = speed;
 }
 
+void Level::setCannonLocation(b2Vec2 cannonLoc) {
+    cannonLocation = cannonLoc;
+}
+
 void Level::next()
 {
     for (int ind = 0; ind < levelSpeed; ind++) {
