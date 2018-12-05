@@ -223,6 +223,14 @@ DemoWindow::DemoWindow(QWidget *parent) :
      ui->canvas->addSprite(s);
     }
 
+    //creating with the cannon without box2d
+    cannon = new sf::Sprite(nonInteractiveTextures[0]);
+    cannon->setOrigin(nonInteractiveTextures[0].copyToImage().getSize().x/2, nonInteractiveTextures[0].copyToImage().getSize().y/2);
+    cannon->setPosition(0, 250);
+
+    //adding it to the canvas sprites
+    ui->canvas->addSprite(cannon);
+
     loadBackground();
     spriteTimer.start();
 }
@@ -246,6 +254,10 @@ void DemoWindow::updateSprites()
 //        s->setTexture(textures[(spriteSwapIdx / 5) % 4]);
         //std::cout << pos.x << " " <<pos.y << "  \n";
     }
+
+    //changing cannons rotation
+    cannon->setRotation(angle);
+
     spriteSwapIdx++;
 }
 
