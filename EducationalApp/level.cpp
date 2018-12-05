@@ -84,7 +84,8 @@ void Level::createDynamicCircle(float32 width, float32 height, float32 posX, flo
     if (textures.size() == 0) {
         throw std::runtime_error("Textures array empty");
     }
-    // Set up physical box
+
+    // Set up physical circle
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(posX, -1 * posY);
@@ -92,8 +93,6 @@ void Level::createDynamicCircle(float32 width, float32 height, float32 posX, flo
     b2CircleShape circle;
     circle.m_radius = width/2.0f;
     body->CreateFixture(&circle, density);
-    //body->ApplyLinearImpulseToCenter(force, true);
-    //body->ApplyForceToCenter(force, true);
     body->SetLinearVelocity(force);
     bodies.push_back(body);
 
