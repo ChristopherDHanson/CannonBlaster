@@ -215,7 +215,6 @@ void DemoWindow::spawnCannonball()
 
 void DemoWindow::changeAngle()
 {
-
     angle[0] = cos(ui->angleSlider->value() * 3.141f / 180.0f);
     angle[1] = sin(ui->angleSlider->value() * 3.141f / 180.0f);
     cannon->setRotation(ui->angleSlider->value() * - 1);
