@@ -114,7 +114,7 @@ void DemoWindow::updateSprites()
 void DemoWindow::spawnCannonball()
 {
     sf::Vector2u imgSize = textures[0].copyToImage().getSize();
-    currentLevel->createDynamicObject(imgSize.x,imgSize.y,0,200,b2Vec2(angle[0] * velocity, angle[1] * velocity));
+    currentLevel->createDynamicBall(imgSize.x,0,200,b2Vec2(angle[0] * velocity, angle[1] * velocity));
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
 }
 
@@ -133,5 +133,3 @@ void DemoWindow::changeVelocity()
 {
     velocity = ui->velocitySlider->value();
 }
-
-
