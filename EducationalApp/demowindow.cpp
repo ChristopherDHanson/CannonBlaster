@@ -33,7 +33,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
     // Level 1:
     Level* level1 = new Level(-2.0f, 0.04f, 64.0f);
 
-    textures = std::vector<sf::Texture>(5);
+    textures = std::vector<sf::Texture>(9);
     if (!textures[0].loadFromFile("../Images/coinSprite1.png")) {
         throw "EXIT_FAILURE";
     }
@@ -50,23 +50,45 @@ DemoWindow::DemoWindow(QWidget *parent) :
         throw "EXIT_FAILURE";
     }
 
-    // textures[4].loadFromFile("../Images/SpringBlocks/springBlock2Short.png");
+    // if (textures[4].loadFromFile("../Images/SpringBlocks/springBlock2Short.png")) {
+    //    throw "EXIT_FAILURE";
+    //}
     if (!textures[4].loadFromFile("../images/bricks.png")) {
         throw "EXIT_FAILURE";
+    }
+
+    if (!textures[5].loadFromFile("../Images/SpringBlocks/springBlock1.png")) {
+        throw "EXIT_FAILURE";
+    }
+
+    if (!textures[6].loadFromFile("../Images/SpringBlocks/springBlock2.png")) {
+        throw "EXIT_FAILURE";
+    }
+
+    if (!textures[7].loadFromFile("../Images/SpringBlocks/springBlock2.png")) {
+        throw "EXIT_FAILURE";
+    }
+
+    if (!textures[8].loadFromFile("../Images/SpringBlocks/springTree.png")) {
+        throw "EXIT_FAILURE";
+    }
 
     textures[0].setSmooth(true);
     textures[1].setSmooth(true);
     textures[2].setSmooth(true);
     textures[3].setSmooth(true);
     textures[4].setSmooth(true);
+    textures[5].setSmooth(true);
+    textures[6].setSmooth(true);
+    textures[7].setSmooth(true);
+    textures[8].setSmooth(true);
+
     level1->loadTextures(textures);
 
     // sf::Vector2u imgSize = textures[4].copyToImage().getSize();
     // level1->createBox(imgSize.x,imgSize.y,300,100);
     // level1->createInvisibleBox(500,10,100,320);
 
-    if (!textures[4].loadFromFile("../images/bricks.png")) {
-        throw "EXIT_FAILURE";
 
 
     sf::Vector2u imgSize = textures[1].copyToImage().getSize();
