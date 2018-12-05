@@ -26,10 +26,12 @@ public:
     void createDynamicBox(float32 width = 1, float32 height = 1, float32 posX = 0, float32 posY = 0, b2Vec2 force = b2Vec2(0,0));
     void createInvisibleBox(float32 width = 1, float32 height = 1, float32 posX = 0, float32 posY = 0);
     void setLevelSpeed(int speed);
+    void setCannonLocation(b2Vec2 cannonLoc);
     void next();
     QVector<b2Body*> bodies; // Physics information for each object stored here
     QVector<sf::Sprite*> sprites; // Sprites representing each object stored here
     float32 pixelsPerUnit;
+    b2Vec2 cannonLocation = b2Vec2(0,-100);
 
 };
 
