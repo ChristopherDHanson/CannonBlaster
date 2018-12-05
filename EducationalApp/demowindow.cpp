@@ -24,8 +24,8 @@ DemoWindow::DemoWindow(QWidget *parent) :
     connect(&spriteTimer, &QTimer::timeout, this, &DemoWindow::updateSprites);
 
     velocity = 20;
-    angle[0] = 0;
-    angle[1] = 1;
+    angle[0] = cos(ui->angleSlider->value() * 3.141 / 180);
+    angle[1] = sin(ui->angleSlider->value() * 3.141 / 180);
     density = 1;
 
     // CONSTRUCT LEVELS--------
