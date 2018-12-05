@@ -22,6 +22,7 @@ public:
     void loadTextures(std::vector<sf::Texture> inputTextures);
     void createBox(float32 width = 1, float32 height = 1, float32 posX = 0, float32 posY = 0);
     void createDynamicObject(float32 width = 1, float32 height = 1, float32 posX = 0, float32 posY = 0, b2Vec2 force = b2Vec2(0,0));
+    void createInvisibleBox(float32 width = 1, float32 height = 1, float32 posX = 0, float32 posY = 0);
     void next();
     QVector<b2Body*> bodies; // Physics information for each object stored here
     QVector<sf::Sprite*> sprites; // Sprites representing each object stored here

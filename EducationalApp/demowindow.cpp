@@ -36,7 +36,9 @@ DemoWindow::DemoWindow(QWidget *parent) :
     textures[1].setSmooth(true);
     level1->loadTextures(textures);
 
-    //level1->createBox(5.0f, 5.0f, 10.0f, 10.0f);
+    sf::Vector2u imgSize = textures[0].copyToImage().getSize();
+    level1->createBox(imgSize.x,imgSize.y,300,100);
+    level1->createInvisibleBox(500,10,100,340);
     levels.push_back(level1);
 
     // repeat process for further levels
@@ -108,7 +110,7 @@ void DemoWindow::spawnCannonball()
 {
     sprite = new sf::Sprite(textures[0]);
     sf::Vector2u imgSize = textures[0].copyToImage().getSize();
-    currentLevel->createDynamicObject(imgSize.x,imgSize.y,0,0,b2Vec2(10, 0));
+    currentLevel->createDynamicObject(imgSize.x,imgSize.y,0,0,b2Vec2(0, 0));
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
 }
 
