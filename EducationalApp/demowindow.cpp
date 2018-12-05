@@ -33,21 +33,12 @@ DemoWindow::DemoWindow(QWidget *parent) :
     // Level 1:
     Level* level1 = new Level(-2.0f, 0.04f, 64.0f);
 
-<<<<<<< HEAD
-    textures = std::vector<sf::Texture>(4);
+    textures = std::vector<sf::Texture>(5);
     if (!textures[0].loadFromFile("../Images/coinSprite1.png")) {
         throw "EXIT_FAILURE";
     }
 
     if (!textures[1].loadFromFile("../Images/coinSprite2.png")) {
-=======
-    textures = std::vector<sf::Texture>(2);
-    if (!textures[0].loadFromFile("../images/bullet.png")) {
-        throw "EXIT_FAILURE";
-    }
-
-    if (!textures[1].loadFromFile("../images/box.png")) {
->>>>>>> eec4e9f6f8d7903d433615185a134991ac224c6e
         throw "EXIT_FAILURE";
     }
 
@@ -59,13 +50,16 @@ DemoWindow::DemoWindow(QWidget *parent) :
         throw "EXIT_FAILURE";
     }
 
+    textures[4].loadFromFile("../Images/SpringBlocks/springBlock2Short.png");
+
     textures[0].setSmooth(true);
     textures[1].setSmooth(true);
     textures[2].setSmooth(true);
     textures[3].setSmooth(true);
+    textures[4].setSmooth(true);
     level1->loadTextures(textures);
 
-    sf::Vector2u imgSize = textures[1].copyToImage().getSize();
+    sf::Vector2u imgSize = textures[4].copyToImage().getSize();
     level1->createBox(imgSize.x,imgSize.y,300,100);
     level1->createInvisibleBox(500,10,100,320);
     level1->setLevelSpeed(6);
@@ -129,36 +123,24 @@ void DemoWindow::updateSprites()
     for (int index = 0; index < currentLevel->sprites.size(); index++) {
         sf::Sprite* s = currentLevel->sprites[index];
         b2Vec2 pos = currentLevel->bodies[index]->GetPosition();
-<<<<<<< HEAD
-        s->setPosition(pos.x, pos.y);
-//        s->setPosition(pos.x*currentLevel->pixelsPerUnit, pos.y*currentLevel->pixelsPerUnit);
-        //s->rotate(1.0);
-        s->setTexture(textures[(spriteSwapIdx / 10) % 4]);
-=======
         s->setPosition(pos.x, -1 * pos.y );//+ ui->canvas->height());
         //s->rotate(1.0);
-        //s->setTexture(textures[(spriteSwapIdx++ / 20) % 2]);
+//        s->setTexture(textures[(spriteSwapIdx / 5) % 4]);
         //std::cout << pos.x << " " <<pos.y << "  \n";
->>>>>>> eec4e9f6f8d7903d433615185a134991ac224c6e
     }
     spriteSwapIdx++;
 }
 
 void DemoWindow::spawnCannonball()
 {
-<<<<<<< HEAD
-    sprite = new sf::Sprite(textures[0]);
-    currentLevel->createDynamicObject(8,8,300,100,b2Vec2(100,100));
-=======
     sf::Vector2u imgSize = textures[0].copyToImage().getSize();
     currentLevel->createDynamicObject(imgSize.x,imgSize.y,0,250,b2Vec2(angle[0] * velocity, angle[1] * velocity), density);
->>>>>>> eec4e9f6f8d7903d433615185a134991ac224c6e
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
 }
 
 void DemoWindow::loadBackground()
 {
-    ui->canvas->setBackdrop("../images/golden_forest.jpg");
+    ui->canvas->setBackdrop("../Images/springBckgrnd.png");
 }
 
 void DemoWindow::changeAngle()
