@@ -233,7 +233,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
     //creating with the cannon without box2d
     cannon = new sf::Sprite(nonInteractiveTextures[0]);
     cannon->setOrigin(nonInteractiveTextures[0].copyToImage().getSize().x/2, nonInteractiveTextures[0].copyToImage().getSize().y/2);
-    cannon->setPosition(0, 250);
+    cannon->setPosition(50, 250);
 
     //adding it to the canvas sprites
     ui->canvas->addSprite(cannon);
@@ -262,8 +262,6 @@ void DemoWindow::updateSprites()
         //std::cout << pos.x << " " <<pos.y << "  \n";
     }
 
-    //changing cannons rotation
-    cannon->setRotation(angle[3]);
 
     spriteSwapIdx++;
 }
@@ -302,9 +300,20 @@ void DemoWindow::loadBackground()
 
 void DemoWindow::changeAngle()
 {
+    if(ui->angleSlider->value() < angle[2])
+    {
+        cannon->rotate(1);
+        cannon->rotate(0);
+    }
+    else
+    {
+        cannon->rotate(-1);
+        cannon->rotate(0);
+    }
     angle[0] = cos(ui->angleSlider->value() * 3.141 / 180);
     angle[1] = sin(ui->angleSlider->value() * 3.141 / 180);
     angle[2] = ui->angleSlider->value();
+
 }
 
 void DemoWindow::changeVelocity()
