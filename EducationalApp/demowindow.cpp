@@ -125,7 +125,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
 
     level1->setLevelSpeed(6);
-    level1->setCannonLocation(b2Vec2(50, 250));
+    level1->setCannonLocation(b2Vec2(25, 290));
     levels.push_back(level1);
 
     // repeat process for further levels
@@ -152,7 +152,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
     //creating with the cannon without box2d
     cannon = new sf::Sprite(textures[16]);
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
-    cannon->setPosition(50, 250);
+    cannon->setPosition(25, 290);
      //adding it to the canvas sprites
     ui->canvas->addSprite(cannon);
 
