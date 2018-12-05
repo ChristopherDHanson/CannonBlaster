@@ -151,7 +151,7 @@ border-color: rgb(85, 87, 83);</string>
       </rect>
      </property>
      <property name="maximum">
-      <number>101</number>
+      <number>501</number>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>

@@ -31,7 +31,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
     // CONSTRUCT LEVELS--------
     // General process is: 1) Construct level, 2) Load its textures, 3) Add elements
     // Level 1:
-    Level* level1 = new Level(-10.0f, 0.04f, 64.0f);
+    Level* level1 = new Level(-2.0f, 0.04f, 64.0f);
 
     textures = std::vector<sf::Texture>(2);
     if (!textures[0].loadFromFile("../images/bullet.png")) {
@@ -136,7 +136,8 @@ void DemoWindow::changeAngle()
 
 void DemoWindow::changeVelocity()
 {
-    velocity = ui->velocitySlider->value();
+    velocity = ui->velocitySlider->value() / 10.0;
+    std::cout << velocity << std::endl;
 }
 
 void DemoWindow::changeDensity()
