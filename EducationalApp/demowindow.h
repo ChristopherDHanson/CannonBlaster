@@ -40,6 +40,8 @@ private:
 public slots:
     void updateSprites();
     void spawnCannonball();
+    void spawnTree(Level* level1, float32 posX);
+    void spawnTallTree(Level* level1, float32 posX);
     void changeVelocity();
     void changeAngle();
     void changeDensity();
