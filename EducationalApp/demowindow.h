@@ -34,12 +34,16 @@ private:
     Level* currentLevel;
 
     QVector<sf::Sprite*> sprites;
+    float angle[2];
+    float velocity;
 
     void loadBackground();
 
 public slots:
     void updateSprites();
     void spawnCannonball();
+    void changeVelocity();
+    void changeAngle();
 };
 
 #endif // DEMOWINDOW_H

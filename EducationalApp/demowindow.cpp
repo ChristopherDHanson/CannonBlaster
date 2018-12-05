@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 #include "demowindow.h"
 #include "ui_demowindow.h"
@@ -12,8 +13,11 @@ DemoWindow::DemoWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
     // CONNECTIONS
     connect(ui->fireButton, &QPushButton::pressed, this, &DemoWindow::spawnCannonball);
+    connect(ui->angleSlider, &QSlider::sliderMoved, this, &DemoWindow::changeAngle);
+    connect(ui->velocitySlider, &QSlider::sliderMoved, this, &DemoWindow::changeVelocity);
 
     spriteTimer.setInterval(40);
     connect(&spriteTimer, &QTimer::timeout, this, &DemoWindow::updateSprites);
@@ -110,7 +114,7 @@ void DemoWindow::spawnCannonball()
 {
     sprite = new sf::Sprite(textures[0]);
     sf::Vector2u imgSize = textures[0].copyToImage().getSize();
-    currentLevel->createDynamicObject(imgSize.x,imgSize.y,0,0,b2Vec2(0, 0));
+    currentLevel->createDynamicObject(imgSize.x,imgSize.y,0,320,b2Vec2(angle[0] * velocity, angle[1] * velocity));
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
 }
 
@@ -118,3 +122,16 @@ void DemoWindow::loadBackground()
 {
     ui->canvas->setBackdrop("../images/golden_forest.jpg");
 }
+
+void DemoWindow::changeAngle()
+{
+    angle[0] = cos(ui->angleSlider->value() * 3.141 / 180);
+    angle[1] = sin(ui->angleSlider->value() * 3.141 / 180);
+}
+
+void DemoWindow::changeVelocity()
+{
+    velocity = ui->velocitySlider->value();
+}
+
+
