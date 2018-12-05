@@ -263,7 +263,7 @@ void DemoWindow::updateSprites()
     }
 
     //changing cannons rotation
-    cannon->setRotation(angle);
+    cannon->setRotation(angle[3]);
 
     spriteSwapIdx++;
 }
@@ -304,6 +304,7 @@ void DemoWindow::changeAngle()
 {
     angle[0] = cos(ui->angleSlider->value() * 3.141 / 180);
     angle[1] = sin(ui->angleSlider->value() * 3.141 / 180);
+    angle[2] = ui->angleSlider->value();
 }
 
 void DemoWindow::changeVelocity()

@@ -38,7 +38,7 @@ private:
     sf::Sprite* cannon;
 
     QVector<sf::Sprite*> sprites;
-    float angle[2];
+    float angle[3];
     float velocity;
     float density;
 
