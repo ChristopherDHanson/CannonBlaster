@@ -42,8 +42,12 @@ private:
 public slots:
     void updateSprites();
     void spawnCannonball();
-    void spawnTree(Level* level1, float32 posX);
+    void spawnShortTree(Level* level1, float32 posX);
+    void spawnMediumTree(Level* level1, float32 posX);
     void spawnTallTree(Level* level1, float32 posX);
+    void spawnSmallTower(Level* level1, float32 posX);
+    void spawnMediumTower(Level* level1, float32 posX);
+    void spawnTallTower(Level* level1, float32 posX);
     void changeVelocity();
     void changeAngle();
     void changeDensity();
