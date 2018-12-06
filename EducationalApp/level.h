@@ -15,6 +15,9 @@ private:
     float32 timeStep;
     std::vector<sf::Texture> textures; // Raw textures stored here
     int levelSpeed = 3;
+    QVector<b2Vec2> answerBoxPositions = {b2Vec2(600, 50 + 70),b2Vec2(600, 50 + 140),b2Vec2(600, 50 + 210),b2Vec2(600, 50 + 280)};
+    sf::Music music;
+    int test;
 
 public:
     Level(float32 gravity = -3.0f, float32 timeStep = 1.0f/60.0f, float32 pixelsPerUnit = 64.0f);
@@ -30,10 +33,15 @@ public:
     void createCannon(float32 width = 1, float32 height = 1, float32 posX = 0, float32 posY = 0, int textureNumber = 0);
     void setCannonLocation(b2Vec2 cannonLoc);
     void next();
+    QVector<b2Vec2> getAnswerBoxPositions();
+    void setAnswerBoxPositions(QVector<b2Vec2> pos);
+    void setMusic(std::string musicPath);
+
     QVector<b2Body*> bodies; // Physics information for each object stored here
     QVector<sf::Sprite*> sprites; // Sprites representing each object stored here
     float32 pixelsPerUnit;
     b2Vec2 cannonLocation = b2Vec2(0,-100);
+
 
 };
 

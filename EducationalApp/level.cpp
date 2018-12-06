@@ -181,3 +181,20 @@ void Level::next()
         world->Step(timeStep, 6, 2);
     }
 }
+
+QVector<b2Vec2> Level::getAnswerBoxPositions()
+{
+    return answerBoxPositions;
+}
+
+void Level::setAnswerBoxPositions(QVector<b2Vec2> pos)
+{
+    answerBoxPositions = pos;
+}
+
+void Level::setMusic(std::string musicPath)
+{
+    if (!music.openFromFile(musicPath)) {
+        throw "EXIT_FAILURE";
+    }
+}

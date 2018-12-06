@@ -38,6 +38,7 @@ private:
     Level* currentLevel;
     std::map<int, bool> ballsInAnswerBoxes;
     int numShots = 0;
+    int totalShots = 0;
     int currentLvlInd = 0;
     sf::Sprite* cannon;
     float angle[3];
@@ -63,12 +64,12 @@ private:
     /// Returns -1 if the coordinate is not in an answer box, or the index of the answer box if it
     /// is (i.e. 0 for box A, 3 for box D).
     int answerBoxIndex(int x, int y);
-    void assembleShortTree(Level* level1, float32 posX);
-    void assembleMediumTree(Level* level1, float32 posX);
-    void assembleTallTree(Level* level1, float32 posX);
-    void assembleSmallTower(Level* level1, float32 posX);
-    void assembleMediumTower(Level* level1, float32 posX);
-    void assembleTallTower(Level* level1, float32 posX);
+    void assembleShortTree(Level* targetLevel, float32 posX);
+    void assembleMediumTree(Level* targetLevel, float32 posX);
+    void assembleTallTree(Level* targetLevel, float32 posX);
+    void assembleSmallTower(Level* targetLevel, float32 posX);
+    void assembleMediumTower(Level* targetLevel, float32 posX);
+    void assembleTallTower(Level* targetLevel, float32 posX);
     void nextLevel();
 
 public slots:
