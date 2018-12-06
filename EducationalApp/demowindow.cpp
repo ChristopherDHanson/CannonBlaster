@@ -274,6 +274,7 @@ void DemoWindow::buildLevel2()
     positions.append(b2Vec2(390,250));
     positions.append(b2Vec2(610,250));
 
+    level2->setAnswerBoxPositions(positions);
 
     level2->createBox(textures[5].copyToImage().getSize().x,textures[5].copyToImage().getSize().y, 346, 320, 5);
 
