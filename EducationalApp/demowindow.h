@@ -43,7 +43,7 @@ private:
     float angle[3];
     float velocity;
     float density;
-    //QuestionModel questions;
+    QuestionModel questions;
     int questionIndex;
     QuestionModel::ShuffledQuestion currentQuestion;
 
