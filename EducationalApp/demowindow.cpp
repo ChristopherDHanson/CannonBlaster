@@ -453,11 +453,16 @@ void DemoWindow::nextLevel() {
         {
             ui->canvas->addSprite(s);
         }
+        uint idx = 0;
+        for (b2Vec2 pos : currentLevel->getAnswerBoxPositions()) {
+            answerBoxes[idx]->setPosition(pos.x, pos.y);
+            idx++;
+        }
         emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
     }
     else // Game has been beaten
     {
-        emit updateMessageBox("You have beaten the game. \n Total shots: " + QString::number(totalShots));
+        emit updateMessageBox("You have beaten the game. \nTotal shots: " + QString::number(totalShots));
     }
 
 }
