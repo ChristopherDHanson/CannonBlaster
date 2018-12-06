@@ -38,14 +38,14 @@ HEADERS += \
     demowindow.h \
     shape.h \
     level.h \
-    ../QuestionAPI/QuestionAPI.h
+    QuestionAPI.h
 
 FORMS += \
     demowindow.ui
 
-INCLUDEPATH += ../Box2D/libs/Box2D
+INCLUDEPATH += ../Box2D/libs/Box2D ../QuestionAPI
 
-LIBS += -L../Box2D/libs/Box2D -lBox2D
+LIBS += -L../Box2D/libs/Box2D -lBox2D -L../QuestionAPI -lQuestionAPI
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
