@@ -38,6 +38,28 @@ DemoWindow::DemoWindow(QWidget *parent) :
     angle[1] = sin(ui->angleSlider->value() * 3.141f / 180.0f);
     density = 1;
 
+
+
+    buildLevel1();
+
+    spriteTimer.start();
+
+    // Print the box number when it is hit (for debugging; delete this eventually).
+    connect(this, &DemoWindow::answerBoxHit, this, [=] (int box) { std::cout << box << std::endl; });
+}
+
+DemoWindow::~DemoWindow()
+{
+    delete ui;
+    delete sprite;
+
+    for (sf::Sprite* spritePtr : answerBoxes)
+        delete spritePtr;
+}
+
+
+void DemoWindow::buildLevel1()
+{
     // CONSTRUCT LEVELS--------
     // General process is: 1) Construct level, 2) Load its textures, 3) Add elements
     // Level 1:
@@ -174,18 +196,28 @@ DemoWindow::DemoWindow(QWidget *parent) :
     cannon->setPosition(25, 290);
      //adding it to the canvas sprites
     ui->canvas->addSprite(cannon);
-
-    spriteTimer.start();
 }
 
-DemoWindow::~DemoWindow()
+void DemoWindow::buildLevel2()
 {
-    delete ui;
-    delete sprite;
 
-    for (sf::Sprite* spritePtr : answerBoxes)
-        delete spritePtr;
 }
+
+void DemoWindow::buildLevel3()
+{
+
+}
+
+void DemoWindow::buildLevel4()
+{
+
+}
+
+void DemoWindow::buildLevel5()
+{
+
+}
+
 
 void DemoWindow::assembleShortTree(Level* level1, float32 posX)
 {
@@ -380,7 +412,6 @@ void DemoWindow::spawnCannonball()
 
 void DemoWindow::changeAngle()
 {
-
     angle[0] = cos(ui->angleSlider->value() * 3.141f / 180.0f);
     angle[1] = sin(ui->angleSlider->value() * 3.141f / 180.0f);
     cannon->setRotation(ui->angleSlider->value() * - 1);
@@ -396,3 +427,17 @@ void DemoWindow::changeDensity()
 {
     density = ui->massSlider->value();
 }
+
+void DemoWindow::startQuestion() {
+//    currentQuestion = questions.ShuffleAnswers(questions.Questions()[questionIndex]);
+//    ui->questionLabel->setText(QString::fromStdString(currentQuestion.question));
+//    ui->answerLabelA->setText(QString::fromStdString("(A) "+currentQuestion.answers[0]));
+//    ui->answerLabelB->setText(QString::fromStdString("(B) "+currentQuestion.answers[1]));
+//    ui->answerLabelC->setText(QString::fromStdString("(C) "+currentQuestion.answers[2]));
+//    ui->answerLabelD->setText(QString::fromStdString("(D) "+currentQuestion.answers[3]));
+}
+
+bool DemoWindow::checkAnswer(int playerAnswer) {
+    return (playerAnswer == currentQuestion.correctAnswer);
+}
+
