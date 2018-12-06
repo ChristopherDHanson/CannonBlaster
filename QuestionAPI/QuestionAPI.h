@@ -5,9 +5,6 @@
 #include <vector>
 
 class QuestionModel {
-  private:
-    std::vector<QuestionModel::Question> questionVector;
-
   public:
     struct Question {
       std::string question;
@@ -22,6 +19,9 @@ class QuestionModel {
     QuestionModel(std::string csvfile);
     std::vector<QuestionModel::Question> Questions();
     ShuffledQuestion ShuffleAnswers(Question q);
+
+    private:
+      std::vector<QuestionModel::Question> questionVector;
 };
 
 #endif
