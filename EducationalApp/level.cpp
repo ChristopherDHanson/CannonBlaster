@@ -181,3 +181,13 @@ void Level::next()
         world->Step(timeStep, 6, 2);
     }
 }
+
+QVector<b2Vec2> Level::getAnswerBoxPositions()
+{
+    return answerBoxPositions;
+}
+
+void Level::setAnswerBoxPositions(QVector<b2Vec2> pos)
+{
+    answerBoxPositions = pos;
+}

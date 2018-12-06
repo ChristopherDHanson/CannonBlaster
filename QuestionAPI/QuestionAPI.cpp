@@ -4,6 +4,8 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <cstdlib>
+#include <algorithm>
 using namespace std;
 
 QuestionModel::QuestionModel(string csvfile) {
@@ -41,4 +43,30 @@ QuestionModel::QuestionModel(string csvfile) {
 
 std::vector<QuestionModel::Question> QuestionModel::Questions() {
   return questionVector;
+}
+
+QuestionModel::ShuffledQuestion QuestionModel::ShuffleAnswers(Question q, int answerCount) {
+  ShuffledQuestion shuffleQ;
+  shuffleQ.answers = vector<string>();
+
+  vector<string> incorrect = q.incorrect;
+  srand(time(NULL));
+
+  std::random_shuffle(incorrect.begin(),incorrect.end());
+  shuffleQ.question = q.question;
+  shuffleQ.correctAnswer = rand() % min(answerCount, (int)incorrect.size());
+  int index = 0;
+  bool passedCorrect = false;
+  while (shuffleQ.answers.size() < min(answerCount, (int)incorrect.size())) {
+    if (index == shuffleQ.correctAnswer) {
+      shuffleQ.answers.push_back(q.correctAnswer);
+      passedCorrect = true;
+    }
+    else {
+      shuffleQ.answers.push_back(incorrect[index-(passedCorrect?1:0)]);
+    }
+    index++;
+  }
+
+  return shuffleQ;
 }
