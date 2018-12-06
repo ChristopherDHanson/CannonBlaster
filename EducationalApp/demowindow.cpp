@@ -39,16 +39,11 @@ DemoWindow::DemoWindow(QWidget *parent) :
     angle[1] = sin(ui->angleSlider->value() * 3.141f / 180.0f);
     density = 1;
 
-
-
     buildLevel1();
     questionIndex = 0;
     startQuestion();
 
     spriteTimer.start();
-
-    // Print the box number when it is hit (for debugging; delete this eventually).
-    connect(this, &DemoWindow::answerBoxHit, this, [=] (int box) { std::cout << box << std::endl; });
 }
 
 DemoWindow::~DemoWindow()
@@ -66,6 +61,7 @@ void DemoWindow::buildLevel1()
     // CONSTRUCT LEVELS--------
     // General process is: 1) Construct level, 2) Load its textures, 3) Add elements
     // Level 1:
+
     Level* level1 = new Level(-2.0f, 0.04f, 64.0f);
 
     // Texture preparation and loading
@@ -193,11 +189,11 @@ void DemoWindow::buildLevel1()
     ui->canvas->setBackdrop("../Images/springBckgrnd.png");
     setupAnswerBoxes();
 
-    //creating with the cannon without box2d
+    // creating with the cannon without box2d
     cannon = new sf::Sprite(textures[16]);
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
     cannon->setPosition(25, 290);
-     //adding it to the canvas sprites
+    // adding it to the canvas sprites
     ui->canvas->addSprite(cannon);
 }
 
@@ -218,7 +214,145 @@ void DemoWindow::buildLevel4()
 
 void DemoWindow::buildLevel5()
 {
+    Level* level = new Level(-2.0f, 0.04f, 64.0f);
 
+    // Texture preparation and loading
+    //++++
+    QVector<std::string> imgPaths = {
+        "../Images/coinSprite1.png",
+        "../Images/coinSprite2.png",
+        "../Images/coinSprite3.png",
+        "../Images/coinSprite4.png",
+        "../Images/blueBlock.png",
+        "../Images/SpringBlocks/springGroundWide.png",
+        "../Images/SpringBlocks/springBlock2.png",
+        "../Images/SpringBlocks/springBlock2Short.png",
+        "../Images/SpringBlocks/springTree.png",
+        "../Images/SpringBlocks/springTreeTop.png",
+        "../Images/SpringBlocks/springTreeMiddle.png",
+        "../Images/SpringBlocks/springTreeTrunk.png",
+        "../Images/SpringBlocks/springTreeBottom.png",
+        "../Images/SpringBlocks/springBlock2Top.png",
+        "../Images/SpringBlocks/springBlock2Part.png",
+        "../Images/SpringBlocks/springBlock2Btm.png",
+        "../Images/cannon1.png",
+        "../Images/redBlock.png",
+    };
+
+    for (std::string path : imgPaths) {
+        sf::Texture temp;
+        if (!temp.loadFromFile(path))
+            throw "EXIT_FAILURE";
+        else
+            textures.push_back(temp);
+    }
+
+    for (sf::Texture tex : textures) {
+        tex.setSmooth(true);
+    }
+
+    level->loadTextures(textures);
+
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,330,115, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,370,115, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,330,100, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,370,100, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,335,85, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,365,85, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,340,70, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,360,70, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,340,55, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,360,55, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,315,115, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,385,115, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,315,100, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,385,100, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,320,85, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,380,85, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,325,70, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,375,70, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,325,55, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,375,55, b2Vec2(0,0), 1, 4);
+
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,300, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,300, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,280, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,280, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,260, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,260, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,240, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,240, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,220, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,220, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,200, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,200, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,180, b2Vec2(0,0), 1, 4);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,180, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,160, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,160, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,140, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,140, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,120, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,120, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,100, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,100, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,80, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,80, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,60, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,60, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,40, b2Vec2(0,0), 100, 17);
+    level->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,40, b2Vec2(0,0), 100, 17);
+
+
+    // ground
+    level->createBox(textures[5].copyToImage().getSize().x,textures[5].copyToImage().getSize().y, 346, 320, 5);
+
+    // build a tree from its parts. 2nd parameter is the x position to build
+    //assembleShortTree(level, 380);
+    assembleMediumTree(level, 75);
+    assembleTallTree(level, 150);
+
+    // build block/wall structure
+    //assembleSmallTower(level, 160);
+    //assembleMediumTower(level, 650);
+    assembleTallTower(level, 330);
+    assembleTallTower(level, 375);
+
+
+    level->setLevelSpeed(6);
+    level->setCannonLocation(b2Vec2(350, 115));
+    levels.push_back(level);
+
+    // repeat process for further levels
+    // ------------------------
+
+
+    spriteSwapIdx = 0;
+
+    // Music stuff ++
+    if (!music.openFromFile("../Imperial_March.ogx")) {
+        throw "EXIT_FAILURE";
+    }
+    //music.play();
+    // ++
+
+
+    // Add current level sprites to the canvas
+    currentLevel = levels[0];
+    for (sf::Sprite* s : currentLevel->sprites)
+    {
+        ui->canvas->addSprite(s);
+    }
+
+    ui->canvas->setBackdrop("../Images/springBckgrnd.png");
+    setupAnswerBoxes();
+
+    //creating with the cannon without box2d
+    cannon = new sf::Sprite(textures[16]);
+    cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
+    cannon->setPosition(350, 115);
+     //adding it to the canvas sprites
+    ui->canvas->addSprite(cannon);
 }
 
 
@@ -344,17 +478,23 @@ int DemoWindow::answerBoxIndex(int x, int y)
 void DemoWindow::nextLevel() {
     if (currentLvlInd < levels.size()-1) // There are more levels to go
     {
+        numShots = 0;
         currentLevel = levels[++currentLvlInd];
         ui->canvas->clear();
         for (sf::Sprite* s : currentLevel->sprites)
         {
             ui->canvas->addSprite(s);
         }
+        uint idx = 0;
+        for (b2Vec2 pos : currentLevel->getAnswerBoxPositions()) {
+            answerBoxes[idx]->setPosition(pos.x, pos.y);
+            idx++;
+        }
         emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
     }
     else // Game has been beaten
     {
-        emit updateMessageBox("You have beaten the game.");
+        emit updateMessageBox("You have beaten the game. \nTotal shots: " + QString::number(totalShots));
     }
 
 }
@@ -394,19 +534,13 @@ void DemoWindow::updateSprites()
                 ballsInAnswerBoxes[index] = true;
             }
         }
-        //s->rotate(1.0);
-        //s->setTexture(textures[(spriteSwapIdx / 5) % 4]);
-        //std::cout << pos.x << " " <<pos.y << "  \n";
     }
-
-    // Change cannon rotation
-    //cannon->setRotation(2);
-
     spriteSwapIdx++;
 }
 
 void DemoWindow::spawnCannonball()
 {
+    totalShots++;
     emit updateShots(QString::number(++numShots));
     currentLevel->fireCannonball(b2Vec2(angle[0] * velocity, angle[1] * velocity), density);
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
@@ -446,4 +580,3 @@ void DemoWindow::startQuestion() {
 bool DemoWindow::checkAnswer(int playerAnswer) {
     return (playerAnswer == currentQuestion.correctAnswer);
 }
-
