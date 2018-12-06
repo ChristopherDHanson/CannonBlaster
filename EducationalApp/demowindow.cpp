@@ -364,3 +364,30 @@ void DemoWindow::changeDensity()
 {
     density = ui->massSlider->value();
 }
+
+
+
+void DemoWindow::buildLevel1()
+{
+
+}
+
+void DemoWindow::buildLevel2()
+{
+
+}
+
+void DemoWindow::buildLevel3()
+{
+
+}
+
+void DemoWindow::buildLevel4()
+{
+
+}
+
+void DemoWindow::buildLevel5()
+{
+
+}
