@@ -602,12 +602,12 @@ void DemoWindow::nextLevel() {
             idx++;
         }
         emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
+        spriteTimer.start();
     }
     else // Game has been beaten
     {
         emit updateMessageBox("You have beaten the game. \nTotal shots: " + QString::number(totalShots));
     }
-
 }
 
 // SLOTS
