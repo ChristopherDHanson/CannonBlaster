@@ -358,7 +358,7 @@ void DemoWindow::changeAngle()
 void DemoWindow::changeVelocity()
 {
     velocity = ui->velocitySlider->value() / 10.0f;
-    std::cout << velocity << std::endl;
+//    std::cout << velocity << std::endl;
 }
 
 void DemoWindow::changeDensity()
