@@ -29,6 +29,7 @@ private:
     sf::Sprite* sprite;
     int spriteSwapIdx;
     std::vector<sf::Texture> textures;
+    std::vector<sf::Texture> nonInteractiveTextures;
     sf::Music music;
     QVector<Level*> levels;
     Level* currentLevel;
@@ -36,8 +37,9 @@ private:
     std::vector<sf::Sprite*> answerBoxes;
     std::map<int, bool> ballsInAnswerBoxes;
 
+    sf::Sprite* cannon;
     QVector<sf::Sprite*> sprites;
-    float angle[2];
+    float angle[3];
     float velocity;
     float density;
 
@@ -56,8 +58,12 @@ private:
 public slots:
     void updateSprites();
     void spawnCannonball();
-    void spawnTree(Level* level1, float32 posX);
+    void spawnShortTree(Level* level1, float32 posX);
+    void spawnMediumTree(Level* level1, float32 posX);
     void spawnTallTree(Level* level1, float32 posX);
+    void spawnSmallTower(Level* level1, float32 posX);
+    void spawnMediumTower(Level* level1, float32 posX);
+    void spawnTallTower(Level* level1, float32 posX);
     void changeVelocity();
     void changeAngle();
     void changeDensity();
