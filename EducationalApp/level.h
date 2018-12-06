@@ -16,7 +16,7 @@ private:
     std::vector<sf::Texture> textures; // Raw textures stored here
     int levelSpeed = 3;
     QVector<b2Vec2> answerBoxPositions = {b2Vec2(600, 50 + 70),b2Vec2(600, 50 + 140),b2Vec2(600, 50 + 210),b2Vec2(600, 50 + 280)};
-    sf::Music music;
+    std::string musicPath;
     int test;
 
 public:
@@ -35,7 +35,8 @@ public:
     void next();
     QVector<b2Vec2> getAnswerBoxPositions();
     void setAnswerBoxPositions(QVector<b2Vec2> pos);
-    void setMusic(std::string musicPath);
+    void setMusicPath(std::string musicPath);
+    std::string getMusicPath();
 
     QVector<b2Body*> bodies; // Physics information for each object stored here
     QVector<sf::Sprite*> sprites; // Sprites representing each object stored here

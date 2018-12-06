@@ -192,9 +192,12 @@ void Level::setAnswerBoxPositions(QVector<b2Vec2> pos)
     answerBoxPositions = pos;
 }
 
-void Level::setMusic(std::string musicPath)
+void Level::setMusicPath(std::string musicPath)
 {
-    if (!music.openFromFile(musicPath)) {
-        throw "EXIT_FAILURE";
-    }
+    this->musicPath = musicPath;
+}
+
+std::string Level::getMusicPath()
+{
+    return musicPath;
 }

@@ -307,8 +307,6 @@ void DemoWindow::buildLevel2()
     cannon = new sf::Sprite(textures[16]);
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
     cannon->setPosition(50, 290);
-    //adding it to the canvas sprites
-    ui->canvas->addSprite(cannon);
 }
 
 void DemoWindow::buildLevel3()
