@@ -45,15 +45,15 @@ std::vector<QuestionModel::Question> QuestionModel::Questions() {
   return questionVector;
 }
 
-QuestionModel::ShuffledQuestion QuestionModel::ShuffleAnswers(Question q) {
+QuestionModel::ShuffledQuestion QuestionModel::ShuffleAnswers(Question q, int answerCount = 4) {
   std::random_shuffle(q.incorrect.begin(),q.incorrect.end());
   srand(time(NULL));
 
   ShuffledQuestion shuffleQ;
   shuffleQ.question = q.question;
-  shuffleQ.correctAnswer = rand() % q.incorrect.size();
+  shuffleQ.correctAnswer = rand() % min(answerCount, q.incorrect.size());
   int index = 0;
-  while (index < q.incorrect.size()) {
+  while (index < min(answerCount, q.incorrect.size())) {
     if (index == shuffleQ.correctAnswer) {
       shuffleQ.answers.push_back(q.correctAnswer);
     }
