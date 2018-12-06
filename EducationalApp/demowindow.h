@@ -43,6 +43,12 @@ private:
     float velocity;
     float density;
 
+    void buildLevel1();
+    void buildLevel2();
+    void buildLevel3();
+    void buildLevel4();
+    void buildLevel5();
+
     void setupAnswerBoxes();
     ///
     /// \brief answerBoxIndex

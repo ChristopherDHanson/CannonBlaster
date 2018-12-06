@@ -184,6 +184,33 @@ DemoWindow::~DemoWindow()
         delete spritePtr;
 }
 
+
+void DemoWindow::buildLevel1()
+{
+
+}
+
+void DemoWindow::buildLevel2()
+{
+
+}
+
+void DemoWindow::buildLevel3()
+{
+
+}
+
+void DemoWindow::buildLevel4()
+{
+
+}
+
+void DemoWindow::buildLevel5()
+{
+
+}
+
+
 void DemoWindow::assembleShortTree(Level* level1, float32 posX)
 {
     level1->createCircleNew(textures[9].copyToImage().getSize().x,textures[9].copyToImage().getSize().y, posX, 267, 9);    //leaves
@@ -349,7 +376,6 @@ void DemoWindow::spawnCannonball()
 
 void DemoWindow::changeAngle()
 {
-
     angle[0] = cos(ui->angleSlider->value() * 3.141f / 180.0f);
     angle[1] = sin(ui->angleSlider->value() * 3.141f / 180.0f);
     cannon->setRotation(ui->angleSlider->value() * - 1);
@@ -365,3 +391,4 @@ void DemoWindow::changeDensity()
 {
     density = ui->massSlider->value();
 }
+
