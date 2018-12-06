@@ -35,7 +35,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
 
 
-    buildLevel1();
+    buildLevel2();
 
     spriteTimer.start();
 
@@ -195,6 +195,107 @@ void DemoWindow::buildLevel1()
 void DemoWindow::buildLevel2()
 {
 
+    Level* level2 = new Level(-2.0f, 0.04f, 64.0f);
+
+    QVector<std::string> imgPaths = {
+        "../Images/coinSprite1.png",
+        "../Images/coinSprite2.png",
+        "../Images/coinSprite3.png",
+        "../Images/coinSprite4.png",
+        "../Images/blueBlock.png",
+        "../Images/SpringBlocks/springGroundWide.png",
+        "../Images/SpringBlocks/springBlock2.png",
+        "../Images/SpringBlocks/springBlock2Short.png",
+        "../Images/SpringBlocks/springTree.png",
+        "../Images/SpringBlocks/springTreeTop.png",
+        "../Images/SpringBlocks/springTreeMiddle.png",
+        "../Images/SpringBlocks/springTreeTrunk.png",
+        "../Images/SpringBlocks/springTreeBottom.png",
+        "../Images/SpringBlocks/springBlock2Top.png",
+        "../Images/SpringBlocks/springBlock2Part.png",
+        "../Images/SpringBlocks/springBlock2Btm.png",
+        "../Images/cannon1.png",
+        "../Images/redBlock.png",
+    };
+
+    textures.clear();
+
+    for (std::string path : imgPaths) {
+        sf::Texture temp;
+        if (!temp.loadFromFile(path))
+            throw "EXIT_FAILURE";
+        else
+            textures.push_back(temp);
+    }
+
+    for (sf::Texture tex : textures) {
+        tex.setSmooth(true);
+    }
+
+    level2->loadTextures(textures);
+
+
+    for(int y = 0; y < 5; y++)
+    {
+        for(int x = 0; x < 3; x++)
+        {
+            level2->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,(110 * y) + 144 + (16 * x),150, b2Vec2(0,0), 1, 4);
+
+        }
+        for(int x = 0; x < 2; x++)
+        {
+            level2->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,(110 * y) + 152 + (16 * x),120, b2Vec2(0,0), 1, 4);
+
+        }
+        for(int x = 0; x < 1; x++)
+        {
+            level2->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,(110 * y) + 160 + (16 * x),100, b2Vec2(0,0), 1, 4);
+
+        }
+
+    }
+
+
+
+    assembleMediumTower(level2, 160);
+    assembleMediumTower(level2, 270);
+    assembleMediumTower(level2, 380);
+    assembleMediumTower(level2, 490);
+    assembleMediumTower(level2, 600);
+
+
+
+
+    level2->createBox(textures[5].copyToImage().getSize().x,textures[5].copyToImage().getSize().y, 346, 320, 5);
+
+    level2->setLevelSpeed(6);
+    level2->setCannonLocation(b2Vec2(50, 290));
+    levels.push_back(level2);
+
+    // Music stuff ++
+    if (!music.openFromFile("../Imperial_March.ogx")) {
+        throw "EXIT_FAILURE";
+    }
+    //music.play();
+    // ++
+
+
+    currentLevel = levels[0];
+    for (sf::Sprite* s : currentLevel->sprites)
+    {
+        ui->canvas->addSprite(s);
+    }
+
+    ui->canvas->setBackdrop("../Images/springBckgrnd.png");
+    setupAnswerBoxes();
+
+
+
+    cannon = new sf::Sprite(textures[16]);
+    cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
+    cannon->setPosition(50, 290);
+    //adding it to the canvas sprites
+    ui->canvas->addSprite(cannon);
 }
 
 void DemoWindow::buildLevel3()
