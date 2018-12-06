@@ -10,6 +10,7 @@
 #include <SFML/Audio.hpp>
 
 #include "level.h"
+#include "../QuestionAPI/QuestionAPI.h"
 
 namespace Ui {
 class DemoWindow;
@@ -29,15 +30,15 @@ private:
     sf::Sprite* sprite;
     int spriteSwapIdx;
     std::vector<sf::Texture> textures;
-    std::vector<sf::Texture> nonInteractiveTextures;
-    sf::Music music;
-    QVector<Level*> levels;
-    Level* currentLevel;
     std::vector<sf::Texture> answerTextures;
     std::vector<sf::Sprite*> answerBoxes;
+    QVector<Level*> levels;
+    //QuestionModel questions;
+    sf::Music music;
+    Level* currentLevel;
     std::map<int, bool> ballsInAnswerBoxes;
     int numShots = 0;
-
+    int currentLvlInd = 0;
     sf::Sprite* cannon;
     float angle[3];
     float velocity;
@@ -59,8 +60,10 @@ private:
     void assembleSmallTower(Level* level1, float32 posX);
     void assembleMediumTower(Level* level1, float32 posX);
     void assembleTallTower(Level* level1, float32 posX);
+    void nextLevel();
 
 public slots:
+    void checkCorrectness(int boxNum);
     void updateSprites();
     void spawnCannonball();
     void changeVelocity();
@@ -76,6 +79,8 @@ signals:
     /// answer: 0 for box A, 1 for box B, etc.
     void answerBoxHit(int boxIndex);
     void updateShots(QString shots);
+    void updateMessageBox(QString msg);
+    void updateLevelBox(QString lvl);
 };
 
 #endif // DEMOWINDOW_H

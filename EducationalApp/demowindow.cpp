@@ -22,15 +22,20 @@ DemoWindow::DemoWindow(QWidget *parent) :
     connect(ui->velocitySlider, &QSlider::sliderMoved, this, &DemoWindow::changeVelocity);
     connect(ui->massSlider, &QSlider::sliderMoved, this, &DemoWindow::changeDensity);
 
-    connect(this, &DemoWindow::updateShots,
-                         ui->scoreDisplayLabel, &QLabel::setText);
+    connect(this, &DemoWindow::updateShots, ui->scoreDisplayLabel, &QLabel::setText);
+    connect(this, &DemoWindow::updateMessageBox, ui->messageBox, &QLabel::setText);
+    connect(this, &DemoWindow::updateLevelBox, ui->levelLabel, &QLabel::setText);
 
     spriteTimer.setInterval(40);
     connect(&spriteTimer, &QTimer::timeout, this, &DemoWindow::updateSprites);
 
+    // Print the box number when it is hit (for debugging; delete this eventually).
+    connect(this, &DemoWindow::answerBoxHit, this, [=] (int box) { std::cout << box << std::endl; });
+    connect(this, &DemoWindow::answerBoxHit, this, &DemoWindow::checkCorrectness);
+
     velocity = 20;
-    angle[0] = cos(ui->angleSlider->value() * 3.141 / 180);
-    angle[1] = sin(ui->angleSlider->value() * 3.141 / 180);
+    angle[0] = cos(ui->angleSlider->value() * 3.141f / 180.0f);
+    angle[1] = sin(ui->angleSlider->value() * 3.141f / 180.0f);
     density = 1;
 
     // CONSTRUCT LEVELS--------
@@ -153,11 +158,12 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
 
     // Add current level sprites to the canvas
-    currentLevel = levels[0];
+    currentLevel = levels[currentLvlInd];
     for (sf::Sprite* s : currentLevel->sprites)
     {
         ui->canvas->addSprite(s);
     }
+    emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
 
     ui->canvas->setBackdrop("../Images/springBckgrnd.png");
     setupAnswerBoxes();
@@ -170,9 +176,6 @@ DemoWindow::DemoWindow(QWidget *parent) :
     ui->canvas->addSprite(cannon);
 
     spriteTimer.start();
-
-    // Print the box number when it is hit (for debugging; delete this eventually).
-    connect(this, &DemoWindow::answerBoxHit, this, [=] (int box) { std::cout << box << std::endl; });
 }
 
 DemoWindow::~DemoWindow()
@@ -303,8 +306,36 @@ int DemoWindow::answerBoxIndex(int x, int y)
     return -1;
 }
 
+void DemoWindow::nextLevel() {
+    if (currentLvlInd < levels.size()-1) // There are more levels to go
+    {
+        currentLevel = levels[++currentLvlInd];
+        ui->canvas->clear();
+        for (sf::Sprite* s : currentLevel->sprites)
+        {
+            ui->canvas->addSprite(s);
+        }
+        emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
+    }
+    else // Game has been beaten
+    {
+        emit updateMessageBox("You have beaten the game.");
+    }
+
+}
 
 // SLOTS
+void DemoWindow::checkCorrectness(int boxNum)
+{
+    if (boxNum == 0) { // If correct answer
+        emit updateMessageBox("Correct answer hit!");
+        nextLevel();
+    }
+    else {
+        emit updateMessageBox("Wrong answer hit!");
+    }
+}
+
 void DemoWindow::updateSprites()
 {
     // Update level physics state
