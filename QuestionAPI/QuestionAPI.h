@@ -18,7 +18,7 @@ class QuestionModel {
     };
     QuestionModel(std::string csvfile);
     std::vector<QuestionModel::Question> Questions();
-    ShuffledQuestion ShuffleAnswers(Question q);
+    ShuffledQuestion ShuffleAnswers(Question q, int answerCount = 4);
 
     private:
       std::vector<QuestionModel::Question> questionVector;
