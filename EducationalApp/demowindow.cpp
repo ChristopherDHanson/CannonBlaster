@@ -145,10 +145,11 @@ DemoWindow::DemoWindow(QWidget *parent) :
     spriteSwapIdx = 0;
 
     // Music stuff ++
-    if (!music.openFromFile("../Imperial_March.ogx")) {
+    if (!music.openFromFile("../Audio/chiptune1.ogg")) {
         throw "EXIT_FAILURE";
     }
-    //music.play();
+    music.setLoop(true);
+    music.play();
     // ++
 
 
