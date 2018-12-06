@@ -10,6 +10,7 @@
 #include <SFML/Audio.hpp>
 
 #include "level.h"
+#include "QuestionAPI.h"
 
 namespace Ui {
 class DemoWindow;
@@ -42,6 +43,9 @@ private:
     float angle[3];
     float velocity;
     float density;
+
+    QuestionModel questionModel;
+    QuestionModel::ShuffledQuestion currentQuestion;
 
     void buildLevel1();
     void buildLevel2();
