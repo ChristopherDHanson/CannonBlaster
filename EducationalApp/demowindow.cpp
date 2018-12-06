@@ -121,14 +121,14 @@ DemoWindow::DemoWindow(QWidget *parent) :
     level1->createBox(textures[5].copyToImage().getSize().x,textures[5].copyToImage().getSize().y, 346, 320, 5);
 
     // build a tree from its parts. 2nd parameter is the x position to build
-    spawnShortTree(level1, 380);
-    spawnMediumTree(level1, 220);
-    spawnTallTree(level1, 250);
+    assembleShortTree(level1, 380);
+    assembleMediumTree(level1, 220);
+    assembleTallTree(level1, 250);
 
     // build block/wall structure
-    spawnSmallTower(level1, 160);
-    spawnMediumTower(level1, 650);
-    spawnTallTower(level1, 330);
+    assembleSmallTower(level1, 160);
+    assembleMediumTower(level1, 650);
+    assembleTallTower(level1, 330);
 
 
     level1->setLevelSpeed(6);
@@ -156,7 +156,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
         ui->canvas->addSprite(s);
     }
 
-    loadBackground();
+    ui->canvas->setBackdrop("../Images/springBckgrnd.png");
     setupAnswerBoxes();
 
     //creating with the cannon without box2d
@@ -166,7 +166,6 @@ DemoWindow::DemoWindow(QWidget *parent) :
      //adding it to the canvas sprites
     ui->canvas->addSprite(cannon);
 
-    ui->canvas->setBackdrop("../Images/springBckgrnd.png");
     spriteTimer.start();
 
     // Print the box number when it is hit (for debugging; delete this eventually).
@@ -182,7 +181,7 @@ DemoWindow::~DemoWindow()
         delete spritePtr;
 }
 
-void DemoWindow::spawnShortTree(Level* level1, float32 posX)
+void DemoWindow::assembleShortTree(Level* level1, float32 posX)
 {
     level1->createCircleNew(textures[9].copyToImage().getSize().x,textures[9].copyToImage().getSize().y, posX, 267, 9);    //leaves
     level1->createBox(textures[10].copyToImage().getSize().x,textures[10].copyToImage().getSize().y, posX, 284, 10); //middle
@@ -191,7 +190,7 @@ void DemoWindow::spawnShortTree(Level* level1, float32 posX)
     level1->createBox(textures[12].copyToImage().getSize().x,textures[12].copyToImage().getSize().y, posX, 303, 12); //base
 }
 
-void DemoWindow::spawnMediumTree(Level* level1, float32 posX)
+void DemoWindow::assembleMediumTree(Level* level1, float32 posX)
 {
     level1->createCircleNew(textures[9].copyToImage().getSize().x,textures[9].copyToImage().getSize().y, posX, 253, 9);    //leaves
     level1->createBox(textures[10].copyToImage().getSize().x,textures[10].copyToImage().getSize().y, posX, 270, 10); //middle
@@ -205,7 +204,7 @@ void DemoWindow::spawnMediumTree(Level* level1, float32 posX)
     level1->createBox(textures[12].copyToImage().getSize().x,textures[12].copyToImage().getSize().y, posX, 303, 12); //base
 }
 
-void DemoWindow::spawnTallTree(Level* level1, float32 posX)
+void DemoWindow::assembleTallTree(Level* level1, float32 posX)
 {
     level1->createCircleNew(textures[9].copyToImage().getSize().x,textures[9].copyToImage().getSize().y, posX, 232, 9);    //leaves
     level1->createBox(textures[10].copyToImage().getSize().x,textures[10].copyToImage().getSize().y, posX, 249, 10); //middle
@@ -219,14 +218,14 @@ void DemoWindow::spawnTallTree(Level* level1, float32 posX)
     level1->createBox(textures[12].copyToImage().getSize().x,textures[12].copyToImage().getSize().y, posX, 303, 12); //base
 }
 
-void DemoWindow::spawnSmallTower(Level* level1, float32 posX)
+void DemoWindow::assembleSmallTower(Level* level1, float32 posX)
 {
     level1->createBox(textures[13].copyToImage().getSize().x,textures[13].copyToImage().getSize().y, posX, 264, 13);    // top
     level1->createBox(textures[14].copyToImage().getSize().x,textures[14].copyToImage().getSize().y, posX, 286, 14);    // middle
     level1->createBox(textures[15].copyToImage().getSize().x,textures[15].copyToImage().getSize().y, posX, 303, 15);    // bottom
 }
 
-void DemoWindow::spawnMediumTower(Level* level1, float32 posX)
+void DemoWindow::assembleMediumTower(Level* level1, float32 posX)
 {
     level1->createBox(textures[13].copyToImage().getSize().x,textures[13].copyToImage().getSize().y, posX, 200, 13);    // top
     level1->createBox(textures[14].copyToImage().getSize().x,textures[14].copyToImage().getSize().y, posX, 222, 14);    // middle
@@ -235,7 +234,7 @@ void DemoWindow::spawnMediumTower(Level* level1, float32 posX)
     level1->createBox(textures[15].copyToImage().getSize().x,textures[15].copyToImage().getSize().y, posX, 303, 15);    // bottom
 }
 
-void DemoWindow::spawnTallTower(Level* level1, float32 posX)
+void DemoWindow::assembleTallTower(Level* level1, float32 posX)
 {
     level1->createBox(textures[13].copyToImage().getSize().x,textures[13].copyToImage().getSize().y, posX, 136, 13);    // top
     // loop for middle pieces
@@ -246,6 +245,59 @@ void DemoWindow::spawnTallTower(Level* level1, float32 posX)
         blockYPos += 32;
     }
     level1->createBox(textures[15].copyToImage().getSize().x,textures[15].copyToImage().getSize().y, posX, 303, 15);    // bottom
+}
+
+void DemoWindow::setupAnswerBoxes()
+{
+    answerTextures = std::vector<sf::Texture>(4);
+    sf::Texture boxTextureA;
+    sf::Texture boxTextureB;
+    sf::Texture boxTextureC;
+    sf::Texture boxTextureD;
+
+    if (!answerTextures[0].loadFromFile("../Images/QuestionRelated/boxA.png"))
+        throw "image not found.";
+    if (!answerTextures[1].loadFromFile("../Images/QuestionRelated/boxB.png"))
+        throw "image not found.";
+    if (!answerTextures[2].loadFromFile("../Images/QuestionRelated/boxC.png"))
+        throw "image not found.";
+    if (!answerTextures[3].loadFromFile("../Images/QuestionRelated/boxD.png"))
+        throw "image not found.";
+
+    // Load the textures into the boxes.
+    answerBoxes.push_back(new sf::Sprite(answerTextures[0]));
+    answerBoxes.push_back(new sf::Sprite(answerTextures[1]));
+    answerBoxes.push_back(new sf::Sprite(answerTextures[2]));
+    answerBoxes.push_back(new sf::Sprite(answerTextures[3]));
+
+    // Place the boxes in the level.
+    for (uint16_t idx = 0; idx < 4; idx++) {
+        answerBoxes[idx]->scale(float(0.6), float(0.6));
+        answerBoxes[idx]->setPosition(600, 50 + 70 * idx);
+        answerBoxes[idx]->setOrigin(50, 50);
+        ui->canvas->addSprite(answerBoxes[idx]);
+    }
+}
+
+int DemoWindow::answerBoxIndex(int x, int y)
+{
+    sf::FloatRect bounds = answerBoxes[0]->getGlobalBounds();
+    if (y >= bounds.top && x >= bounds.left && y - bounds.top <= bounds.height && x - bounds.left <= bounds.width)
+        return 0;
+
+    bounds = answerBoxes[1]->getGlobalBounds();
+    if (y >= bounds.top && x >= bounds.left && y - bounds.top <= bounds.height && x - bounds.left <= bounds.width)
+        return 1;
+
+    bounds = answerBoxes[2]->getGlobalBounds();
+    if (y >= bounds.top && x >= bounds.left && y - bounds.top <= bounds.height && x - bounds.left <= bounds.width)
+        return 2;
+
+    bounds = answerBoxes[3]->getGlobalBounds();
+    if (y >= bounds.top && x >= bounds.left && y - bounds.top <= bounds.height && x - bounds.left <= bounds.width)
+        return 3;
+
+    return -1;
 }
 
 
@@ -290,43 +342,6 @@ void DemoWindow::spawnCannonball()
     ballsInAnswerBoxes[currentLevel->sprites.size() - 1] = false;
 }
 
-void DemoWindow::setupAnswerBoxes()
-{
-    answerTextures = std::vector<sf::Texture>(4);
-    sf::Texture boxTextureA;
-    sf::Texture boxTextureB;
-    sf::Texture boxTextureC;
-    sf::Texture boxTextureD;
-
-    if (!answerTextures[0].loadFromFile("../images/QuestionRelated/boxA.png"))
-        throw "image not found.";
-    if (!answerTextures[1].loadFromFile("../images/QuestionRelated/boxB.png"))
-        throw "image not found.";
-    if (!answerTextures[2].loadFromFile("../images/QuestionRelated/boxC.png"))
-        throw "image not found.";
-    if (!answerTextures[3].loadFromFile("../images/QuestionRelated/boxD.png"))
-        throw "image not found.";
-
-    // Load the textures into the boxes.
-    answerBoxes.push_back(new sf::Sprite(answerTextures[0]));
-    answerBoxes.push_back(new sf::Sprite(answerTextures[1]));
-    answerBoxes.push_back(new sf::Sprite(answerTextures[2]));
-    answerBoxes.push_back(new sf::Sprite(answerTextures[3]));
-
-    // Place the boxes in the level.
-    for (uint16_t idx = 0; idx < 4; idx++) {
-        answerBoxes[idx]->scale(float(0.6), float(0.6));
-        answerBoxes[idx]->setPosition(600, 50 + 70 * idx);
-        answerBoxes[idx]->setOrigin(50, 50);
-        ui->canvas->addSprite(answerBoxes[idx]);
-    }
-}
-
-void DemoWindow::loadBackground()
-{
-    ui->canvas->setBackdrop("../Images/springBckgrnd.png");
-}
-
 void DemoWindow::changeAngle()
 {
 
@@ -344,25 +359,4 @@ void DemoWindow::changeVelocity()
 void DemoWindow::changeDensity()
 {
     density = ui->massSlider->value();
-}
-
-int DemoWindow::answerBoxIndex(int x, int y)
-{
-    sf::FloatRect bounds = answerBoxes[0]->getGlobalBounds();
-    if (y >= bounds.top && x >= bounds.left && y - bounds.top <= bounds.height && x - bounds.left <= bounds.width)
-        return 0;
-
-    bounds = answerBoxes[1]->getGlobalBounds();
-    if (y >= bounds.top && x >= bounds.left && y - bounds.top <= bounds.height && x - bounds.left <= bounds.width)
-        return 1;
-
-    bounds = answerBoxes[2]->getGlobalBounds();
-    if (y >= bounds.top && x >= bounds.left && y - bounds.top <= bounds.height && x - bounds.left <= bounds.width)
-        return 2;
-
-    bounds = answerBoxes[3]->getGlobalBounds();
-    if (y >= bounds.top && x >= bounds.left && y - bounds.top <= bounds.height && x - bounds.left <= bounds.width)
-        return 3;
-
-    return -1;
 }

@@ -38,12 +38,10 @@ private:
     std::map<int, bool> ballsInAnswerBoxes;
 
     sf::Sprite* cannon;
-    QVector<sf::Sprite*> sprites;
     float angle[3];
     float velocity;
     float density;
 
-    void loadBackground();
     void setupAnswerBoxes();
     ///
     /// \brief answerBoxIndex
@@ -54,16 +52,16 @@ private:
     /// Returns -1 if the coordinate is not in an answer box, or the index of the answer box if it
     /// is (i.e. 0 for box A, 3 for box D).
     int answerBoxIndex(int x, int y);
+    void assembleShortTree(Level* level1, float32 posX);
+    void assembleMediumTree(Level* level1, float32 posX);
+    void assembleTallTree(Level* level1, float32 posX);
+    void assembleSmallTower(Level* level1, float32 posX);
+    void assembleMediumTower(Level* level1, float32 posX);
+    void assembleTallTower(Level* level1, float32 posX);
 
 public slots:
     void updateSprites();
     void spawnCannonball();
-    void spawnShortTree(Level* level1, float32 posX);
-    void spawnMediumTree(Level* level1, float32 posX);
-    void spawnTallTree(Level* level1, float32 posX);
-    void spawnSmallTower(Level* level1, float32 posX);
-    void spawnMediumTower(Level* level1, float32 posX);
-    void spawnTallTower(Level* level1, float32 posX);
     void changeVelocity();
     void changeAngle();
     void changeDensity();
