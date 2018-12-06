@@ -332,13 +332,6 @@ void DemoWindow::buildLevel3()
 
     spriteSwapIdx = 0;
 
-    // Music stuff ++
-    if (!music.openFromFile("../Imperial_March.ogx")) {
-        throw "EXIT_FAILURE";
-    }
-    //music.play();
-    // ++
-
 
     // Add current level sprites to the canvas
     currentLevel = levels[0];
