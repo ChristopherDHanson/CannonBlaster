@@ -11,7 +11,8 @@ DemoWindow::DemoWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::DemoWindow),
     answerBoxes(),
-    ballsInAnswerBoxes()
+    ballsInAnswerBoxes(),
+    questions("../QuestionAPI/testfile.csv")
 {
     ui->setupUi(this);
 
@@ -36,6 +37,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
 
     buildLevel1();
+    //startQuestion();
 
     spriteTimer.start();
 
