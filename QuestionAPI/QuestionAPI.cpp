@@ -45,7 +45,7 @@ std::vector<QuestionModel::Question> QuestionModel::Questions() {
   return questionVector;
 }
 
-ShuffledQuestion ShuffleAnswers(Question q) {
+QuestionModel::ShuffledQuestion QuestionModel::ShuffleAnswers(Question q) {
   std::random_shuffle(q.incorrect.begin(),q.incorrect.end());
   srand(time(NULL));
 
