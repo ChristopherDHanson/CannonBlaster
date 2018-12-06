@@ -62,8 +62,6 @@ void DemoWindow::buildLevel1()
     // General process is: 1) Construct level, 2) Load its textures, 3) Add elements
     // Level 1:
 
-    buildLevel5();
-
     Level* level1 = new Level(-2.0f, 0.04f, 64.0f);
 
     // Texture preparation and loading
