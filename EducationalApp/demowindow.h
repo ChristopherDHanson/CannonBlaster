@@ -70,6 +70,7 @@ private:
     void assembleSmallTower(Level* targetLevel, float32 posX);
     void assembleMediumTower(Level* targetLevel, float32 posX);
     void assembleTallTower(Level* targetLevel, float32 posX);
+    void nextLevel();
 
 public slots:
     void checkCorrectness(int boxNum);

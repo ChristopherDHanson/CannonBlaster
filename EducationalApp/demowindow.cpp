@@ -39,7 +39,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
     angle[1] = sin(ui->angleSlider->value() * 3.141f / 180.0f);
     density = 1;
 
-    buildLevel1();
+    buildLevel3();
     questionIndex = 0;
     startQuestion();
 
