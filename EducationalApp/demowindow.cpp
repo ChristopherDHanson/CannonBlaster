@@ -33,6 +33,28 @@ DemoWindow::DemoWindow(QWidget *parent) :
     angle[1] = sin(ui->angleSlider->value() * 3.141 / 180);
     density = 1;
 
+
+
+    buildLevel1();
+
+    spriteTimer.start();
+
+    // Print the box number when it is hit (for debugging; delete this eventually).
+    connect(this, &DemoWindow::answerBoxHit, this, [=] (int box) { std::cout << box << std::endl; });
+}
+
+DemoWindow::~DemoWindow()
+{
+    delete ui;
+    delete sprite;
+
+    for (sf::Sprite* spritePtr : answerBoxes)
+        delete spritePtr;
+}
+
+
+void DemoWindow::buildLevel1()
+{
     // CONSTRUCT LEVELS--------
     // General process is: 1) Construct level, 2) Load its textures, 3) Add elements
     // Level 1:
@@ -168,26 +190,6 @@ DemoWindow::DemoWindow(QWidget *parent) :
     cannon->setPosition(25, 290);
      //adding it to the canvas sprites
     ui->canvas->addSprite(cannon);
-
-    spriteTimer.start();
-
-    // Print the box number when it is hit (for debugging; delete this eventually).
-    connect(this, &DemoWindow::answerBoxHit, this, [=] (int box) { std::cout << box << std::endl; });
-}
-
-DemoWindow::~DemoWindow()
-{
-    delete ui;
-    delete sprite;
-
-    for (sf::Sprite* spritePtr : answerBoxes)
-        delete spritePtr;
-}
-
-
-void DemoWindow::buildLevel1()
-{
-
 }
 
 void DemoWindow::buildLevel2()
