@@ -44,6 +44,10 @@ private:
     float velocity;
     float density;
 
+    QuestionModel questions;
+    int questionIndex;
+    QuestionModel::ShuffledQuestion currentQuestion;
+
     void buildLevel1();
     void buildLevel2();
     void buildLevel3();
@@ -73,6 +77,10 @@ public slots:
     void changeVelocity();
     void changeAngle();
     void changeDensity();
+
+    void startQuestion();
+    bool checkAnswer(int playerAnswer);
+
 
 signals:
     ///

@@ -394,3 +394,16 @@ void DemoWindow::changeDensity()
     density = ui->massSlider->value();
 }
 
+void DemoWindow::startQuestion() {
+    currentQuestion = questions.ShuffleAnswers(questions.Questions()[questionIndex]);
+    ui->questionLabel->setText(QString::fromStdString(currentQuestion.question));
+    ui->answerLabelA->setText(QString::fromStdString("(A) "+currentQuestion.answers[0]));
+    ui->answerLabelB->setText(QString::fromStdString("(B) "+currentQuestion.answers[1]));
+    ui->answerLabelC->setText(QString::fromStdString("(C) "+currentQuestion.answers[2]));
+    ui->answerLabelD->setText(QString::fromStdString("(D) "+currentQuestion.answers[3]));
+}
+
+bool DemoWindow::checkAnswer(int playerAnswer) {
+    return (playerAnswer == currentQuestion.correctAnswer);
+}
+
