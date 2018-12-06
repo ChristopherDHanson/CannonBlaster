@@ -7,7 +7,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "shape.h"
-//#include "QuestionAPI.h"
 
 class Level
 {
@@ -15,7 +14,6 @@ private:
     b2World *world;
     float32 timeStep;
     std::vector<sf::Texture> textures; // Raw textures stored here
-//    std::vector<Question>
     int levelSpeed = 3;
 
 public:
