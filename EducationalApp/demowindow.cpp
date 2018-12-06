@@ -46,9 +46,6 @@ DemoWindow::DemoWindow(QWidget *parent) :
     startQuestion();
 
     spriteTimer.start();
-
-    // Print the box number when it is hit (for debugging; delete this eventually).
-    connect(this, &DemoWindow::answerBoxHit, this, [=] (int box) { std::cout << box << std::endl; });
 }
 
 DemoWindow::~DemoWindow()
@@ -344,6 +341,11 @@ int DemoWindow::answerBoxIndex(int x, int y)
 void DemoWindow::nextLevel() {
     if (currentLvlInd < levels.size()-1) // There are more levels to go
     {
+        // Update the question.
+        if (++questionIndex < questions.Questions().size())
+            startQuestion();
+
+        // Update the level (map, objects, etc.).
         currentLevel = levels[++currentLvlInd];
         ui->canvas->clear();
         for (sf::Sprite* s : currentLevel->sprites)
@@ -362,7 +364,7 @@ void DemoWindow::nextLevel() {
 // SLOTS
 void DemoWindow::checkCorrectness(int boxNum)
 {
-    if (boxNum == 0) { // If correct answer
+    if (checkAnswer(boxNum)) { // If correct answer
         emit updateMessageBox("Correct answer hit!");
         nextLevel();
     }
@@ -390,7 +392,7 @@ void DemoWindow::updateSprites()
                 ballsInAnswerBoxes[index] = false;
 
             else if (!ballsInAnswerBoxes[index] && boxIndex >= 0) {
-                answerBoxHit(boxIndex);
+                emit answerBoxHit(boxIndex);
                 ballsInAnswerBoxes[index] = true;
             }
         }
