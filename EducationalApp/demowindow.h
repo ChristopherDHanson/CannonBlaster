@@ -41,6 +41,7 @@ private:
     int totalShots = 0;
     int currentLvlInd = 0;
     sf::Sprite* cannon;
+    sf::Sprite* tankTrooper;
     float angle[3];
     float velocity;
     float density;
