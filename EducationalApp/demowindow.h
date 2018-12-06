@@ -30,19 +30,23 @@ private:
     sf::Sprite* sprite;
     int spriteSwapIdx;
     std::vector<sf::Texture> textures;
-    std::vector<sf::Texture> nonInteractiveTextures;
-    sf::Music music;
-    QVector<Level*> levels;
-    Level* currentLevel;
     std::vector<sf::Texture> answerTextures;
     std::vector<sf::Sprite*> answerBoxes;
+    QVector<Level*> levels;
+    //QuestionModel questions;
+    sf::Music music;
+    Level* currentLevel;
     std::map<int, bool> ballsInAnswerBoxes;
     int numShots = 0;
-
+    int totalShots = 0;
+    int currentLvlInd = 0;
     sf::Sprite* cannon;
     float angle[3];
     float velocity;
     float density;
+    QuestionModel questions;
+    int questionIndex;
+    QuestionModel::ShuffledQuestion currentQuestion;
 
     void buildLevel1();
     void buildLevel2();
@@ -68,11 +72,16 @@ private:
     void assembleTallTower(Level* targetLevel, float32 posX);
 
 public slots:
+    void checkCorrectness(int boxNum);
     void updateSprites();
     void spawnCannonball();
     void changeVelocity();
     void changeAngle();
     void changeDensity();
+
+    void startQuestion();
+    bool checkAnswer(int playerAnswer);
+
 
 signals:
     ///
@@ -83,6 +92,8 @@ signals:
     /// answer: 0 for box A, 1 for box B, etc.
     void answerBoxHit(int boxIndex);
     void updateShots(QString shots);
+    void updateMessageBox(QString msg);
+    void updateLevelBox(QString lvl);
 };
 
 #endif // DEMOWINDOW_H
