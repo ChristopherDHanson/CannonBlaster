@@ -585,6 +585,7 @@ int DemoWindow::answerBoxIndex(int x, int y)
 }
 
 void DemoWindow::nextLevel() {
+    spriteTimer.stop();
     if (currentLvlInd < levels.size()-1) // There are more levels to go
     {
         numShots = 0;
@@ -597,6 +598,7 @@ void DemoWindow::nextLevel() {
         uint idx = 0;
         for (b2Vec2 pos : currentLevel->getAnswerBoxPositions()) {
             answerBoxes[idx]->setPosition(pos.x, pos.y);
+            ui->canvas->addSprite(answerBoxes[idx]);
             idx++;
         }
         emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));

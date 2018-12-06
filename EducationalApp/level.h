@@ -16,7 +16,6 @@ private:
     std::vector<sf::Texture> textures; // Raw textures stored here
     int levelSpeed = 3;
     QVector<b2Vec2> answerBoxPositions = {b2Vec2(600, 50 + 70),b2Vec2(600, 50 + 140),b2Vec2(600, 50 + 210),b2Vec2(600, 50 + 280)};
-    int test;
 
 public:
     Level(float32 gravity = -3.0f, float32 timeStep = 1.0f/60.0f, float32 pixelsPerUnit = 64.0f);
