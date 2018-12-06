@@ -12,7 +12,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
     ui(new Ui::DemoWindow),
     answerBoxes(),
     ballsInAnswerBoxes(),
-    questions("../QuestionAPI/testfile.csv")
+    questions("../QuestionAPI/testFile.csv")
 {
     ui->setupUi(this);
 
@@ -44,11 +44,10 @@ DemoWindow::DemoWindow(QWidget *parent) :
     buildLevel2();
     //buildLevel1();
     //startQuestion();
+    questionIndex = 0;
+    startQuestion();
 
     spriteTimer.start();
-
-    // Print the box number when it is hit (for debugging; delete this eventually).
-    connect(this, &DemoWindow::answerBoxHit, this, [=] (int box) { std::cout << box << std::endl; });
 }
 
 DemoWindow::~DemoWindow()
@@ -193,11 +192,11 @@ void DemoWindow::buildLevel1()
     ui->canvas->setBackdrop("../Images/springBckgrnd.png");
     setupAnswerBoxes();
 
-    //creating with the cannon without box2d
+    // creating with the cannon without box2d
     cannon = new sf::Sprite(textures[16]);
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
     cannon->setPosition(25, 290);
-     //adding it to the canvas sprites
+    // adding it to the canvas sprites
     ui->canvas->addSprite(cannon);
 }
 
@@ -446,6 +445,7 @@ int DemoWindow::answerBoxIndex(int x, int y)
 void DemoWindow::nextLevel() {
     if (currentLvlInd < levels.size()-1) // There are more levels to go
     {
+        numShots = 0;
         currentLevel = levels[++currentLvlInd];
         ui->canvas->clear();
         for (sf::Sprite* s : currentLevel->sprites)
@@ -456,7 +456,7 @@ void DemoWindow::nextLevel() {
     }
     else // Game has been beaten
     {
-        emit updateMessageBox("You have beaten the game.");
+        emit updateMessageBox("You have beaten the game. \n Total shots: " + QString::number(totalShots));
     }
 
 }
@@ -496,19 +496,13 @@ void DemoWindow::updateSprites()
                 ballsInAnswerBoxes[index] = true;
             }
         }
-        //s->rotate(1.0);
-        //s->setTexture(textures[(spriteSwapIdx / 5) % 4]);
-        //std::cout << pos.x << " " <<pos.y << "  \n";
     }
-
-    // Change cannon rotation
-    //cannon->setRotation(2);
-
     spriteSwapIdx++;
 }
 
 void DemoWindow::spawnCannonball()
 {
+    totalShots++;
     emit updateShots(QString::number(++numShots));
     currentLevel->fireCannonball(b2Vec2(angle[0] * velocity, angle[1] * velocity), density);
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
@@ -534,12 +528,15 @@ void DemoWindow::changeDensity()
 }
 
 void DemoWindow::startQuestion() {
-//    currentQuestion = questions.ShuffleAnswers(questions.Questions()[questionIndex]);
-//    ui->questionLabel->setText(QString::fromStdString(currentQuestion.question));
-//    ui->answerLabelA->setText(QString::fromStdString("(A) "+currentQuestion.answers[0]));
-//    ui->answerLabelB->setText(QString::fromStdString("(B) "+currentQuestion.answers[1]));
-//    ui->answerLabelC->setText(QString::fromStdString("(C) "+currentQuestion.answers[2]));
-//    ui->answerLabelD->setText(QString::fromStdString("(D) "+currentQuestion.answers[3]));
+    QuestionModel::Question q = questions.Questions()[questionIndex];
+    currentQuestion = questions.ShuffleAnswers(q);
+
+    ui->questionLabel->setText(QString::fromStdString(currentQuestion.question));
+    ui->answerLabelA->setText(QString::fromStdString("(A) "+currentQuestion.answers[0]));
+    ui->answerLabelB->setText(QString::fromStdString("(B) "+currentQuestion.answers[1]));
+    ui->answerLabelC->setText(QString::fromStdString("(C) "+currentQuestion.answers[2]));
+    ui->answerLabelD->setText(QString::fromStdString("(D) "+currentQuestion.answers[3]));
+
 }
 
 bool DemoWindow::checkAnswer(int playerAnswer) {
