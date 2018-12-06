@@ -275,13 +275,15 @@ border-color: rgb(85, 87, 83);</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(32, 74, 135);
-border-color: rgb(85, 87, 83);</string>
+font: 75 24pt &quot;Uroob&quot;;
+border-color: rgb(85, 87, 83);
+color: rgb(221, 166, 255);</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::WinPanel</enum>
     </property>
     <property name="text">
-     <string/>
+     <string>Question: </string>
     </property>
    </widget>
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -317,6 +319,10 @@ border-color: rgb(85, 87, 83);</string>
            <height>81</height>
           </rect>
          </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(170, 255, 248);
+font: 75 18pt &quot;Uroob&quot;;</string>
+         </property>
          <property name="text">
           <string>(A)</string>
          </property>
@@ -349,6 +355,10 @@ border-color: rgb(85, 87, 83);</string>
            <width>211</width>
            <height>81</height>
           </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(170, 255, 248);
+font: 75 18pt &quot;Uroob&quot;;</string>
          </property>
          <property name="text">
           <string>(B)</string>
@@ -383,6 +393,10 @@ border-color: rgb(85, 87, 83);</string>
            <height>81</height>
           </rect>
          </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(170, 255, 248);
+font: 75 18pt &quot;Uroob&quot;;</string>
+         </property>
          <property name="text">
           <string>(C)</string>
          </property>
@@ -416,6 +430,10 @@ border-color: rgb(85, 87, 83);</string>
            <height>81</height>
           </rect>
          </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(170, 255, 248);
+font: 75 18pt &quot;Uroob&quot;;</string>
+         </property>
          <property name="text">
           <string>(D)</string>
          </property>
@@ -435,7 +453,7 @@ border-color: rgb(85, 87, 83);</string>
      <x>0</x>
      <y>0</y>
      <width>948</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu">

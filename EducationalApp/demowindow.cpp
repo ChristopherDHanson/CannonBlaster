@@ -11,7 +11,8 @@ DemoWindow::DemoWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::DemoWindow),
     answerBoxes(),
-    ballsInAnswerBoxes()
+    ballsInAnswerBoxes(),
+    questions("../QuestionAPI/testFile.csv")
 {
     ui->setupUi(this);
 
@@ -39,6 +40,8 @@ DemoWindow::DemoWindow(QWidget *parent) :
     density = 1;
 
     buildLevel1();
+    questionIndex = 0;
+    startQuestion();
 
     spriteTimer.start();
 }
@@ -419,12 +422,15 @@ void DemoWindow::changeDensity()
 }
 
 void DemoWindow::startQuestion() {
-//    currentQuestion = questions.ShuffleAnswers(questions.Questions()[questionIndex]);
-//    ui->questionLabel->setText(QString::fromStdString(currentQuestion.question));
-//    ui->answerLabelA->setText(QString::fromStdString("(A) "+currentQuestion.answers[0]));
-//    ui->answerLabelB->setText(QString::fromStdString("(B) "+currentQuestion.answers[1]));
-//    ui->answerLabelC->setText(QString::fromStdString("(C) "+currentQuestion.answers[2]));
-//    ui->answerLabelD->setText(QString::fromStdString("(D) "+currentQuestion.answers[3]));
+    QuestionModel::Question q = questions.Questions()[questionIndex];
+    currentQuestion = questions.ShuffleAnswers(q);
+
+    ui->questionLabel->setText(QString::fromStdString(currentQuestion.question));
+    ui->answerLabelA->setText(QString::fromStdString("(A) "+currentQuestion.answers[0]));
+    ui->answerLabelB->setText(QString::fromStdString("(B) "+currentQuestion.answers[1]));
+    ui->answerLabelC->setText(QString::fromStdString("(C) "+currentQuestion.answers[2]));
+    ui->answerLabelD->setText(QString::fromStdString("(D) "+currentQuestion.answers[3]));
+
 }
 
 bool DemoWindow::checkAnswer(int playerAnswer) {
