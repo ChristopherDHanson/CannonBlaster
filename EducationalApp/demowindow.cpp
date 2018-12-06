@@ -9,7 +9,9 @@
 
 DemoWindow::DemoWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::DemoWindow)
+    ui(new Ui::DemoWindow),
+    answerBoxes(),
+    ballsInAnswerBoxes()
 {
     ui->setupUi(this);
 
@@ -224,13 +226,20 @@ DemoWindow::DemoWindow(QWidget *parent) :
     }
 
     loadBackground();
+    setupAnswerBoxes();
     spriteTimer.start();
+
+    // Print the box number when it is hit (for debugging; delete this eventually).
+    connect(this, &DemoWindow::answerBoxHit, this, [=] (int box) { std::cout << box << std::endl; });
 }
 
 DemoWindow::~DemoWindow()
 {
     delete ui;
     delete sprite;
+
+    for (sf::Sprite* spritePtr : answerBoxes)
+        delete spritePtr;
 }
 
 void DemoWindow::updateSprites()
@@ -242,6 +251,19 @@ void DemoWindow::updateSprites()
         sf::Sprite* s = currentLevel->sprites[index];
         b2Vec2 pos = currentLevel->bodies[index]->GetPosition();
         s->setPosition(pos.x, -1 * pos.y );//+ ui->canvas->height());
+
+        // Deal with hitting the answers (right or wrong).
+        if (ballsInAnswerBoxes.find(index) != ballsInAnswerBoxes.end())
+        {
+            int boxIndex = answerBoxIndex(static_cast<int>(pos.x), static_cast<int>(-1 * pos.y));
+            if (ballsInAnswerBoxes[index] && boxIndex < 0)
+                ballsInAnswerBoxes[index] = false;
+
+            else if (!ballsInAnswerBoxes[index] && boxIndex >= 0) {
+                answerBoxHit(boxIndex);
+                ballsInAnswerBoxes[index] = true;
+            }
+        }
         //s->rotate(1.0);
 //        s->setTexture(textures[(spriteSwapIdx / 5) % 4]);
         //std::cout << pos.x << " " <<pos.y << "  \n";
@@ -274,12 +296,46 @@ void DemoWindow::spawnCannonball()
     sf::Vector2u imgSize = textures[0].copyToImage().getSize();
     currentLevel->createDynamicCircle(imgSize.x,imgSize.y,0,250,b2Vec2(angle[0] * velocity, angle[1] * velocity), density);
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
+    ballsInAnswerBoxes[currentLevel->sprites.size() - 1] = false;
+}
+
+void DemoWindow::setupAnswerBoxes()
+{
+    answerTextures = std::vector<sf::Texture>(4);
+    sf::Texture boxTextureA;
+    sf::Texture boxTextureB;
+    sf::Texture boxTextureC;
+    sf::Texture boxTextureD;
+
+    if (!answerTextures[0].loadFromFile("../images/QuestionRelated/boxA.png"))
+        throw "image not found.";
+    if (!answerTextures[1].loadFromFile("../images/QuestionRelated/boxB.png"))
+        throw "image not found.";
+    if (!answerTextures[2].loadFromFile("../images/QuestionRelated/boxC.png"))
+        throw "image not found.";
+    if (!answerTextures[3].loadFromFile("../images/QuestionRelated/boxD.png"))
+        throw "image not found.";
+
+    // Load the textures into the boxes.
+    answerBoxes.push_back(new sf::Sprite(answerTextures[0]));
+    answerBoxes.push_back(new sf::Sprite(answerTextures[1]));
+    answerBoxes.push_back(new sf::Sprite(answerTextures[2]));
+    answerBoxes.push_back(new sf::Sprite(answerTextures[3]));
+
+    // Place the boxes in the level.
+    for (uint16_t idx = 0; idx < 4; idx++) {
+        answerBoxes[idx]->scale(float(0.6), float(0.6));
+        answerBoxes[idx]->setPosition(600, 50 + 70 * idx);
+        answerBoxes[idx]->setOrigin(50, 50);
+        ui->canvas->addSprite(answerBoxes[idx]);
+    }
 }
 
 void DemoWindow::loadBackground()
 {
     ui->canvas->setBackdrop("../Images/springBckgrnd.png");
 }
+
 
 void DemoWindow::changeAngle()
 {
@@ -296,4 +352,25 @@ void DemoWindow::changeVelocity()
 void DemoWindow::changeDensity()
 {
     density = ui->massSlider->value();
+}
+
+int DemoWindow::answerBoxIndex(int x, int y)
+{
+    sf::FloatRect bounds = answerBoxes[0]->getGlobalBounds();
+    if (y >= bounds.top && x >= bounds.left && y - bounds.top <= bounds.height && x - bounds.left <= bounds.width)
+        return 0;
+
+    bounds = answerBoxes[1]->getGlobalBounds();
+    if (y >= bounds.top && x >= bounds.left && y - bounds.top <= bounds.height && x - bounds.left <= bounds.width)
+        return 1;
+
+    bounds = answerBoxes[2]->getGlobalBounds();
+    if (y >= bounds.top && x >= bounds.left && y - bounds.top <= bounds.height && x - bounds.left <= bounds.width)
+        return 2;
+
+    bounds = answerBoxes[3]->getGlobalBounds();
+    if (y >= bounds.top && x >= bounds.left && y - bounds.top <= bounds.height && x - bounds.left <= bounds.width)
+        return 3;
+
+    return -1;
 }

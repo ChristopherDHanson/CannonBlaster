@@ -32,6 +32,9 @@ private:
     sf::Music music;
     QVector<Level*> levels;
     Level* currentLevel;
+    std::vector<sf::Texture> answerTextures;
+    std::vector<sf::Sprite*> answerBoxes;
+    std::map<int, bool> ballsInAnswerBoxes;
 
     QVector<sf::Sprite*> sprites;
     float angle[2];
@@ -39,6 +42,16 @@ private:
     float density;
 
     void loadBackground();
+    void setupAnswerBoxes();
+    ///
+    /// \brief answerBoxIndex
+    /// \param x
+    /// \param y
+    /// \return
+    ///
+    /// Returns -1 if the coordinate is not in an answer box, or the index of the answer box if it
+    /// is (i.e. 0 for box A, 3 for box D).
+    int answerBoxIndex(int x, int y);
 
 public slots:
     void updateSprites();
@@ -48,6 +61,15 @@ public slots:
     void changeVelocity();
     void changeAngle();
     void changeDensity();
+
+signals:
+    ///
+    /// \brief answerBoxHit
+    /// \param boxIndex
+    ///
+    /// Called when a cannonball enters one of the answer boxes. The boxIndex corresponds to the
+    /// answer: 0 for box A, 1 for box B, etc.
+    void answerBoxHit(int boxIndex);
 };
 
 #endif // DEMOWINDOW_H
