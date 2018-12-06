@@ -259,6 +259,7 @@ void DemoWindow::updateSprites()
         sf::Sprite* s = currentLevel->sprites[index];
         b2Vec2 pos = currentLevel->bodies[index]->GetPosition();
         s->setPosition(pos.x, -1 * pos.y );//+ ui->canvas->height());
+        s->setRotation(currentLevel->bodies[index]->GetAngle()*57.2958f);
 
         // Deal with hitting the answers (right or wrong).
         if (ballsInAnswerBoxes.find(index) != ballsInAnswerBoxes.end())
@@ -298,13 +299,13 @@ void DemoWindow::setupAnswerBoxes()
     sf::Texture boxTextureC;
     sf::Texture boxTextureD;
 
-    if (!answerTextures[0].loadFromFile("../images/QuestionRelated/boxA.png"))
+    if (!answerTextures[0].loadFromFile("../Images/QuestionRelated/boxA.png"))
         throw "image not found.";
-    if (!answerTextures[1].loadFromFile("../images/QuestionRelated/boxB.png"))
+    if (!answerTextures[1].loadFromFile("../Images/QuestionRelated/boxB.png"))
         throw "image not found.";
-    if (!answerTextures[2].loadFromFile("../images/QuestionRelated/boxC.png"))
+    if (!answerTextures[2].loadFromFile("../Images/QuestionRelated/boxC.png"))
         throw "image not found.";
-    if (!answerTextures[3].loadFromFile("../images/QuestionRelated/boxD.png"))
+    if (!answerTextures[3].loadFromFile("../Images/QuestionRelated/boxD.png"))
         throw "image not found.";
 
     // Load the textures into the boxes.
