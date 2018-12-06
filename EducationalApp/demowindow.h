@@ -38,6 +38,7 @@ private:
     Level* currentLevel;
     std::map<int, bool> ballsInAnswerBoxes;
     int numShots = 0;
+    int totalShots = 0;
     int currentLvlInd = 0;
     sf::Sprite* cannon;
     float angle[3];
