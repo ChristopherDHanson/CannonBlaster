@@ -41,8 +41,8 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
 
 
+    buildLevel1();
     buildLevel2();
-    //buildLevel1();
     //startQuestion();
     questionIndex = 0;
     startQuestion();
@@ -198,6 +198,8 @@ void DemoWindow::buildLevel1()
     cannon->setPosition(25, 290);
     // adding it to the canvas sprites
     ui->canvas->addSprite(cannon);
+
+
 }
 
 void DemoWindow::buildLevel2()
@@ -297,7 +299,7 @@ void DemoWindow::buildLevel2()
     }
 
     ui->canvas->setBackdrop("../Images/springBckgrnd.png");
-    setupAnswerBoxes();
+    //setupAnswerBoxes();
 
 
 
