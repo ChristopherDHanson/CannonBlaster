@@ -36,6 +36,7 @@ private:
     std::vector<sf::Texture> answerTextures;
     std::vector<sf::Sprite*> answerBoxes;
     std::map<int, bool> ballsInAnswerBoxes;
+    int numShots = 0;
 
     sf::Sprite* cannon;
     float angle[3];
@@ -74,6 +75,7 @@ signals:
     /// Called when a cannonball enters one of the answer boxes. The boxIndex corresponds to the
     /// answer: 0 for box A, 1 for box B, etc.
     void answerBoxHit(int boxIndex);
+    void updateShots(QString shots);
 };
 
 #endif // DEMOWINDOW_H

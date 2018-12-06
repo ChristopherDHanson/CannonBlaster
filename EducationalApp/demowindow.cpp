@@ -22,6 +22,9 @@ DemoWindow::DemoWindow(QWidget *parent) :
     connect(ui->velocitySlider, &QSlider::sliderMoved, this, &DemoWindow::changeVelocity);
     connect(ui->massSlider, &QSlider::sliderMoved, this, &DemoWindow::changeDensity);
 
+    connect(this, &DemoWindow::updateShots,
+                         ui->scoreDisplayLabel, &QLabel::setText);
+
     spriteTimer.setInterval(40);
     connect(&spriteTimer, &QTimer::timeout, this, &DemoWindow::updateSprites);
 
@@ -337,6 +340,7 @@ void DemoWindow::updateSprites()
 
 void DemoWindow::spawnCannonball()
 {
+    emit updateShots(QString::number(++numShots));
     currentLevel->fireCannonball(b2Vec2(angle[0] * velocity, angle[1] * velocity), density);
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
     ballsInAnswerBoxes[currentLevel->sprites.size() - 1] = false;
