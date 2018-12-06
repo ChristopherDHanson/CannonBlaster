@@ -11,7 +11,8 @@ DemoWindow::DemoWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::DemoWindow),
     answerBoxes(),
-    ballsInAnswerBoxes()
+    ballsInAnswerBoxes(),
+    questions("../QuestionAPI/testFile.csv")
 {
     ui->setupUi(this);
 
@@ -22,25 +23,27 @@ DemoWindow::DemoWindow(QWidget *parent) :
     connect(ui->velocitySlider, &QSlider::sliderMoved, this, &DemoWindow::changeVelocity);
     connect(ui->massSlider, &QSlider::sliderMoved, this, &DemoWindow::changeDensity);
 
-    connect(this, &DemoWindow::updateShots,
-                         ui->scoreDisplayLabel, &QLabel::setText);
+    connect(this, &DemoWindow::updateShots, ui->scoreDisplayLabel, &QLabel::setText);
+    connect(this, &DemoWindow::updateMessageBox, ui->messageBox, &QLabel::setText);
+    connect(this, &DemoWindow::updateLevelBox, ui->levelLabel, &QLabel::setText);
 
     spriteTimer.setInterval(40);
     connect(&spriteTimer, &QTimer::timeout, this, &DemoWindow::updateSprites);
 
-    velocity = 20;
-    angle[0] = cos(ui->angleSlider->value() * 3.141 / 180);
-    angle[1] = sin(ui->angleSlider->value() * 3.141 / 180);
-    density = 1;
-
-
-
-    buildLevel1();
-
-    spriteTimer.start();
-
     // Print the box number when it is hit (for debugging; delete this eventually).
     connect(this, &DemoWindow::answerBoxHit, this, [=] (int box) { std::cout << box << std::endl; });
+    connect(this, &DemoWindow::answerBoxHit, this, &DemoWindow::checkCorrectness);
+
+    velocity = 20;
+    angle[0] = cos(ui->angleSlider->value() * 3.141f / 180.0f);
+    angle[1] = sin(ui->angleSlider->value() * 3.141f / 180.0f);
+    density = 1;
+
+    buildLevel1();
+    questionIndex = 0;
+    startQuestion();
+
+    spriteTimer.start();
 }
 
 DemoWindow::~DemoWindow()
@@ -178,20 +181,21 @@ void DemoWindow::buildLevel1()
 
 
     // Add current level sprites to the canvas
-    currentLevel = levels[0];
+    currentLevel = levels[currentLvlInd];
     for (sf::Sprite* s : currentLevel->sprites)
     {
         ui->canvas->addSprite(s);
     }
+    emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
 
     ui->canvas->setBackdrop("../Images/springBckgrnd.png");
     setupAnswerBoxes();
 
-    //creating with the cannon without box2d
+    // creating with the cannon without box2d
     cannon = new sf::Sprite(textures[16]);
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
     cannon->setPosition(25, 290);
-     //adding it to the canvas sprites
+    // adding it to the canvas sprites
     ui->canvas->addSprite(cannon);
 }
 
@@ -473,8 +477,42 @@ int DemoWindow::answerBoxIndex(int x, int y)
     return -1;
 }
 
+void DemoWindow::nextLevel() {
+    if (currentLvlInd < levels.size()-1) // There are more levels to go
+    {
+        numShots = 0;
+        currentLevel = levels[++currentLvlInd];
+        ui->canvas->clear();
+        for (sf::Sprite* s : currentLevel->sprites)
+        {
+            ui->canvas->addSprite(s);
+        }
+        uint idx = 0;
+        for (b2Vec2 pos : currentLevel->getAnswerBoxPositions()) {
+            answerBoxes[idx]->setPosition(pos.x, pos.y);
+            idx++;
+        }
+        emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
+    }
+    else // Game has been beaten
+    {
+        emit updateMessageBox("You have beaten the game. \nTotal shots: " + QString::number(totalShots));
+    }
+
+}
 
 // SLOTS
+void DemoWindow::checkCorrectness(int boxNum)
+{
+    if (boxNum == 0) { // If correct answer
+        emit updateMessageBox("Correct answer hit!");
+        nextLevel();
+    }
+    else {
+        emit updateMessageBox("Wrong answer hit!");
+    }
+}
+
 void DemoWindow::updateSprites()
 {
     // Update level physics state
@@ -498,19 +536,13 @@ void DemoWindow::updateSprites()
                 ballsInAnswerBoxes[index] = true;
             }
         }
-        //s->rotate(1.0);
-        //s->setTexture(textures[(spriteSwapIdx / 5) % 4]);
-        //std::cout << pos.x << " " <<pos.y << "  \n";
     }
-
-    // Change cannon rotation
-    //cannon->setRotation(2);
-
     spriteSwapIdx++;
 }
 
 void DemoWindow::spawnCannonball()
 {
+    totalShots++;
     emit updateShots(QString::number(++numShots));
     currentLevel->fireCannonball(b2Vec2(angle[0] * velocity, angle[1] * velocity), density);
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
@@ -533,4 +565,20 @@ void DemoWindow::changeVelocity()
 void DemoWindow::changeDensity()
 {
     density = ui->massSlider->value();
+}
+
+void DemoWindow::startQuestion() {
+    QuestionModel::Question q = questions.Questions()[questionIndex];
+    currentQuestion = questions.ShuffleAnswers(q);
+
+    ui->questionLabel->setText(QString::fromStdString(currentQuestion.question));
+    ui->answerLabelA->setText(QString::fromStdString("(A) "+currentQuestion.answers[0]));
+    ui->answerLabelB->setText(QString::fromStdString("(B) "+currentQuestion.answers[1]));
+    ui->answerLabelC->setText(QString::fromStdString("(C) "+currentQuestion.answers[2]));
+    ui->answerLabelD->setText(QString::fromStdString("(D) "+currentQuestion.answers[3]));
+
+}
+
+bool DemoWindow::checkAnswer(int playerAnswer) {
+    return (playerAnswer == currentQuestion.correctAnswer);
 }

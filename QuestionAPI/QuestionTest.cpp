@@ -8,10 +8,10 @@ int main(int argc, char* argv[]) {
   if (argc == 2) {
     QuestionModel model = QuestionModel(argv[1]);
     for (int i=0; i < model.Questions().size(); i++) {
-      cout << model.Questions()[i].question
-        << " (" + model.Questions()[i].correctAnswer + "):" << endl;
-      for (int j=0; j < model.Questions()[i].incorrect.size(); j++) {
-        cout << "- " << model.Questions()[i].incorrect[j] << endl;
+      QuestionModel::ShuffledQuestion sq = model.ShuffleAnswers(model.Questions()[i]);
+      cout << sq.question << endl;
+      for (int j=0; j < sq.answers.size(); j++) {
+        cout << (sq.correctAnswer==j?"+ ":"- ") << sq.answers[j] << endl;
       }
       cout << endl;
     }
