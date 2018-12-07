@@ -316,7 +316,7 @@ void DemoWindow::buildLevel2()
 
 
 
-    cannon = new sf::Sprite(textures[16]);
+    cannon = new sf::Sprite(*level2->getTexturePtr(16));
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
     cannon->setPosition(50, 290);
     //adding it to the canvas sprites
@@ -479,7 +479,7 @@ void DemoWindow::buildLevel3()
     setupAnswerBoxes();
 
     //creating with the cannon without box2d
-    cannon = new sf::Sprite(textures[16]);
+    cannon = new sf::Sprite(*level3->getTexturePtr(16));
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
     cannon->setPosition(25, 115);
      //adding it to the canvas sprites
@@ -741,7 +741,7 @@ void DemoWindow::buildLevel5()
     setupAnswerBoxes();
 
     //creating with the cannon without box2d
-    cannon = new sf::Sprite(textures[16]);
+    cannon = new sf::Sprite(*level->getTexturePtr(16));
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
     cannon->setPosition(350, 115);
      //adding it to the canvas sprites
