@@ -65,7 +65,6 @@ DemoWindow::~DemoWindow()
 
 void DemoWindow::buildLevel1()
 {
-    // CONSTRUCT LEVELS--------
     // General process is: 1) Construct level, 2) Load its textures, 3) Add elements
     // Level 1:
 
@@ -209,7 +208,6 @@ void DemoWindow::buildLevel1()
     // adding it to the canvas sprites
     //ui->canvas->addSprite(cannon);
     level1->setCannon(cannon);
-    //ui->canvas->addSprite(tankTrooper);
 
 
     levels.push_back(level1);
@@ -883,6 +881,7 @@ void DemoWindow::nextLevel() {
         // Update the level (map, objects, etc.).
         numShots = 0;
         currentLevel = levels[++currentLvlInd];
+        ui->canvas->removeAllSprites();
         ui->canvas->clear();
         for (sf::Sprite* s : currentLevel->sprites)
         {
@@ -890,6 +889,7 @@ void DemoWindow::nextLevel() {
         }
         ui->canvas->setBackdrop(currentLevel->getBackground());
         ui->canvas->addSprite(currentLevel->getCannon());
+        ui->canvas->addSprite(tankTrooper);
         uint idx = 0;
         for (b2Vec2 pos : currentLevel->getAnswerBoxPositions()) {
             answerBoxes[idx]->setPosition(pos.x, pos.y);
