@@ -46,7 +46,7 @@ private:
     float velocity;
     float density;
     QuestionModel questions;
-    int questionIndex;
+    uint questionIndex;
     QuestionModel::ShuffledQuestion currentQuestion;
 
     void buildLevel1();

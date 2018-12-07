@@ -42,6 +42,13 @@ DemoWindow::DemoWindow(QWidget *parent) :
     emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
 
 
+    sf::Texture troop;
+    if (!troop.loadFromFile("../Images/tankTrooper.png"))
+        throw "EXIT_FAILURE";
+    else {
+        tankTrooper = new sf::Sprite(troop);
+        tankTrooper->setOrigin(troop.copyToImage().getSize().x/2, troop.copyToImage().getSize().y/2);
+    }
 
     buildLevel1();
     buildLevel2();
@@ -90,9 +97,7 @@ void DemoWindow::buildLevel1()
         "../Images/SpringBlocks/springBlock2Part.png",
         "../Images/SpringBlocks/springBlock2Btm.png",
         "../Images/cannon2.png",
-        "../Images/redBlock.png",
-        "../Images/tankTrooper.png",
-
+        "../Images/redBlock.png"
     };
 
     for (std::string path : imgPaths) {
@@ -200,11 +205,8 @@ void DemoWindow::buildLevel1()
 
     // creating with the cannon without box2d
     cannon = new sf::Sprite(textures[16]);
-    tankTrooper = new sf::Sprite(textures[18]);
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
     cannon->setPosition(40, 295);
-    tankTrooper->setOrigin(textures[18].copyToImage().getSize().x/2, textures[18].copyToImage().getSize().y/2);
-    tankTrooper->setPosition(10, 292);
     // adding it to the canvas sprites
     //ui->canvas->addSprite(cannon);
     level1->setCannon(cannon);
@@ -889,6 +891,7 @@ void DemoWindow::nextLevel() {
         }
         ui->canvas->setBackdrop(currentLevel->getBackground());
         ui->canvas->addSprite(currentLevel->getCannon());
+        tankTrooper->setPosition(sf::Vector2f(currentLevel->getCannon()->getPosition().x - 30, currentLevel->getCannon()->getPosition().y - 5));
         ui->canvas->addSprite(tankTrooper);
         uint idx = 0;
         for (b2Vec2 pos : currentLevel->getAnswerBoxPositions()) {
