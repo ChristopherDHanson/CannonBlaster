@@ -183,7 +183,7 @@ void DemoWindow::buildLevel1()
 //    }
 //    music.setLoop(true);
 
-    level1->setMusicPath();
+    level1->setMusicPath("../Audio/chiptune1.ogg");
 //    music.play();
     // ++
 
@@ -307,7 +307,7 @@ void DemoWindow::buildLevel2()
 //    if (!music.openFromFile("../Imperial_March.ogx")) {
 //        throw "EXIT_FAILURE";
 //    }
-    level2->setMusic("../Imperial_March.ogx");
+    level2->setMusicPath("../Imperial_March.ogx");
 
     //music.play();
     // ++
