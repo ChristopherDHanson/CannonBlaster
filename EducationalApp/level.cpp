@@ -74,7 +74,7 @@ void Level::createCircle (float32 width, float32 height, float32 posX, float32 p
     body->CreateFixture(&circle, 1.0f);
     bodies.push_back(body);
 
-    // Set up visual box
+    // Set up visual box. hardcoded to load cannonball image
     sf::Sprite* sprite = new sf::Sprite(textures[1]);
 
     b2Vec2 temp = bodies[bodies.size() - 1]->GetPosition();

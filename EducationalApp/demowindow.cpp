@@ -87,8 +87,10 @@ void DemoWindow::buildLevel1()
         "../Images/SpringBlocks/springBlock2Top.png",
         "../Images/SpringBlocks/springBlock2Part.png",
         "../Images/SpringBlocks/springBlock2Btm.png",
-        "../Images/cannon1.png",
+        "../Images/cannon2.png",
         "../Images/redBlock.png",
+        "../Images/tankTrooper.png",
+
     };
 
     for (std::string path : imgPaths) {
@@ -165,7 +167,7 @@ void DemoWindow::buildLevel1()
 
 
     level1->setLevelSpeed(6);
-    level1->setCannonLocation(b2Vec2(25, 290));
+    level1->setCannonLocation(b2Vec2(40, 295));
     levels.push_back(level1);
 
     // repeat process for further levels
@@ -175,10 +177,11 @@ void DemoWindow::buildLevel1()
     spriteSwapIdx = 0;
 
     // Music stuff ++
-    if (!music.openFromFile("../Imperial_March.ogx")) {
+    if (!music.openFromFile("../Audio/chiptune1.ogg")) {
         throw "EXIT_FAILURE";
     }
-    //music.play();
+    music.setLoop(true);
+//    music.play();
     // ++
 
 
@@ -195,12 +198,14 @@ void DemoWindow::buildLevel1()
 
     // creating with the cannon without box2d
     cannon = new sf::Sprite(textures[16]);
+    tankTrooper = new sf::Sprite(textures[18]);
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
-    cannon->setPosition(25, 290);
+    cannon->setPosition(40, 295);
+    tankTrooper->setOrigin(textures[18].copyToImage().getSize().x/2, textures[18].copyToImage().getSize().y/2);
+    tankTrooper->setPosition(10, 292);
     // adding it to the canvas sprites
     ui->canvas->addSprite(cannon);
-
-
+    ui->canvas->addSprite(tankTrooper);
 }
 
 void DemoWindow::buildLevel2()
@@ -807,13 +812,13 @@ void DemoWindow::setupAnswerBoxes()
     sf::Texture boxTextureC;
     sf::Texture boxTextureD;
 
-    if (!answerTextures[0].loadFromFile("../Images/QuestionRelated/boxA.png"))
+    if (!answerTextures[0].loadFromFile("../Images/QuestionRelated/brownAnswerBoxA.png"))
         throw "image not found.";
-    if (!answerTextures[1].loadFromFile("../Images/QuestionRelated/boxB.png"))
+    if (!answerTextures[1].loadFromFile("../Images/QuestionRelated/brownAnswerBoxB.png"))
         throw "image not found.";
-    if (!answerTextures[2].loadFromFile("../Images/QuestionRelated/boxC.png"))
+    if (!answerTextures[2].loadFromFile("../Images/QuestionRelated/brownAnswerBoxC.png"))
         throw "image not found.";
-    if (!answerTextures[3].loadFromFile("../Images/QuestionRelated/boxD.png"))
+    if (!answerTextures[3].loadFromFile("../Images/QuestionRelated/brownAnswerBoxD.png"))
         throw "image not found.";
 
     // Load the textures into the boxes.
