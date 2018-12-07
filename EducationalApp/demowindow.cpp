@@ -151,13 +151,13 @@ void DemoWindow::buildLevel1()
 
     setupAnswerBoxes();
 
-//    QVector<b2Vec2> positions;
-//    positions.push_back(b2Vec2(600,250));
-//    positions.push_back(b2Vec2(600,300));
-//    positions.push_back(b2Vec2(600,350));
-//    positions.push_back(b2Vec2(600,400));
+    QVector<b2Vec2> positions;
+    positions.push_back(b2Vec2(600,40));
+    positions.push_back(b2Vec2(600,110));
+    positions.push_back(b2Vec2(600,180));
+    positions.push_back(b2Vec2(600,250));
 
-//    level1->setAnswerBoxPositions(positions);
+    level1->setAnswerBoxPositions(positions);
 
 
     // creating with the cannon without box2d
@@ -765,10 +765,9 @@ void DemoWindow::setupAnswerBoxes()
     answerBoxes.push_back(new sf::Sprite(answerTextures[3]));
 
     sf::FloatRect boxDim;
-
     // Scale the boxes and put their origins in the center.
     for (uint16_t idx = 0; idx < 4; idx++) {
-        answerBoxes[idx]->scale(float(0.6), float(0.6));
+//        answerBoxes[idx]->scale(float(0.9), float(0.9));
         boxDim = answerBoxes[idx]->getGlobalBounds();
         answerBoxes[idx]->setOrigin(boxDim.width / 2, boxDim.height / 2);
     }
