@@ -200,7 +200,7 @@ void DemoWindow::buildLevel1()
 
 
     // creating with the cannon without box2d
-    cannon = new sf::Sprite(textures[16]);
+    cannon = new sf::Sprite(*level1->getTexturePtr(16));
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
     cannon->setPosition(40, 295);
     // adding it to the canvas sprites

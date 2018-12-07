@@ -222,3 +222,8 @@ std::string Level::getMusicPath()
 {
     return musicPath;
 }
+
+sf::Texture* Level::getTexturePtr(uint ind)
+{
+    return &textures[ind];
+}
