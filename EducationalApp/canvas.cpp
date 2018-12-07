@@ -31,6 +31,11 @@ void Canvas::removeSprite(sf::Sprite* sprite)
         sprites.pop_back();
 }
 
+void Canvas::removeAllSprites()
+{
+    sprites.clear();
+}
+
 void Canvas::onUpdate()
 {
     paintBackdrop();

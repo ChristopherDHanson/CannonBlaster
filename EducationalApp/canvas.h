@@ -64,6 +64,8 @@ public:
 
     void removeSprite(sf::Sprite* sprite);
 
+    void removeAllSprites();
+
     void onUpdate() override;
 
     void setBackdrop(std::string backdropPath);
