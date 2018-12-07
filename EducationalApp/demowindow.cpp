@@ -190,6 +190,14 @@ void DemoWindow::buildLevel1()
 
     setupAnswerBoxes();
 
+//    QVector<b2Vec2> positions;
+//    positions.push_back(b2Vec2(600,250));
+//    positions.push_back(b2Vec2(600,300));
+//    positions.push_back(b2Vec2(600,350));
+//    positions.push_back(b2Vec2(600,400));
+
+//    level1->setAnswerBoxPositions(positions);
+
 
     // creating with the cannon without box2d
     cannon = new sf::Sprite(textures[16]);
