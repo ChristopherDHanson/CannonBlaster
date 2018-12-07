@@ -49,6 +49,8 @@ private:
     uint questionIndex;
     QuestionModel::ShuffledQuestion currentQuestion;
 
+    sf::Texture troopTex;
+
     void buildLevel1();
     void buildLevel2();
     void buildLevel3();

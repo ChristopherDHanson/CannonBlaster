@@ -39,20 +39,16 @@ DemoWindow::DemoWindow(QWidget *parent) :
     angle[1] = sin(ui->angleSlider->value() * 3.141f / 180.0f);
     density = 1;
 
-    emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
 
-
-    sf::Texture troop;
-    if (!troop.loadFromFile("../Images/tankTrooper.png"))
+    if (!troopTex.loadFromFile("../Images/tankTrooper.png"))
         throw "EXIT_FAILURE";
     else {
-        tankTrooper = new sf::Sprite(troop);
-        tankTrooper->setOrigin(troop.copyToImage().getSize().x/2, troop.copyToImage().getSize().y/2);
+        tankTrooper = new sf::Sprite(troopTex);
+        tankTrooper->setOrigin(troopTex.copyToImage().getSize().x/2, troopTex.copyToImage().getSize().y/2);
     }
 
     buildLevel1();
     buildLevel2();
-    //startQuestion();
     nextLevel();
     questionIndex = 0;
     startQuestion();
