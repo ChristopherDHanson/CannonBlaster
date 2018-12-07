@@ -192,6 +192,27 @@ void Level::setAnswerBoxPositions(QVector<b2Vec2> pos)
     answerBoxPositions = pos;
 }
 
+
+std::string Level::getBackground()
+{
+    return background;
+}
+
+void Level::setBackground(std::string bg)
+{
+    background = bg;
+}
+
+void Level::setCannon(sf::Sprite *cannon)
+{
+    this->cannon = cannon;
+}
+
+sf::Sprite* Level::getCannon()
+{
+    return cannon;
+}
+
 void Level::setMusicPath(std::string musicPath)
 {
     this->musicPath = musicPath;
