@@ -39,7 +39,7 @@ private:
     std::map<int, bool> ballsInAnswerBoxes;
     int numShots = 0;
     int totalShots = 0;
-    int currentLvlInd = 0;
+    int currentLvlInd = -1;
     sf::Sprite* cannon;
     sf::Sprite* tankTrooper;
     float angle[3];

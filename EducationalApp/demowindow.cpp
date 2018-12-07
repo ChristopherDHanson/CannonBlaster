@@ -44,8 +44,9 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
 
     buildLevel1();
-    buildLevel2();
+    //buildLevel2();
     //startQuestion();
+    nextLevel();
     questionIndex = 0;
     startQuestion();
 
@@ -113,6 +114,7 @@ void DemoWindow::buildLevel1()
 
     // PROBABLY CREATE FUNCTIONS FOR COMMON OBJECTS LIKE I DID WITH THE TREES
     // pyramid of blue blocks
+    {
     // bottom level
     level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,250, b2Vec2(0,0), 1, 4);
     level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,250, b2Vec2(0,0), 1, 4);
@@ -143,7 +145,7 @@ void DemoWindow::buildLevel1()
     level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,560,100, b2Vec2(0,0), 1, 4);
     // top of pyramid
     level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,544,50, b2Vec2(0,0), 1, 4);
-
+    }
 
     // pyramid of red blocks
     // bottom level
@@ -184,21 +186,6 @@ void DemoWindow::buildLevel1()
 //    music.setLoop(true);
 
     level1->setMusicPath("../Audio/chiptune1.ogg");
-//    music.play();
-    // ++
-
-
-    // Add current level sprites to the canvas
-    //currentLevel = levels[currentLvlInd];
-//    for (sf::Sprite* s : currentLevel->sprites)
-//    {
-//        ui->canvas->addSprite(s);
-//    }
-
-
-//    emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
-
-    //ui->canvas->setBackdrop("../Images/springBckgrnd.png");
     level1->setBackground("../Images/springBckgrnd.png");
     setupAnswerBoxes();
 
@@ -212,13 +199,10 @@ void DemoWindow::buildLevel1()
     // adding it to the canvas sprites
     //ui->canvas->addSprite(cannon);
     level1->setCannon(cannon);
-    ui->canvas->addSprite(tankTrooper);
+    //ui->canvas->addSprite(tankTrooper);
 
 
     levels.push_back(level1);
-
-
-
 }
 
 void DemoWindow::buildLevel2()
@@ -894,6 +878,8 @@ void DemoWindow::nextLevel() {
         {
             ui->canvas->addSprite(s);
         }
+        ui->canvas->setBackdrop(currentLevel->getBackground());
+        ui->canvas->addSprite(currentLevel->getCannon());
         uint idx = 0;
         for (b2Vec2 pos : currentLevel->getAnswerBoxPositions()) {
             answerBoxes[idx]->setPosition(pos.x, pos.y);
@@ -961,7 +947,7 @@ void DemoWindow::changeAngle()
 {
     angle[0] = cos(ui->angleSlider->value() * 3.141f / 180.0f);
     angle[1] = sin(ui->angleSlider->value() * 3.141f / 180.0f);
-    cannon->setRotation(ui->angleSlider->value() * - 1);
+    currentLevel->getCannon()->setRotation(ui->angleSlider->value() * - 1);
 }
 
 void DemoWindow::changeVelocity()
