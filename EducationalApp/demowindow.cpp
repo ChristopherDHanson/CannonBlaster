@@ -838,12 +838,13 @@ void DemoWindow::setupAnswerBoxes()
     answerBoxes.push_back(new sf::Sprite(answerTextures[2]));
     answerBoxes.push_back(new sf::Sprite(answerTextures[3]));
 
-    // Place the boxes in the level.
+    sf::FloatRect boxDim;
+
+    // Scale the boxes and put their origins in the center.
     for (uint16_t idx = 0; idx < 4; idx++) {
         answerBoxes[idx]->scale(float(0.6), float(0.6));
-        answerBoxes[idx]->setPosition(600, 50 + 70 * idx);
-        answerBoxes[idx]->setOrigin(50, 50);
-        ui->canvas->addSprite(answerBoxes[idx]);
+        boxDim = answerBoxes[idx]->getGlobalBounds();
+        answerBoxes[idx]->setOrigin(boxDim.width / 2, boxDim.height / 2);
     }
 }
 
