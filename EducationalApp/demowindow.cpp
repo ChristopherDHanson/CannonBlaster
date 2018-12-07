@@ -289,17 +289,20 @@ void DemoWindow::buildLevel2()
     if (!music.openFromFile("../Imperial_March.ogx")) {
         throw "EXIT_FAILURE";
     }
+
     //music.play();
     // ++
 
 
-    currentLevel = levels[0];
-    for (sf::Sprite* s : currentLevel->sprites)
-    {
-        ui->canvas->addSprite(s);
-    }
+//    currentLevel = levels[1];
+//    for (sf::Sprite* s : currentLevel->sprites)
+//    {
+//        ui->canvas->addSprite(s);
+//    }
 
-    ui->canvas->setBackdrop("../Images/springBckgrnd.png");
+
+    level2->setBackground("../Images/springBckgrnd.png");
+    //ui->canvas->setBackdrop("../Images/springBckgrnd.png");
     //setupAnswerBoxes();
 
 
@@ -308,7 +311,8 @@ void DemoWindow::buildLevel2()
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
     cannon->setPosition(50, 290);
     //adding it to the canvas sprites
-    ui->canvas->addSprite(cannon);
+    level2->setCannon(cannon);
+    //ui->canvas->addSprite(cannon);
 }
 
 void DemoWindow::buildLevel3()
