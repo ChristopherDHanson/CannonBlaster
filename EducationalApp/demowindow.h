@@ -67,6 +67,8 @@ private:
     /// Returns -1 if the coordinate is not in an answer box, or the index of the answer box if it
     /// is (i.e. 0 for box A, 3 for box D).
     int answerBoxIndex(int x, int y);
+    void buildBluePyramid(Level* targetLevel,int baseSize, float32 xStartPos, float32 yStartPos);
+    void buildRedPyramid(Level* targetLevel,int baseSize, float32 xStartPos, float32 yStartPos);
     void assembleShortTree(Level* targetLevel, float32 posX);
     void assembleMediumTree(Level* targetLevel, float32 posX);
     void assembleTallTree(Level* targetLevel, float32 posX);
