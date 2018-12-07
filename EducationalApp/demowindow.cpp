@@ -39,6 +39,8 @@ DemoWindow::DemoWindow(QWidget *parent) :
     angle[1] = sin(ui->angleSlider->value() * 3.141f / 180.0f);
     density = 1;
 
+    emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
+
 
 
     buildLevel1();
@@ -168,7 +170,6 @@ void DemoWindow::buildLevel1()
 
     level1->setLevelSpeed(6);
     level1->setCannonLocation(b2Vec2(40, 295));
-    levels.push_back(level1);
 
     // repeat process for further levels
     // ------------------------
@@ -177,23 +178,28 @@ void DemoWindow::buildLevel1()
     spriteSwapIdx = 0;
 
     // Music stuff ++
-    if (!music.openFromFile("../Audio/chiptune1.ogg")) {
-        throw "EXIT_FAILURE";
-    }
-    music.setLoop(true);
+//    if (!music.openFromFile("../Audio/chiptune1.ogg")) {
+//        throw "EXIT_FAILURE";
+//    }
+//    music.setLoop(true);
+
+    level1->setMusicPath("../Audio/chiptune1.ogg");
 //    music.play();
     // ++
 
 
     // Add current level sprites to the canvas
-    currentLevel = levels[currentLvlInd];
-    for (sf::Sprite* s : currentLevel->sprites)
-    {
-        ui->canvas->addSprite(s);
-    }
-    emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
+    //currentLevel = levels[currentLvlInd];
+//    for (sf::Sprite* s : currentLevel->sprites)
+//    {
+//        ui->canvas->addSprite(s);
+//    }
 
-    ui->canvas->setBackdrop("../Images/springBckgrnd.png");
+
+//    emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
+
+    //ui->canvas->setBackdrop("../Images/springBckgrnd.png");
+    level1->setBackground("../Images/springBckgrnd.png");
     setupAnswerBoxes();
 
     // creating with the cannon without box2d
@@ -204,8 +210,15 @@ void DemoWindow::buildLevel1()
     tankTrooper->setOrigin(textures[18].copyToImage().getSize().x/2, textures[18].copyToImage().getSize().y/2);
     tankTrooper->setPosition(10, 292);
     // adding it to the canvas sprites
-    ui->canvas->addSprite(cannon);
+    //ui->canvas->addSprite(cannon);
+    level1->setCannon(cannon);
     ui->canvas->addSprite(tankTrooper);
+
+
+    levels.push_back(level1);
+
+
+
 }
 
 void DemoWindow::buildLevel2()
@@ -288,12 +301,13 @@ void DemoWindow::buildLevel2()
 
     level2->setLevelSpeed(6);
     level2->setCannonLocation(b2Vec2(50, 290));
-    levels.push_back(level2);
+
 
     // Music stuff ++
-    if (!music.openFromFile("../Imperial_March.ogx")) {
-        throw "EXIT_FAILURE";
-    }
+//    if (!music.openFromFile("../Imperial_March.ogx")) {
+//        throw "EXIT_FAILURE";
+//    }
+    level2->setMusicPath("../Imperial_March.ogx");
 
     //music.play();
     // ++
@@ -318,6 +332,7 @@ void DemoWindow::buildLevel2()
     //adding it to the canvas sprites
     level2->setCannon(cannon);
     //ui->canvas->addSprite(cannon);
+    levels.push_back(level2);
 }
 
 void DemoWindow::buildLevel3()
