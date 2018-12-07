@@ -44,7 +44,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
 
     buildLevel1();
-    //buildLevel2();
+    buildLevel2();
     //startQuestion();
     nextLevel();
     questionIndex = 0;
@@ -187,7 +187,9 @@ void DemoWindow::buildLevel1()
 
     level1->setMusicPath("../Audio/chiptune1.ogg");
     level1->setBackground("../Images/springBckgrnd.png");
+
     setupAnswerBoxes();
+
 
     // creating with the cannon without box2d
     cannon = new sf::Sprite(textures[16]);
@@ -274,10 +276,10 @@ void DemoWindow::buildLevel2()
     assembleMediumTower(level2, 600);
 
     QVector<b2Vec2> positions;
-    positions.append(b2Vec2(170,250));
-    positions.append(b2Vec2(280,250));
-    positions.append(b2Vec2(390,250));
-    positions.append(b2Vec2(610,250));
+    positions.append(b2Vec2(230,295));
+    positions.append(b2Vec2(340,295));
+    positions.append(b2Vec2(450,295));
+    positions.append(b2Vec2(560,295));
 
     level2->setAnswerBoxPositions(positions);
 
