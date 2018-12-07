@@ -74,7 +74,7 @@ void Level::createCircle (float32 width, float32 height, float32 posX, float32 p
     body->CreateFixture(&circle, 1.0f);
     bodies.push_back(body);
 
-    // Set up visual box
+    // Set up visual box. hardcoded to load cannonball image
     sf::Sprite* sprite = new sf::Sprite(textures[1]);
 
     b2Vec2 temp = bodies[bodies.size() - 1]->GetPosition();
@@ -190,4 +190,35 @@ QVector<b2Vec2> Level::getAnswerBoxPositions()
 void Level::setAnswerBoxPositions(QVector<b2Vec2> pos)
 {
     answerBoxPositions = pos;
+}
+
+
+std::string Level::getBackground()
+{
+    return background;
+}
+
+void Level::setBackground(std::string bg)
+{
+    background = bg;
+}
+
+void Level::setCannon(sf::Sprite *cannon)
+{
+    this->cannon = cannon;
+}
+
+sf::Sprite* Level::getCannon()
+{
+    return cannon;
+}
+
+void Level::setMusicPath(std::string musicPath)
+{
+    this->musicPath = musicPath;
+}
+
+std::string Level::getMusicPath()
+{
+    return musicPath;
 }

@@ -16,6 +16,10 @@ private:
     std::vector<sf::Texture> textures; // Raw textures stored here
     int levelSpeed = 3;
     QVector<b2Vec2> answerBoxPositions = {b2Vec2(600, 50 + 70),b2Vec2(600, 50 + 140),b2Vec2(600, 50 + 210),b2Vec2(600, 50 + 280)};
+    std::string musicPath;
+    int test;
+    std::string background;
+    sf::Sprite* cannon;
 
 public:
     Level(float32 gravity = -3.0f, float32 timeStep = 1.0f/60.0f, float32 pixelsPerUnit = 64.0f);
@@ -33,6 +37,12 @@ public:
     void next();
     QVector<b2Vec2> getAnswerBoxPositions();
     void setAnswerBoxPositions(QVector<b2Vec2> pos);
+    void setBackground(std::string bg);
+    std::string getBackground();
+    void setCannon(sf::Sprite* cannon);
+    sf::Sprite* getCannon();
+    void setMusicPath(std::string musicPath);
+    std::string getMusicPath();
 
     QVector<b2Body*> bodies; // Physics information for each object stored here
     QVector<sf::Sprite*> sprites; // Sprites representing each object stored here
