@@ -566,7 +566,7 @@ void DemoWindow::buildLevel5()
     // cannon
     cannon = new sf::Sprite(*level5->getTexturePtr(16));
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
-    cannon->setPosition(350, 115);
+    cannon->setPosition(350, 120);
     level5->setCannon(cannon);
 
     // Set background music
@@ -866,6 +866,8 @@ void DemoWindow::changeVelocity()
 {
     velocity = ui->velocitySlider->value() / 10.0f;
 //    std::cout << velocity << std::endl;
+        QString velocityAmnt = QString::number(velocity);
+        ui->velocityAmntLbl->setText(velocityAmnt);
 }
 
 void DemoWindow::changeDensity()

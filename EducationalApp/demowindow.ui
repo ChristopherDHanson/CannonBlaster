@@ -79,7 +79,7 @@ border-color: rgb(85, 87, 83);</string>
       <rect>
        <x>10</x>
        <y>50</y>
-       <width>160</width>
+       <width>151</width>
        <height>16</height>
       </rect>
      </property>
@@ -127,7 +127,7 @@ border-color: rgb(85, 87, 83);</string>
       <rect>
        <x>10</x>
        <y>90</y>
-       <width>160</width>
+       <width>151</width>
        <height>16</height>
       </rect>
      </property>
@@ -147,7 +147,7 @@ border-color: rgb(85, 87, 83);</string>
     <widget class="QLabel" name="velocityLabel">
      <property name="geometry">
       <rect>
-       <x>200</x>
+       <x>220</x>
        <y>30</y>
        <width>141</width>
        <height>17</height>
@@ -160,9 +160,9 @@ border-color: rgb(85, 87, 83);</string>
     <widget class="QSlider" name="velocitySlider">
      <property name="geometry">
       <rect>
-       <x>200</x>
+       <x>220</x>
        <y>50</y>
-       <width>160</width>
+       <width>141</width>
        <height>16</height>
       </rect>
      </property>
@@ -195,10 +195,10 @@ border-color: rgb(85, 87, 83);</string>
     <widget class="QLabel" name="scoreLabel">
      <property name="geometry">
       <rect>
-       <x>390</x>
-       <y>30</y>
+       <x>220</x>
+       <y>80</y>
        <width>91</width>
-       <height>17</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
@@ -208,24 +208,44 @@ border-color: rgb(85, 87, 83);</string>
     <widget class="QLabel" name="scoreDisplayLabel">
      <property name="geometry">
       <rect>
-       <x>480</x>
-       <y>30</y>
-       <width>16</width>
-       <height>17</height>
+       <x>370</x>
+       <y>80</y>
+       <width>41</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(238, 238, 236);
+color: rgb(46, 52, 54);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::WinPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
      </property>
      <property name="text">
       <string>0</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="messageBox">
      <property name="geometry">
       <rect>
-       <x>390</x>
-       <y>60</y>
-       <width>131</width>
-       <height>51</height>
+       <x>420</x>
+       <y>40</y>
+       <width>121</width>
+       <height>71</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(46, 52, 54);
+background-color: rgb(238, 238, 236);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::WinPanel</enum>
      </property>
      <property name="text">
       <string/>
@@ -235,6 +255,29 @@ border-color: rgb(85, 87, 83);</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="velocityAmntLbl">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>40</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(238, 238, 236);
+color: rgb(46, 52, 54);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::WinPanel</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>
