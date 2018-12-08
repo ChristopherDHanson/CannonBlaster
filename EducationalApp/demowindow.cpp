@@ -30,8 +30,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
     spriteTimer.setInterval(40);
     connect(&spriteTimer, &QTimer::timeout, this, &DemoWindow::updateSprites);
 
-    // Print the box number when it is hit (for debugging; delete this eventually).
-    connect(this, &DemoWindow::answerBoxHit, this, [=] (int box) { std::cout << box << std::endl; });
+    // Make the game respond to hitting answer boxes with a cannonball.
     connect(this, &DemoWindow::answerBoxHit, this, &DemoWindow::checkCorrectness);
 
     velocity = 20;
@@ -842,7 +841,7 @@ void DemoWindow::setupAnswerBoxes()
 
     // Scale the boxes and put their origins in the center.
     for (uint16_t idx = 0; idx < 4; idx++) {
-        answerBoxes[idx]->scale(float(0.6), float(0.6));
+        answerBoxes[idx]->scale(float(0.8), float(0.8));
         boxDim = answerBoxes[idx]->getGlobalBounds();
         answerBoxes[idx]->setOrigin(boxDim.width / 2, boxDim.height / 2);
     }

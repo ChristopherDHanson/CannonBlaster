@@ -286,7 +286,7 @@ color: rgb(221, 166, 255);</string>
      <enum>QFrame::WinPanel</enum>
     </property>
     <property name="text">
-     <string>Question: </string>
+     <string>Archimedes was a mathematician from which ancient city?</string>
     </property>
    </widget>
    <widget class="QWidget" name="verticalLayoutWidget">
