@@ -121,12 +121,14 @@ void DemoWindow::buildLevel1()
     buildBluePyramid(level1, 9, 410, 250);
 
     // pyramid of red blocks
+    buildRedPyramid(level1, 3, 144, 200);
     buildRedPyramid(level1, 3, 314, 80);
+    buildRedPyramid(level1, 3, 634, 130);
 
     // build a tree from its parts. 2nd parameter is the x position to build
     assembleShortTree(level1, 380);
     assembleMediumTree(level1, 220);
-    assembleTallTree(level1, 250);
+    assembleTallTree(level1, 260);
 
     // build block/wall structure
     assembleSmallTower(level1, 160);
@@ -134,14 +136,14 @@ void DemoWindow::buildLevel1()
     assembleTallTower(level1, 330);
 
     // needs to occur only in first level method
-    setupBrownAnswerBoxes();
+    setupGrayAnswerBoxes();
 
     // set answer box positions
     QVector<b2Vec2> positions;
-    positions.push_back(b2Vec2(580,40));
-    positions.push_back(b2Vec2(580,110));
-    positions.push_back(b2Vec2(580,180));
-    positions.push_back(b2Vec2(580,250));
+    positions.push_back(b2Vec2(580,35));
+    positions.push_back(b2Vec2(580,112));
+    positions.push_back(b2Vec2(580,189));
+    positions.push_back(b2Vec2(580,266));
     level1->setAnswerBoxPositions(positions);
 
 
@@ -481,119 +483,73 @@ void DemoWindow::buildLevel5()
     // background
     level5->setBackground("../Images/springBckgrndWide.png");
 
+    // block barrier
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,315,120, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,331,120, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,374,120, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,390,120, b2Vec2(0,0), 1, 4);
 
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,330,115, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,370,115, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,330,100, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,370,100, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,335,85, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,365,85, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,340,70, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,360,70, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,340,55, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,360,55, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,315,115, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,385,115, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,315,100, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,385,100, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,320,85, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,380,85, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,325,70, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,375,70, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,325,55, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,375,55, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,315,104, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,331,104, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,374,104, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,390,104, b2Vec2(0,0), 1, 4);
 
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,300, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,300, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,280, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,280, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,260, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,260, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,240, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,240, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,220, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,220, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,200, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,200, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,180, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,180, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,160, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,160, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,140, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,140, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,120, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,120, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,100, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,100, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,80, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,80, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,60, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,60, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,40, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,40, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,320,88, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,336,88, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,369,88, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,385,88, b2Vec2(0,0), 1, 4);
+
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,320,72, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,336,72, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,369,72, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,385,72, b2Vec2(0,0), 1, 4);
+
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,325,56, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,341,56, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,364,56, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,380,56, b2Vec2(0,0), 1, 4);
+
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,325,40, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,341,40, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,364,40, b2Vec2(0,0), 1, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,380,40, b2Vec2(0,0), 1, 4);
 
 
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,316,115, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,332,115, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,316,100, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,332,100, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,325,70, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,325,55, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,330,100, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,335,85, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,340,70, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,340,55, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,360,70, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,360,55, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,365,85, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,370,115, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,370,100, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,375,70, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,375,55, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,380,85, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,385,115, b2Vec2(0,0), 1, 4);
-//    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,385,100, b2Vec2(0,0), 1, 4);
-
-
-
-
-
-
-
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,300, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,300, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,280, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,280, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,260, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,260, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,240, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,240, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,220, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,220, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,200, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,200, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,180, b2Vec2(0,0), 1, 4);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,180, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,160, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,160, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,140, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,140, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,120, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,120, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,100, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,100, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,80, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,80, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,60, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,60, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,530,40, b2Vec2(0,0), 100, 17);
-    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,545,40, b2Vec2(0,0), 100, 17);
+    // really tall block tower
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,300, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,300, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,284, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,284, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,268, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,268, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,252, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,252, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,236, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,236, b2Vec2(0,0), 100, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,220, b2Vec2(0,0), 100, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,220, b2Vec2(0,0), 100, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,204, b2Vec2(0,0), 100, 4);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,204, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,188, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,188, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,172, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,172, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,156, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,156, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,140, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,140, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,124, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,124, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,108, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,108, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,92, b2Vec2(0,0), 100, 17);
+    level5->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,92, b2Vec2(0,0), 100, 17);
 
 
     // build a tree from its parts. 2nd parameter is the x position to build
     //assembleShortTree(level, 380);
     assembleMediumTree(level5, 75);
-    assembleTallTree(level5, 150);
+    assembleTallTree(level5, 220);
 
     // build block/wall structure
     //assembleSmallTower(level, 160);
@@ -604,8 +560,8 @@ void DemoWindow::buildLevel5()
 
     // set answer box positions
     QVector<b2Vec2> positions;
-    positions.append(b2Vec2(215,272));
-    positions.append(b2Vec2(325,272));
+    positions.append(b2Vec2(160,272));
+    positions.append(b2Vec2(270,272));
     positions.append(b2Vec2(435,272));
     positions.append(b2Vec2(545,272));
     level5->setAnswerBoxPositions(positions);
@@ -735,7 +691,7 @@ void DemoWindow::assembleTallTower(Level* targetLevel, float32 posX)
     targetLevel->createBox(textures[15].copyToImage().getSize().x,textures[15].copyToImage().getSize().y, posX, 303, 15);    // bottom
 }
 
-void DemoWindow::setupBrownAnswerBoxes()
+void DemoWindow::setupGrayAnswerBoxes()
 {
     answerTextures = std::vector<sf::Texture>(4);
     sf::Texture boxTextureA;

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Cannon Blaster</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(52, 101, 164);</string>
@@ -179,35 +179,6 @@ border-color: rgb(85, 87, 83);</string>
       <enum>QSlider::TicksAbove</enum>
      </property>
     </widget>
-    <widget class="QLabel" name="var4Label">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>70</y>
-       <width>67</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Var 4?</string>
-     </property>
-    </widget>
-    <widget class="QSlider" name="var4Slider">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>90</y>
-       <width>160</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="tickPosition">
-      <enum>QSlider::TicksAbove</enum>
-     </property>
-    </widget>
     <widget class="QPushButton" name="fireButton">
      <property name="geometry">
       <rect>
@@ -275,6 +246,15 @@ border-color: rgb(85, 87, 83);</string>
       <width>691</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Uroob</family>
+      <pointsize>24</pointsize>
+      <weight>9</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(32, 74, 135);
@@ -456,7 +436,7 @@ font: 75 18pt &quot;Uroob&quot;;</string>
      <x>0</x>
      <y>0</y>
      <width>948</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu">
@@ -478,7 +458,7 @@ font: 75 18pt &quot;Uroob&quot;;</string>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionStart_Game">
    <property name="text">
-    <string>Start Game</string>
+    <string>Quit</string>
    </property>
   </action>
  </widget>

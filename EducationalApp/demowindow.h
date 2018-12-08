@@ -57,7 +57,7 @@ private:
     void buildLevel4();
     void buildLevel5();
 
-    void setupBrownAnswerBoxes();
+    void setupGrayAnswerBoxes();
     void setupIceAnswerBoxes();
     ///
     /// \brief answerBoxIndex
