@@ -158,8 +158,6 @@ void DemoWindow::buildLevel1()
     // set background music
     level1->setMusicPath("../Audio/chiptune1.ogg");
 
-    //music.play();
-
     levels.push_back(level1);
 }
 
@@ -238,8 +236,6 @@ void DemoWindow::buildLevel2()
 
     // Set background music
     level2->setMusicPath("../Audio/chiptune1.ogg");
-
-    //music.play();
 
     levels.push_back(level2);
 }
@@ -329,9 +325,6 @@ void DemoWindow::buildLevel3()
 
     // Set background music
     level3->setMusicPath("../Audio/chiptune1.ogg");
-
-    //music.play();
-    // ++
 
     levels.push_back(level3);
 }
@@ -424,8 +417,6 @@ void DemoWindow::buildLevel4()
         level4->setCannon(cannon);
         // Set background music
         level4->setMusicPath("../Audio/chiptune1.ogg");
-
-        //music.play();
 
         levels.push_back(level4);
 
@@ -571,8 +562,6 @@ void DemoWindow::buildLevel5()
 
     // Set background music
     level5->setMusicPath("../Audio/chiptune1.ogg");
-
-    //music.play();
 
     levels.push_back(level5);
 }
@@ -772,6 +761,7 @@ int DemoWindow::answerBoxIndex(int x, int y)
 
 void DemoWindow::nextLevel() {
     spriteTimer.stop();
+    music.stop();
     if (currentLvlInd < levels.size()-1) // There are more levels to go
     {
         // Update the question.
@@ -798,6 +788,12 @@ void DemoWindow::nextLevel() {
             ui->canvas->addSprite(answerBoxes[idx]);
             idx++;
         }
+
+        // Load and start music
+        music.openFromFile(currentLevel->getMusicPath());
+        music.setLoop(true);
+        music.play();
+
         emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
         spriteTimer.start();
     }
