@@ -15,7 +15,7 @@ private:
     float32 timeStep;
     std::vector<sf::Texture> textures; // Raw textures stored here
     int levelSpeed = 3;
-    QVector<b2Vec2> answerBoxPositions = {b2Vec2(600, 50 + 70),b2Vec2(600, 50 + 140),b2Vec2(600, 50 + 210),b2Vec2(600, 50 + 280)};
+    QVector<b2Vec2> answerBoxPositions = {b2Vec2(0, 0),b2Vec2(0, 0),b2Vec2(0, 0),b2Vec2(0, 0)};
     std::string musicPath;
     int test;
     std::string background;
@@ -37,6 +37,7 @@ public:
     void next();
     QVector<b2Vec2> getAnswerBoxPositions();
     void setAnswerBoxPositions(QVector<b2Vec2> pos);
+//    void setAnswerBoxPositions(int posXBoxA, int posYBoxA, int posXBoxB, int posYBoxB, int posXBoxC, int posYBoxC, int posXBoxD, int posYBoxD);
     void setBackground(std::string bg);
     std::string getBackground();
     void setCannon(sf::Sprite* cannon);

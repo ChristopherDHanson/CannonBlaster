@@ -192,6 +192,18 @@ void Level::setAnswerBoxPositions(QVector<b2Vec2> pos)
     answerBoxPositions = pos;
 }
 
+//void Level::setAnswerBoxPositions(int posXBoxA, int posYBoxA, int posXBoxB, int posYBoxB, int posXBoxC, int posYBoxC, int posXBoxD, int posYBoxD)
+//{
+//    b2Vec2 boxA(posXBoxA, posYBoxA);
+//    answerBoxPositions.push_back(boxA);
+//    b2Vec2 boxB(posXBoxB, posYBoxB);
+//    answerBoxPositions.push_back(boxB);
+//    b2Vec2 boxC(posXBoxC, posYBoxC);
+//    answerBoxPositions.push_back(boxC);
+//    b2Vec2 boxD(posXBoxD, posYBoxD);
+//    answerBoxPositions.push_back(boxD);
+//}
+
 
 std::string Level::getBackground()
 {

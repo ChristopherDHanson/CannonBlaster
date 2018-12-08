@@ -108,52 +108,13 @@ void DemoWindow::buildLevel1()
     }
 
     level1->loadTextures(textures);
-    //++++
 
-
-    // PROBABLY CREATE FUNCTIONS FOR COMMON OBJECTS LIKE I DID WITH THE TREES
     // pyramid of blue blocks
-    {
-    // bottom level
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,250, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,250, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,512,250, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,528,250, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,544,250, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,560,250, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,576,250, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,592,250, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,608,250, b2Vec2(0,0), 1, 4);
-    // 2nd level
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,200, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,512,200, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,528,200, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,544,200, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,560,200, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,576,200, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,592,200, b2Vec2(0,0), 1, 4);
-    // 3rd level
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,512,150, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,528,150, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,544,150, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,560,150, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,576,150, b2Vec2(0,0), 1, 4);
-    // 4th level
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,528,100, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,544,100, b2Vec2(0,0), 1, 4);
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,560,100, b2Vec2(0,0), 1, 4);
-    // top of pyramid
-    level1->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,544,50, b2Vec2(0,0), 1, 4);
-    }
+    buildBluePyramid(level1, 9, 480, 250);
+
 
     // pyramid of red blocks
-    // bottom level
-    level1->createDynamicBox(textures[17].copyToImage().getSize().x,textures[17].copyToImage().getSize().y,314,80, b2Vec2(0,0), 1, 17);
-    level1->createDynamicBox(textures[17].copyToImage().getSize().x,textures[17].copyToImage().getSize().y,330,80, b2Vec2(0,0), 1, 17);
-    level1->createDynamicBox(textures[17].copyToImage().getSize().x,textures[17].copyToImage().getSize().y,346,80, b2Vec2(0,0), 1, 17);
-    level1->createDynamicBox(textures[17].copyToImage().getSize().x,textures[17].copyToImage().getSize().y,322,50, b2Vec2(0,0), 1, 17);
-    level1->createDynamicBox(textures[17].copyToImage().getSize().x,textures[17].copyToImage().getSize().y,338,50, b2Vec2(0,0), 1, 17);
-    level1->createDynamicBox(textures[17].copyToImage().getSize().x,textures[17].copyToImage().getSize().y,330,30, b2Vec2(0,0), 1, 17);
+    buildRedPyramid(level1, 3, 314, 80);
 
     // ground
     level1->createBox(textures[5].copyToImage().getSize().x,textures[5].copyToImage().getSize().y, 346, 320, 5);
@@ -189,13 +150,13 @@ void DemoWindow::buildLevel1()
 
     setupAnswerBoxes();
 
-//    QVector<b2Vec2> positions;
-//    positions.push_back(b2Vec2(600,250));
-//    positions.push_back(b2Vec2(600,300));
-//    positions.push_back(b2Vec2(600,350));
-//    positions.push_back(b2Vec2(600,400));
+    QVector<b2Vec2> positions;
+    positions.push_back(b2Vec2(600,40));
+    positions.push_back(b2Vec2(600,110));
+    positions.push_back(b2Vec2(600,180));
+    positions.push_back(b2Vec2(600,250));
 
-//    level1->setAnswerBoxPositions(positions);
+    level1->setAnswerBoxPositions(positions);
 
 
     // creating with the cannon without box2d
@@ -232,7 +193,7 @@ void DemoWindow::buildLevel2()
         "../Images/SpringBlocks/springBlock2Top.png",
         "../Images/SpringBlocks/springBlock2Part.png",
         "../Images/SpringBlocks/springBlock2Btm.png",
-        "../Images/cannon1.png",
+        "../Images/cannon2.png",
         "../Images/redBlock.png",
     };
 
@@ -350,7 +311,7 @@ void DemoWindow::buildLevel3()
         "../Images/SpringBlocks/springBlock2Top.png",
         "../Images/SpringBlocks/springBlock2Part.png",
         "../Images/SpringBlocks/springBlock2Btm.png",
-        "../Images/cannon1.png",
+        "../Images/cannon2.png",
         "../Images/redBlock.png",
     };
 
@@ -369,80 +330,9 @@ void DemoWindow::buildLevel3()
     }
 
     level3->loadTextures(textures);
-    //++++
-
-
-    // PROBABLY CREATE FUNCTIONS FOR COMMON OBJECTS LIKE I DID WITH THE TREES
-    // pyramid of blue blocks
-    // bottom level
-    /*
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,480,250, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,250, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,512,250, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,528,250, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,544,250, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,560,250, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,576,250, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,592,250, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,608,250, b2Vec2(0,0), 1, 4);
-    // 2nd level
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,496,200, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,512,200, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,528,200, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,544,200, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,560,200, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,576,200, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,592,200, b2Vec2(0,0), 1, 4);
-    // 3rd level
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,512,150, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,528,150, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,544,150, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,560,150, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,576,150, b2Vec2(0,0), 1, 4);
-    // 4th level
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,528,100, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,544,100, b2Vec2(0,0), 1, 4);
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,560,100, b2Vec2(0,0), 1, 4);
-    // top of pyramid
-    level3->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y,544,50, b2Vec2(0,0), 1, 4);
-
-
-    // pyramid of red blocks
-    // bottom level
-    level3->createDynamicBox(textures[17].copyToImage().getSize().x,textures[17].copyToImage().getSize().y,314,80, b2Vec2(0,0), 1, 17);
-    level3->createDynamicBox(textures[17].copyToImage().getSize().x,textures[17].copyToImage().getSize().y,330,80, b2Vec2(0,0), 1, 17);
-    level3->createDynamicBox(textures[17].copyToImage().getSize().x,textures[17].copyToImage().getSize().y,346,80, b2Vec2(0,0), 1, 17);
-    level3->createDynamicBox(textures[17].copyToImage().getSize().x,textures[17].copyToImage().getSize().y,322,50, b2Vec2(0,0), 1, 17);
-    level3->createDynamicBox(textures[17].copyToImage().getSize().x,textures[17].copyToImage().getSize().y,338,50, b2Vec2(0,0), 1, 17);
-    level3->createDynamicBox(textures[17].copyToImage().getSize().x,textures[17].copyToImage().getSize().y,330,30, b2Vec2(0,0), 1, 17);
-    */
-
 
     // ground
     level3->createBox(textures[5].copyToImage().getSize().x,textures[5].copyToImage().getSize().y, 346, 320, 5);
-
-    // build a tree from its parts. 2nd parameter is the x position to build
-    /*
-    assembleMediumTree(level3, 40);
-    assembleTallTree(level3, 70);
-    assembleMediumTree(level3, 100);
-    assembleShortTree(level3, 130);
-    assembleMediumTree(level3, 160);
-    assembleTallTree(level3, 190);
-    assembleShortTree(level3, 220);
-    assembleTallTree(level3, 250);
-    assembleMediumTree(level3, 270);
-    assembleTallTree(level3, 300);
-    assembleMediumTree(level3, 320);
-    assembleShortTree(level3, 350);
-    assembleMediumTree(level3, 370);
-    assembleTallTree(level3, 400);
-    assembleShortTree(level3, 430);
-    assembleTallTree(level3, 450);
-    assembleMediumTree(level3, 480);
-    assembleShortTree(level3, 500);
-    assembleTallTree(level3, 520);
-    */
 
     // build block/wall structure
     //assembleSmallTower(level3, 160);
@@ -452,10 +342,6 @@ void DemoWindow::buildLevel3()
     level3->setLevelSpeed(6);
     level3->setCannonLocation(b2Vec2(25, 115));
     levels.push_back(level3);
-
-    // repeat process for further levels
-    // ------------------------
-
 
     spriteSwapIdx = 0;
 
@@ -511,7 +397,7 @@ void DemoWindow::buildLevel4()
             "../Images/SpringBlocks/springBlock2Top.png",
             "../Images/SpringBlocks/springBlock2Part.png",
             "../Images/SpringBlocks/springBlock2Btm.png",
-            "../Images/cannon1.png",
+            "../Images/cannon2.png",
             "../Images/redBlock.png",
         };
 
@@ -747,6 +633,46 @@ void DemoWindow::buildLevel5()
     ui->canvas->addSprite(cannon);
 }
 
+// use for shorter pyramids. Shorter than the base
+void DemoWindow::buildBluePyramid(Level* targetLevel, int baseSize, float32 xStartPos, float32 yStartPos)
+{
+    float32 xPos = xStartPos;
+    float32 yPos = yStartPos;
+    int crrntLvlNumBlcks = baseSize;
+    int pyramidHeight = baseSize/2 + baseSize%2;
+    for(int i = 0; i < pyramidHeight; i++)
+    {
+        float32 crrntBlockXPos = xPos;
+        for(int j = 0; j < crrntLvlNumBlcks; j++)
+        {
+            targetLevel->createDynamicBox(textures[4].copyToImage().getSize().x,textures[4].copyToImage().getSize().y, crrntBlockXPos, yPos, b2Vec2(0,0), 1, 4);
+            crrntBlockXPos +=16;
+        }
+        yPos -= 30;
+        xPos += 16;
+        crrntLvlNumBlcks -= 2;
+    }
+}
+
+// use for taller pyramids. As tall as the base
+void DemoWindow::buildRedPyramid(Level* targetLevel, int baseSize, float32 xStartPos, float32 yStartPos)
+{
+    float32 xPos = xStartPos;
+    float32 yPos = yStartPos;
+    int crrntLvlNumBlcks = baseSize;
+    for(int i = 0; i < baseSize; i++)
+    {
+        float32 crrntBlockXPos = xPos;
+        for(int j = 0; j < crrntLvlNumBlcks; j++)
+        {
+            targetLevel->createDynamicBox(textures[17].copyToImage().getSize().x,textures[17].copyToImage().getSize().y, crrntBlockXPos, yPos, b2Vec2(0,0), 1, 17);
+            crrntBlockXPos +=16;
+        }
+        yPos -= 30;
+        xPos += 8;
+        crrntLvlNumBlcks--;
+    }
+}
 
 void DemoWindow::assembleShortTree(Level* targetLevel, float32 posX)
 {
@@ -838,10 +764,9 @@ void DemoWindow::setupAnswerBoxes()
     answerBoxes.push_back(new sf::Sprite(answerTextures[3]));
 
     sf::FloatRect boxDim;
-
     // Scale the boxes and put their origins in the center.
     for (uint16_t idx = 0; idx < 4; idx++) {
-        answerBoxes[idx]->scale(float(0.8), float(0.8));
+//        answerBoxes[idx]->scale(float(0.9), float(0.9));
         boxDim = answerBoxes[idx]->getGlobalBounds();
         answerBoxes[idx]->setOrigin(boxDim.width / 2, boxDim.height / 2);
     }
