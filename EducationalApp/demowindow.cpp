@@ -150,7 +150,6 @@ void DemoWindow::buildLevel1()
     level1->setLevelSpeed(6);   // level iteration speed
 
     //cannon
-    level1->setCannonLocation(b2Vec2(40, 295));
     cannon = new sf::Sprite(*level1->getTexturePtr(16));
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
     cannon->setPosition(40, 295);
@@ -232,7 +231,6 @@ void DemoWindow::buildLevel2()
     level2->setLevelSpeed(6);   // level iteration speed
 
     // cannon
-    level2->setCannonLocation(b2Vec2(50, 295));
     cannon = new sf::Sprite(*level2->getTexturePtr(16));
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
     cannon->setPosition(50, 295);
@@ -324,7 +322,6 @@ void DemoWindow::buildLevel3()
     level3->setLevelSpeed(6);
 
     // cannon
-    level3->setCannonLocation(b2Vec2(45, 120));
     cannon = new sf::Sprite(*level3->getTexturePtr(16));
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
     cannon->setPosition(45, 120);
@@ -421,8 +418,6 @@ void DemoWindow::buildLevel4()
 
         level4->setLevelSpeed(6);
 
-
-        level4->setCannonLocation(b2Vec2(45, 295));
         cannon = new sf::Sprite(*level4->getTexturePtr(16));
         cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
         cannon->setPosition(45, 295);
@@ -569,7 +564,6 @@ void DemoWindow::buildLevel5()
     level5->setLevelSpeed(6);   // level iteration speed
 
     // cannon
-    level5->setCannonLocation(b2Vec2(350, 115));
     cannon = new sf::Sprite(*level5->getTexturePtr(16));
     cannon->setOrigin(textures[16].copyToImage().getSize().x/2, textures[16].copyToImage().getSize().y/2);
     cannon->setPosition(350, 115);
