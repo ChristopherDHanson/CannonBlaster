@@ -794,6 +794,7 @@ void DemoWindow::nextLevel() {
             ui->canvas->addSprite(s);
         }
         ui->canvas->setBackdrop(currentLevel->getBackground());
+        currentLevel->getCannon()->setRotation(ui->angleSlider->value() * - 1);
         ui->canvas->addSprite(currentLevel->getCannon());
         tankTrooper->setPosition(sf::Vector2f(currentLevel->getCannon()->getPosition().x - 30, currentLevel->getCannon()->getPosition().y - 3));
         ui->canvas->addSprite(tankTrooper);
