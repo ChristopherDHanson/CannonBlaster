@@ -27,7 +27,7 @@ public:
 private:
     Ui::DemoWindow *ui;
     QTimer spriteTimer;
-    sf::Sprite* sprite;
+//    sf::Sprite* sprite;
     int spriteSwapIdx;
     std::vector<sf::Texture> textures;
     std::vector<sf::Texture> answerTextures;
@@ -38,12 +38,14 @@ private:
     sf::SoundBuffer soundBuffer;
     sf::Sound shootSound;
     Level* currentLevel;
-    std::map<int, bool> ballsInAnswerBoxes;
+//    std::map<int, bool> ballsInAnswerBoxes;
+    int nonBallBodies;
     int numShots = 0;
     int totalShots = 0;
     int currentLvlInd = -1;
     sf::Sprite* cannon;
     sf::Sprite* tankTrooper;
+//    std::vector<bool> bodiesDeleted;
     float angle[3];
     float velocity;
     float density;

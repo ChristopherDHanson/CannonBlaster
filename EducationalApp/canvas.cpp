@@ -20,12 +20,31 @@ void Canvas::removeSprite(sf::Sprite* sprite)
     int found = 0;
 
     for (uint16_t idx = 0; idx < sprites.size(); idx++)
-        if (sprites[idx] == sprite)
+        if (sprites[idx] == sprite) {
             for (uint16_t idx2 = idx + 1; idx2 < sprites.size(); idx2++)
-            {
                 sprites[idx2 - 1] = sprites[idx2];
-                found++;
-            }
+            found++;
+        }
+
+    while (found-- > 0)
+        sprites.pop_back();
+}
+
+void Canvas::removeSprites(std::vector<uint16_t> indices)
+{
+    int found = 0;
+
+    for (uint16_t idx : indices) {
+        for (uint16_t idx2 = idx + 1; idx2 < sprites.size(); idx2++)
+            sprites[idx2 - 1] = sprites[idx2];
+        found++;
+    }
+//    for (uint16_t idx = 0; idx < sprites.size(); idx++)
+//        if (sprites[idx] == sprite) {
+//            for (uint16_t idx2 = idx + 1; idx2 < sprites.size(); idx2++)
+//                sprites[idx2 - 1] = sprites[idx2];
+//            found++;
+//        }
 
     while (found-- > 0)
         sprites.pop_back();
@@ -34,6 +53,11 @@ void Canvas::removeSprite(sf::Sprite* sprite)
 void Canvas::removeAllSprites()
 {
     sprites.clear();
+}
+
+uint16_t Canvas::spriteCnt()
+{
+    return static_cast<uint16_t>(sprites.size());
 }
 
 void Canvas::onUpdate()

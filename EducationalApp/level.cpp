@@ -161,8 +161,28 @@ void Level::createDynamicCircle(float32 width, float32 height, float32 posX, flo
     sprites.push_back(sprite);
 }
 
+void Level::removeBodies(std::vector<uint16_t> bodyIndices)
+{
+    uint16_t successfulRemovalCnt = 0;
+
+    for (uint16_t bodyIndex : bodyIndices) {
+        b2Body* body = bodies[bodyIndex];
+        world->DestroyBody(body);
+        for (uint16_t idx = bodyIndex + 1; idx < bodies.size(); idx++) {
+            bodies[idx - 1] = bodies[idx];
+            sprites[idx - 1] = sprites[idx];
+        }
+        ++successfulRemovalCnt;
+    }
+
+    while (successfulRemovalCnt-- > 0) {
+        sprites.pop_back();
+        bodies.pop_back();
+    }
+}
+
 void Level::fireCannonball(b2Vec2 force, float32 density) {
-    createDynamicCircle();
+//    createDynamicCircle();
     sf::Vector2u imgSize = textures[0].copyToImage().getSize();
     //createDynamicCircle(imgSize.x,imgSize.y,cannonLocation.x,cannonLocation.y, force, density);
     createDynamicCircle(imgSize.x,imgSize.y,cannon->getPosition().x,cannon->getPosition().y, force, density);

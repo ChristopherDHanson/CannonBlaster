@@ -44,6 +44,7 @@ public:
     void setMusicPath(std::string musicPath);
     std::string getMusicPath();
     sf::Texture* getTexturePtr(uint ind);
+    void removeBodies(std::vector<uint16_t> bodyIndices);
 
     QVector<b2Body*> bodies; // Physics information for each object stored here
     QVector<sf::Sprite*> sprites; // Sprites representing each object stored here

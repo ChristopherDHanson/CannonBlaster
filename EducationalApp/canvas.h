@@ -64,11 +64,15 @@ public:
 
     void removeSprite(sf::Sprite* sprite);
 
+    void removeSprites(std::vector<uint16_t> indices);
+
     void removeAllSprites();
 
     void onUpdate() override;
 
     void setBackdrop(std::string backdropPath);
+
+    uint16_t spriteCnt();
 
 public slots:
 };
