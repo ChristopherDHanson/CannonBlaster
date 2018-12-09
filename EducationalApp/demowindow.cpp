@@ -163,7 +163,7 @@ void DemoWindow::buildLevel1()
     level1->setCannon(cannon);
 
     // set background music
-    level1->setMusicPath("../Audio/chiptune1.ogg");
+    level1->setMusicPath("../Audio/happyMusic.ogg");
 
     levels.push_back(level1);
 }
@@ -242,7 +242,7 @@ void DemoWindow::buildLevel2()
     level2->setCannon(cannon);
 
     // Set background music
-    level2->setMusicPath("../Audio/chiptune1.ogg");
+    level2->setMusicPath("../Audio/happyMusic.ogg");
 
     levels.push_back(level2);
 }
@@ -768,9 +768,9 @@ int DemoWindow::answerBoxIndex(int x, int y)
 
 void DemoWindow::nextLevel() {
     spriteTimer.stop();
-    music.stop();
     if (currentLvlInd < levels.size()-1) // There are more levels to go
     {
+        music.stop();
         // Update the question.
         if (++questionIndex < questions.Questions().size())
             startQuestion();
