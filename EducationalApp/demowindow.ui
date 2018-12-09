@@ -472,6 +472,19 @@ font: 75 18pt &quot;Uroob&quot;;</string>
      </item>
     </layout>
    </widget>
+   <widget class="QPushButton" name="resetButton">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>430</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Restart Level!</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -487,6 +500,7 @@ font: 75 18pt &quot;Uroob&quot;;</string>
      <string>Menu</string>
     </property>
     <addaction name="actionToggle_Sound"/>
+    <addaction name="actionRestart_Game"/>
     <addaction name="actionQuit_Game"/>
    </widget>
    <addaction name="menuMenu"/>
@@ -508,6 +522,11 @@ font: 75 18pt &quot;Uroob&quot;;</string>
   <action name="actionToggle_Sound">
    <property name="text">
     <string>Toggle Sound</string>
+   </property>
+  </action>
+  <action name="actionRestart_Game">
+   <property name="text">
+    <string>Restart Game</string>
    </property>
   </action>
  </widget>

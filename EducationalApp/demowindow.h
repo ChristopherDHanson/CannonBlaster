@@ -50,7 +50,7 @@ private:
     float velocity;
     float density;
     QuestionModel questions;
-    uint questionIndex;
+    int questionIndex;
     QuestionModel::ShuffledQuestion currentQuestion;
     sf::Texture troopTex;
     bool soundIsOn = true;
@@ -95,6 +95,9 @@ public slots:
 
     void toggleSound();
     void quitGame();
+
+    void restartGame();
+    void restartLevel();
 
 
 signals:

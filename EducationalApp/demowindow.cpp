@@ -35,6 +35,9 @@ DemoWindow::DemoWindow(QWidget *parent) :
 
     connect(ui->actionToggle_Sound, &QAction::triggered, this, &DemoWindow::toggleSound);
     connect(ui->actionQuit_Game, &QAction::triggered, this, &DemoWindow::quitGame);
+    connect(ui->actionRestart_Game, &QAction::triggered, this, &DemoWindow::restartGame);
+
+    connect(ui->resetButton, &QPushButton::pressed, this, &DemoWindow::restartLevel);
 
     velocity = 20;
     angle[0] = cos(ui->angleSlider->value() * 3.141f / 180.0f);
@@ -682,7 +685,7 @@ void DemoWindow::assembleTallTower(Level* targetLevel, float32 posX)
 }
 
 void DemoWindow::setupGrayAnswerBoxes()
-{
+{    
     answerTextures = std::vector<sf::Texture>(4);
     sf::Texture boxTextureA;
     sf::Texture boxTextureB;
@@ -721,24 +724,24 @@ void DemoWindow::setupIceAnswerBoxes()
     sf::Texture boxTextureC;
     sf::Texture boxTextureD;
 
-    if (!answerTextures[0].loadFromFile("../Images/QuestionRelated/iceAnswerBoxA.png"))
+    if (!answerTextures[4].loadFromFile("../Images/QuestionRelated/iceAnswerBoxA.png"))
         throw "image not found.";
-    if (!answerTextures[1].loadFromFile("../Images/QuestionRelated/iceAnswerBoxB.png"))
+    if (!answerTextures[5].loadFromFile("../Images/QuestionRelated/iceAnswerBoxB.png"))
         throw "image not found.";
-    if (!answerTextures[2].loadFromFile("../Images/QuestionRelated/iceAnswerBoxC.png"))
+    if (!answerTextures[6].loadFromFile("../Images/QuestionRelated/iceAnswerBoxC.png"))
         throw "image not found.";
-    if (!answerTextures[3].loadFromFile("../Images/QuestionRelated/iceAnswerBoxD.png"))
+    if (!answerTextures[7].loadFromFile("../Images/QuestionRelated/iceAnswerBoxD.png"))
         throw "image not found.";
 
     // Load the textures into the boxes.
-    answerBoxes.push_back(new sf::Sprite(answerTextures[0]));
-    answerBoxes.push_back(new sf::Sprite(answerTextures[1]));
-    answerBoxes.push_back(new sf::Sprite(answerTextures[2]));
-    answerBoxes.push_back(new sf::Sprite(answerTextures[3]));
+    answerBoxes.push_back(new sf::Sprite(answerTextures[4]));
+    answerBoxes.push_back(new sf::Sprite(answerTextures[5]));
+    answerBoxes.push_back(new sf::Sprite(answerTextures[6]));
+    answerBoxes.push_back(new sf::Sprite(answerTextures[7]));
 
     sf::FloatRect boxDim;
     // Scale the boxes and put their origins in the center.
-    for (uint16_t idx = 0; idx < 4; idx++) {
+    for (uint16_t idx = 4; idx < 7; idx++) {
 //        answerBoxes[idx]->scale(float(0.9), float(0.9));
         boxDim = answerBoxes[idx]->getGlobalBounds();
         answerBoxes[idx]->setOrigin(boxDim.width / 2, boxDim.height / 2);
@@ -819,11 +822,14 @@ void DemoWindow::nextLevel() {
             music.play();
         }
 
+        changeVelocity();
+        emit updateShots(QString::number(numShots));
         emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
         spriteTimer.start();
     }
     else // Game has been beaten
     {
+        ui->resetButton->setEnabled(false);
         emit updateMessageBox("You have beaten the game. \nTotal shots: " + QString::number(totalShots));
     }
 }
@@ -959,4 +965,138 @@ void DemoWindow::toggleSound() {
 
 void DemoWindow::quitGame() {
     this->close();
+}
+
+void DemoWindow::restartGame() {
+    spriteTimer.stop();
+
+    questionIndex = -1;
+    music.stop();
+    // Update the question.
+    if (++questionIndex < questions.Questions().size())
+        startQuestion();
+
+    // Update the level (map, objects, etc.).
+    numShots = 0;
+    totalShots = 0;
+    currentLvlInd = -1;
+    levels.clear();
+    answerBoxes.clear();
+    buildLevel1();
+    buildLevel2();
+    buildLevel3();
+    buildLevel4();
+    buildLevel5();
+    currentLevel = levels[++currentLvlInd];
+    ui->canvas->removeAllSprites();
+    ui->canvas->clear();
+    for (sf::Sprite* s : currentLevel->sprites)
+    {
+        ui->canvas->addSprite(s);
+    }
+    ui->canvas->setBackdrop(currentLevel->getBackground());
+    currentLevel->getCannon()->setRotation(ui->angleSlider->value() * - 1);
+    ui->canvas->addSprite(currentLevel->getCannon());
+    tankTrooper->setPosition(sf::Vector2f(currentLevel->getCannon()->getPosition().x - 30, currentLevel->getCannon()->getPosition().y - 3));
+    ui->canvas->addSprite(tankTrooper);
+    uint idx = 0;
+
+    // Check how many bodies there are that are not cannonballs, for use in checking answer boxes.
+    nonBallBodies = currentLevel->bodies.size();
+
+    // Rotate the cannon to agree with the actual angle in box2D.
+    changeAngle();
+
+    // Place the answer boxes in the correct locations.
+    for (b2Vec2 pos : currentLevel->getAnswerBoxPositions()) {
+        answerBoxes[idx]->setPosition(pos.x, pos.y);
+        ui->canvas->addSprite(answerBoxes[idx]);
+        idx++;
+    }
+
+    // Set answer styles back to normal (no strikethroughs).
+    QString style("color: rgb(170, 255, 248);\nfont: 75 18pt \"Uroob\";");
+    ui->answerLabelA->setStyleSheet(style);
+    ui->answerLabelB->setStyleSheet(style);
+    ui->answerLabelC->setStyleSheet(style);
+    ui->answerLabelD->setStyleSheet(style);
+
+    // Load and start music
+    music.openFromFile(currentLevel->getMusicPath());
+    music.setLoop(true);
+    if (soundIsOn) {
+        music.setVolume(80.0f);
+        music.play();
+    }
+
+    ui->resetButton->setEnabled(true);
+    emit updateShots(QString::number(numShots));
+    emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
+    spriteTimer.start();
+}
+
+void DemoWindow::restartLevel() {
+    spriteTimer.stop();
+
+    questionIndex -= 1;
+    music.stop();
+    // Update the question.
+    if (++questionIndex < questions.Questions().size())
+        startQuestion();
+
+    // Update the level (map, objects, etc.).
+    numShots = 0;
+    currentLvlInd -= 1;
+    levels.clear();
+    answerBoxes.clear();
+    buildLevel1();
+    buildLevel2();
+    buildLevel3();
+    buildLevel4();
+    buildLevel5();
+    currentLevel = levels[++currentLvlInd];
+    ui->canvas->removeAllSprites();
+    ui->canvas->clear();
+    for (sf::Sprite* s : currentLevel->sprites)
+    {
+        ui->canvas->addSprite(s);
+    }
+    ui->canvas->setBackdrop(currentLevel->getBackground());
+    currentLevel->getCannon()->setRotation(ui->angleSlider->value() * - 1);
+    ui->canvas->addSprite(currentLevel->getCannon());
+    tankTrooper->setPosition(sf::Vector2f(currentLevel->getCannon()->getPosition().x - 30, currentLevel->getCannon()->getPosition().y - 3));
+    ui->canvas->addSprite(tankTrooper);
+    uint idx = 0;
+
+    // Check how many bodies there are that are not cannonballs, for use in checking answer boxes.
+    nonBallBodies = currentLevel->bodies.size();
+
+    // Rotate the cannon to agree with the actual angle in box2D.
+    changeAngle();
+
+    // Place the answer boxes in the correct locations.
+    for (b2Vec2 pos : currentLevel->getAnswerBoxPositions()) {
+        answerBoxes[idx]->setPosition(pos.x, pos.y);
+        ui->canvas->addSprite(answerBoxes[idx]);
+        idx++;
+    }
+
+    // Set answer styles back to normal (no strikethroughs).
+    QString style("color: rgb(170, 255, 248);\nfont: 75 18pt \"Uroob\";");
+    ui->answerLabelA->setStyleSheet(style);
+    ui->answerLabelB->setStyleSheet(style);
+    ui->answerLabelC->setStyleSheet(style);
+    ui->answerLabelD->setStyleSheet(style);
+
+    // Load and start music
+    music.openFromFile(currentLevel->getMusicPath());
+    music.setLoop(true);
+    if (soundIsOn) {
+        music.setVolume(80.0f);
+        music.play();
+    }
+
+    emit updateShots(QString::number(numShots));
+    emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
+    spriteTimer.start();
 }
