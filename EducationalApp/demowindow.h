@@ -35,6 +35,8 @@ private:
     QVector<Level*> levels;
     //QuestionModel questions;
     sf::Music music;
+    sf::SoundBuffer soundBuffer;
+    sf::Sound shootSound;
     Level* currentLevel;
     std::map<int, bool> ballsInAnswerBoxes;
     int numShots = 0;

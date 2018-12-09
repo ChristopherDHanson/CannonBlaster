@@ -46,6 +46,10 @@ DemoWindow::DemoWindow(QWidget *parent) :
         tankTrooper->setOrigin(troopTex.copyToImage().getSize().x/2, troopTex.copyToImage().getSize().y/2);
     }
 
+    if (!soundBuffer.loadFromFile("../Audio/CannonShoot.wav"))
+        throw "Failed to load audio into buffer";
+    shootSound.setBuffer(soundBuffer);
+
     buildLevel1();
     buildLevel2();
     buildLevel3();
@@ -792,6 +796,7 @@ void DemoWindow::nextLevel() {
         // Load and start music
         music.openFromFile(currentLevel->getMusicPath());
         music.setLoop(true);
+        music.setVolume(80.0f);
         music.play();
 
         emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
@@ -844,6 +849,7 @@ void DemoWindow::updateSprites()
 
 void DemoWindow::spawnCannonball()
 {
+    shootSound.play();
     totalShots++;
     emit updateShots(QString::number(++numShots));
     currentLevel->fireCannonball(b2Vec2(angle[0] * velocity, angle[1] * velocity), density);
