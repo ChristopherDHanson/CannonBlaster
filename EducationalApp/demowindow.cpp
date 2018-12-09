@@ -921,12 +921,14 @@ void DemoWindow::changeAngle()
     angle[0] = cos(ui->angleSlider->value() * 3.141f / 180.0f);
     angle[1] = sin(ui->angleSlider->value() * 3.141f / 180.0f);
     currentLevel->getCannon()->setRotation(ui->angleSlider->value() * - 1);
+    int angleInteger = ui->angleSlider->value();
+    QString angleAmnt = QString::number(angleInteger);
+    ui->angleDisplayLabel->setText(angleAmnt + "°");
 }
 
 void DemoWindow::changeVelocity()
 {
     velocity = ui->velocitySlider->value() / 10.0f;
-//    std::cout << velocity << std::endl;
         QString velocityAmnt = QString::number(velocity);
         ui->velocityAmntLbl->setText(velocityAmnt);
 }
@@ -934,6 +936,8 @@ void DemoWindow::changeVelocity()
 void DemoWindow::changeDensity()
 {
     density = ui->massSlider->value();
+    QString projectileMassAmnt = QString::number(density);
+    ui->massDisplayLabel->setText(projectileMassAmnt);
 }
 
 void DemoWindow::startQuestion() {
