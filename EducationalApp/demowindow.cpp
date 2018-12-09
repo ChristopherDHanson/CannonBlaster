@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <QMessageBox>
 
 #include "demowindow.h"
 #include "ui_demowindow.h"
@@ -830,6 +831,7 @@ void DemoWindow::nextLevel() {
     else // Game has been beaten
     {
         ui->resetButton->setEnabled(false);
+        QMessageBox::information(0, QString("Game Completed"), QString("Total shots: " + QString::number(totalShots)), QMessageBox::Ok);
         emit updateMessageBox("You have beaten the game. \nTotal shots: " + QString::number(totalShots));
     }
 }
