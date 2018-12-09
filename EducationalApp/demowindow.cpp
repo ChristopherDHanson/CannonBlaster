@@ -33,6 +33,9 @@ DemoWindow::DemoWindow(QWidget *parent) :
     // Make the game respond to hitting answer boxes with a cannonball.
     connect(this, &DemoWindow::answerBoxHit, this, &DemoWindow::checkCorrectness);
 
+    connect(ui->actionToggle_Sound, &QAction::triggered, this, &DemoWindow::toggleSound);
+    connect(ui->actionQuit_Game, &QAction::triggered, this, &DemoWindow::quitGame);
+
     velocity = 20;
     angle[0] = cos(ui->angleSlider->value() * 3.141f / 180.0f);
     angle[1] = sin(ui->angleSlider->value() * 3.141f / 180.0f);
@@ -811,8 +814,10 @@ void DemoWindow::nextLevel() {
         // Load and start music
         music.openFromFile(currentLevel->getMusicPath());
         music.setLoop(true);
-        music.setVolume(80.0f);
-        music.play();
+        if (soundIsOn) {
+            music.setVolume(80.0f);
+            music.play();
+        }
 
         emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
         spriteTimer.start();
@@ -897,7 +902,8 @@ void DemoWindow::updateSprites()
 
 void DemoWindow::spawnCannonball()
 {
-    shootSound.play();
+    if (soundIsOn)
+        shootSound.play();
     totalShots++;
     emit updateShots(QString::number(++numShots));
     currentLevel->fireCannonball(b2Vec2(angle[0] * velocity, angle[1] * velocity), density);
@@ -938,4 +944,19 @@ void DemoWindow::startQuestion() {
 
 bool DemoWindow::checkAnswer(int playerAnswer) {
     return (playerAnswer == currentQuestion.correctAnswer);
+}
+
+void DemoWindow::toggleSound() {
+    if (soundIsOn) {
+        soundIsOn = false;
+        music.setVolume(0);
+    }
+    else {
+        soundIsOn = true;
+        music.setVolume(80);
+    }
+}
+
+void DemoWindow::quitGame() {
+    this->close();
 }

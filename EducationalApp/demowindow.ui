@@ -486,7 +486,8 @@ font: 75 18pt &quot;Uroob&quot;;</string>
     <property name="title">
      <string>Menu</string>
     </property>
-    <addaction name="actionStart_Game"/>
+    <addaction name="actionToggle_Sound"/>
+    <addaction name="actionQuit_Game"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
@@ -495,13 +496,18 @@ font: 75 18pt &quot;Uroob&quot;;</string>
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>false</bool>
+    <bool>true</bool>
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionStart_Game">
+  <action name="actionQuit_Game">
    <property name="text">
     <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionToggle_Sound">
+   <property name="text">
+    <string>Toggle Sound</string>
    </property>
   </action>
  </widget>

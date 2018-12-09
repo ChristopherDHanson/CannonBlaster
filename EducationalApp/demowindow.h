@@ -52,8 +52,8 @@ private:
     QuestionModel questions;
     uint questionIndex;
     QuestionModel::ShuffledQuestion currentQuestion;
-
     sf::Texture troopTex;
+    bool soundIsOn = true;
 
     void buildLevel1();
     void buildLevel2();
@@ -92,6 +92,9 @@ public slots:
 
     void startQuestion();
     bool checkAnswer(int playerAnswer);
+
+    void toggleSound();
+    void quitGame();
 
 
 signals:
