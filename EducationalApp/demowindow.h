@@ -27,6 +27,7 @@ public:
 private:
     Ui::DemoWindow *ui;
     QTimer spriteTimer;
+    int collisionPaddingCounter;
 //    sf::Sprite* sprite;
     int spriteSwapIdx;
     std::vector<sf::Texture> textures;
