@@ -896,7 +896,7 @@ void DemoWindow::updateSprites()
         {
             int boxIndex = answerBoxIndex(static_cast<int>(pos.x), static_cast<int>(-1 * pos.y));
 
-            if (collisionPaddingCounter < 60 && boxIndex >= 0) {
+            if (collisionPaddingCounter > 60 && boxIndex >= 0) {
                 emit answerBoxHit(boxIndex);
                 spriteDeletions.push_back(static_cast<uint16>(index) + spriteBodyDifference);
                 bodyDeletions.push_back(static_cast<uint16_t>(index));
