@@ -772,6 +772,7 @@ int DemoWindow::answerBoxIndex(int x, int y)
 
 void DemoWindow::nextLevel() {
     spriteTimer.stop();
+    collisionPaddingCounter = 0;
     if (currentLvlInd < levels.size()-1) // There are more levels to go
     {
         music.stop();
@@ -875,6 +876,7 @@ void DemoWindow::updateSprites()
     Level* level = currentLevel;
     level->next();
     sf::Sprite* s;
+    collisionPaddingCounter++;
 
     uint16_t spriteBodyDifference = static_cast<uint16_t>(ui->canvas->spriteCnt() - level->bodies.size());
 
@@ -894,7 +896,7 @@ void DemoWindow::updateSprites()
         {
             int boxIndex = answerBoxIndex(static_cast<int>(pos.x), static_cast<int>(-1 * pos.y));
 
-            if (boxIndex >= 0) {
+            if (collisionPaddingCounter < 60 && boxIndex >= 0) {
                 emit answerBoxHit(boxIndex);
                 spriteDeletions.push_back(static_cast<uint16>(index) + spriteBodyDifference);
                 bodyDeletions.push_back(static_cast<uint16_t>(index));
