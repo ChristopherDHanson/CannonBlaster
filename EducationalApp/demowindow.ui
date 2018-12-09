@@ -234,9 +234,9 @@ background-color: rgb(52, 101, 164);</string>
     <widget class="QLabel" name="messageBox">
      <property name="geometry">
       <rect>
-       <x>610</x>
+       <x>600</x>
        <y>40</y>
-       <width>231</width>
+       <width>161</width>
        <height>71</height>
       </rect>
      </property>
@@ -350,6 +350,19 @@ background-color: rgb(52, 101, 164);</string>
      </property>
      <property name="text">
       <string>kg</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="resetButton">
+     <property name="geometry">
+      <rect>
+       <x>780</x>
+       <y>40</y>
+       <width>121</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Restart Level!</string>
      </property>
     </widget>
    </widget>
@@ -555,19 +568,6 @@ font: 75 18pt &quot;Uroob&quot;;</string>
       </widget>
      </item>
     </layout>
-   </widget>
-   <widget class="QPushButton" name="resetButton">
-    <property name="geometry">
-     <rect>
-      <x>770</x>
-      <y>430</y>
-      <width>121</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Restart Level!</string>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
