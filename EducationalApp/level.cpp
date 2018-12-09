@@ -184,15 +184,12 @@ void Level::removeBodies(std::vector<uint16_t> bodyIndices)
 void Level::fireCannonball(b2Vec2 force, float32 density) {
 //    createDynamicCircle();
     sf::Vector2u imgSize = textures[0].copyToImage().getSize();
-    createDynamicCircle(imgSize.x,imgSize.y,cannonLocation.x,cannonLocation.y, force, density);
+    //createDynamicCircle(imgSize.x,imgSize.y,cannonLocation.x,cannonLocation.y, force, density);
+    createDynamicCircle(imgSize.x,imgSize.y,cannon->getPosition().x,cannon->getPosition().y, force, density);
 }
 
 void Level::setLevelSpeed(int speed) {
     levelSpeed = speed;
-}
-
-void Level::setCannonLocation(b2Vec2 cannonLoc) {
-    cannonLocation = cannonLoc;
 }
 
 void Level::next()
