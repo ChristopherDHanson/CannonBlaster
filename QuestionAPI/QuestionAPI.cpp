@@ -49,15 +49,17 @@ QuestionModel::ShuffledQuestion QuestionModel::ShuffleAnswers(Question q, int an
   ShuffledQuestion shuffleQ;
   shuffleQ.answers = vector<string>();
 
+
   vector<string> incorrect = q.incorrect;
   srand(time(NULL));
 
   std::random_shuffle(incorrect.begin(),incorrect.end());
   shuffleQ.question = q.question;
-  shuffleQ.correctAnswer = rand() % min(answerCount, (int)incorrect.size());
+  shuffleQ.correctAnswer = rand() % min(answerCount, static_cast<int>(incorrect.size()) + 1);
   int index = 0;
   bool passedCorrect = false;
-  while (shuffleQ.answers.size() < min(answerCount, (int)incorrect.size())) {
+
+  while (shuffleQ.answers.size() < min(answerCount, static_cast<int>(incorrect.size()) + 1)) {
     if (index == shuffleQ.correctAnswer) {
       shuffleQ.answers.push_back(q.correctAnswer);
       passedCorrect = true;

@@ -11,7 +11,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::DemoWindow),
     answerBoxes(),
-    ballsInAnswerBoxes(),
+//    ballsInAnswerBoxes()
     questions("../QuestionAPI/testFile.csv")
 {
     ui->setupUi(this);
@@ -61,7 +61,7 @@ DemoWindow::DemoWindow(QWidget *parent) :
 DemoWindow::~DemoWindow()
 {
     delete ui;
-    delete sprite;
+//    delete sprite;
 
     for (sf::Sprite* spritePtr : answerBoxes)
         delete spritePtr;
@@ -842,11 +842,27 @@ void DemoWindow::nextLevel() {
         tankTrooper->setPosition(sf::Vector2f(currentLevel->getCannon()->getPosition().x - 30, currentLevel->getCannon()->getPosition().y - 3));
         ui->canvas->addSprite(tankTrooper);
         uint idx = 0;
+
+        // Check how many bodies there are that are not cannonballs, for use in checking answer boxes.
+        nonBallBodies = currentLevel->bodies.size();
+
+        // Rotate the cannon to agree with the actual angle in box2D.
+        changeAngle();
+
+        // Place the answer boxes in the correct locations.
         for (b2Vec2 pos : currentLevel->getAnswerBoxPositions()) {
             answerBoxes[idx]->setPosition(pos.x, pos.y);
             ui->canvas->addSprite(answerBoxes[idx]);
             idx++;
         }
+
+        // Set answer styles back to normal (no strikethroughs).
+        QString style("color: rgb(170, 255, 248);\nfont: 75 18pt \"Uroob\";");
+        ui->answerLabelA->setStyleSheet(style);
+        ui->answerLabelB->setStyleSheet(style);
+        ui->answerLabelC->setStyleSheet(style);
+        ui->answerLabelD->setStyleSheet(style);
+
         emit updateLevelBox("Level " + QString::number(currentLvlInd + 1));
         spriteTimer.start();
     }
@@ -865,33 +881,66 @@ void DemoWindow::checkCorrectness(int boxNum)
     }
     else {
         emit updateMessageBox("Wrong answer hit!");
+
+        QString style("color: rgb(170, 255, 248);");
+        style += "font: 75 18pt \"Uroob\";";
+        style += "text-decoration: line-through;";
+        switch (boxNum)
+        {
+        case 0:
+            ui->answerLabelA->setStyleSheet(style);
+            break;
+        case 1:
+            ui->answerLabelB->setStyleSheet(style);
+            break;
+        case 2:
+            ui->answerLabelC->setStyleSheet(style);
+            break;
+        case 3:
+            ui->answerLabelD->setStyleSheet(style);
+            break;
+        default:
+            break;
+        }
     }
 }
 
 void DemoWindow::updateSprites()
 {
     // Update level physics state
-    currentLevel->next();
+    Level* level = currentLevel;
+    level->next();
+    sf::Sprite* s;
+
+    uint16_t spriteBodyDifference = static_cast<uint16_t>(ui->canvas->spriteCnt() - level->bodies.size());
+
+    std::vector<uint16_t> bodyDeletions;
+    std::vector<uint16_t> spriteDeletions;
+
     // Set position of each sprite to position of corresponding physics body
-    for (int index = 0; index < currentLevel->sprites.size(); index++) {
-        sf::Sprite* s = currentLevel->sprites[index];
-        b2Vec2 pos = currentLevel->bodies[index]->GetPosition();
+    for (int index = 0; index < level->sprites.size(); index++) {
+
+        s = level->sprites[index];
+        b2Vec2 pos = level->bodies[index]->GetPosition();
         s->setPosition(pos.x, -1 * pos.y );//+ ui->canvas->height());
-        s->setRotation(currentLevel->bodies[index]->GetAngle()*57.2958f);
+        s->setRotation(level->bodies[index]->GetAngle()*57.2958f);
 
         // Deal with hitting the answers (right or wrong).
-        if (ballsInAnswerBoxes.find(index) != ballsInAnswerBoxes.end())
+        if (index >= nonBallBodies)
         {
             int boxIndex = answerBoxIndex(static_cast<int>(pos.x), static_cast<int>(-1 * pos.y));
-            if (ballsInAnswerBoxes[index] && boxIndex < 0)
-                ballsInAnswerBoxes[index] = false;
 
-            else if (!ballsInAnswerBoxes[index] && boxIndex >= 0) {
+            if (boxIndex >= 0) {
                 emit answerBoxHit(boxIndex);
-                ballsInAnswerBoxes[index] = true;
+                spriteDeletions.push_back(static_cast<uint16>(index) + spriteBodyDifference);
+                bodyDeletions.push_back(static_cast<uint16_t>(index));
             }
         }
     }
+
+    if (currentLevel == level)
+        ui->canvas->removeSprites(spriteDeletions);
+    level->removeBodies(bodyDeletions);
     spriteSwapIdx++;
 }
 
@@ -901,7 +950,6 @@ void DemoWindow::spawnCannonball()
     emit updateShots(QString::number(++numShots));
     currentLevel->fireCannonball(b2Vec2(angle[0] * velocity, angle[1] * velocity), density);
     ui->canvas->addSprite(currentLevel->sprites[currentLevel->sprites.size()-1]);
-    ballsInAnswerBoxes[currentLevel->sprites.size() - 1] = false;
 }
 
 void DemoWindow::changeAngle()
